@@ -16,10 +16,10 @@ website:
             file: coding-exercise/coding-exercise.qmd
     right:
       - icon: github 
-        href: https://github.com/nasir27712/muhammadnasir-mada2025-portofolio      
+        href: https://github.com/nasir27712/muhammadnasir-mada2025-portopolio      
 format:
   html:
-    theme: cosmo
+    theme: sandstone
     highlight: zenburn
     css: styles.css
     toc: FALSE

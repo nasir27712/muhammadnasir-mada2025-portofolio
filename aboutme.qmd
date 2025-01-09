@@ -8,9 +8,9 @@ My Name is Muhammad Nasir, Call me "NASIR", it's actually originally from Arabic
 
 I love "NATURE", specially hidden gem. and I am lucky to be born and grown up in Indonesia, where billions of hidden gem that we can visit. One of the hidden "HEAVEN" that I can show you in the picture below, called " PAISU POK LAKE" in Central Sulawesi, it takes eight hours by boat to enjoy this beautiful view. You can see "ancient trees buried in the lake".
 
-![](Paisu pok lake 1.JPG){width="500"}
+![](Paisu%20pok%20lake%201.JPG){width="500"}
 
-![](Paisu Pok lake 2.JPG){width="498"}
+![](Paisu%20Pok%20lake%202.JPG){width="498"}
 
 Pictures: PAISU POK Lake in Banggai Kepulauan Island in Indonesia.
 
@@ -26,6 +26,6 @@ I worked in several different topics/ field. Before I started my master, I worke
 
 Honestly, I am very new in quantitative data analysis, let say I started at UGA. Most of my work deal with qualitative data or for quantitative data, they are prepared by data analyst. Therefore, my data analysis experience only relate to class assignment or projects. I started Using R last year, so please help me grow and I am happy if people can involve me in their project for data analysis (for Free :) ), I just need to learn and experience.
 
-# Research Interest 
+# Research Interest
 
 I am currently interested in Climate Change and its implication to public health. I am also interested in communicable diseases such as Tuberculosis, Soil-transmitted Helminths, water born diseases, and vector born diseases.
