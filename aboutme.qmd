@@ -4,7 +4,7 @@ title: "About me"
 
 # About Me
 
-My Name is Muhammad Nasir, Call me "NASIR", it's actually originally from Arabic Language "Naseer" meaning "The Helper". I love that name. However, most western people hard to pronounce it, so many people here (or when I was in the UK) call me Muhammad, which I is fine for me. I am from Indonesia.I am a little boy from small village Called "Kindang", a remote area in the foot of Bawakaraeng Mountain in South Sulawesi Indonesia. However, I left the village since I was 12 YO, moving to a city where I did my middle school, and keep moving from one city to other cities for each level of my education. I am the luckiest guy in the village because I can skip the chain of poverty and the darkness of lack of education, I am the first generation going to school in entire my big Family. So I am so PROUD to be here and lived in several different countries.
+My Name is Muhammad Nasir, Call me "NASIR", it's originally from Arabic Language "Naseer" meaning "The Helper". I love that name. However, many people hard to pronounce it, so many people here (or when I was in the UK) call me Muhammad, which I is fine for me. I am from Indonesia. I am a little boy from small village Called "Kindang", a remote area in the foot of Bawakaraeng Mountain in South Sulawesi Indonesia. However, I left the village since I was 12 YO, moving to a city where I did my middle school, and keep moving from one city to other cities for each level of my education. I am the luckiest guy in the village (or in the world) because I can skip the chain of poverty and the darkness of lack of education for myself (and my family now), I am the first generation going to school in entire my big Family. So I am so PROUD to be here and lived in several different countries (Education is the gate of the world, and education changes life).
 
 I love "NATURE", specially hidden gem. and I am lucky to be born and grown up in Indonesia, where billions of hidden gem that we can visit. One of the hidden "HEAVEN" that I can show you in the picture below, called " PAISU POK LAKE" in Central Sulawesi, it takes eight hours by boat to enjoy this beautiful view. You can see "ancient trees buried in the lake".
 
@@ -14,17 +14,25 @@ I love "NATURE", specially hidden gem. and I am lucky to be born and grown up in
 
 Pictures: PAISU POK Lake in Banggai Kepulauan Island in Indonesia.
 
-# Educational Backgroud
+Fun facts: After I got 12 YO, I never live in a city more than 4 years.
 
-I obtained my Bachelor of Public health with Environmental Health Concentration from Universitas Muslim Indonesia in Makassar. I did my Master at The University of Birmingham, UK on Public and Environmental Science. This course was prepared for being a practinioer in environmental health. I did pre doctoral program at the Uiversity of Illinois at Urbana-Champaign before starting my PhD at the University of Georgia.
+Hobby: Playing badminton, Hiking and Hide myself and sleep in hidden gems for days.
+
+# Educational Background
+
+I obtained my Bachelor of Public health with Environmental Health Concentration from Universitas Muslim Indonesia in Makassar. I did my Master degree at The University of Birmingham, UK on Public and Environmental Science. This course was prepared for being a practitioner in environmental health. I did pre doctoral program at the University of Illinois at Urbana-Champaign before starting my PhD at the University of Georgia.
 
 # Working Experience
 
-I worked in several different topics/ field. Before I started my master, I worked as an intern at Ministry of Environment Republic Indonesia on a project called " Culture and biodiversity". After my Master, I worked on a Project "WASH Post Disaster in Central Sulawesi" funded by WHO. Then in 2019, I worked with Universitas Indonesia and UNICEF on Adolescence Mental Health Post Disaster. in 2020, I worked at Kerti Praja Foundation on a project called " Implementation of Integrated Gender-Based Violence and Sexual Reproductive Health Service in Primary Care in four different provinces in Indonesia, funded by UNFPA Indonesia and Government of Japan. Right before I came to the USA, I work at WHO Indonesia as a national consultant for Malaria Elimination in Central Sulawesi. Although I worked in many different topics, the nature of the jobs that I did was similar, most of the things that I did is community empowerment, program development, and policy advocacy to local governments.
+I worked in several different topics/ fields. Before I started my master, I worked as an intern at Ministry of Environment Republic Indonesia on a project called " Culture and biodiversity in Raja Ampat " (I highly recommend you to GOOGLE "RAJA AMPAT INDONESIA", you would see a heaven that you must put in your travel lists). After my Master, I worked on a Project "WASH Post Disaster in Central Sulawesi" funded by WHO. Then in 2019, I worked with Universitas Indonesia and UNICEF on Adolescence Mental Health Post Disaster in Central Sulawesi. In 2020, I worked at Kerti Praja Foundation on a project called " Implementation of Integrated Gender-Based Violence (GBV) and Sexual Reproductive Health (SRH) Service in Primary Care in four different provinces in Indonesia, funded by UNFPA Indonesia and Government of Japan. Right before I came to the USA, I work at WHO Indonesia as a national consultant for Malaria Elimination in Central Sulawesi (only three months and have to resign to pursue higher degree). Although I worked in many different topics, the nature of the jobs that I did was similar, most of the things that I did was about community empowerment, program development, and policy advocacy to local governments. None of my previous work related to Epidemiology or Biostatistics, but I am so lucky to be in this department at the moment.
+
+![](YKP.JPG){width="403"}
+
+Picture: Delivering a training for community leader about GBV survivor outreach in community level (my little guard, SEAN, who always accompanies me at work. Luckily, most work places in my place are child friendly).
 
 # Data analysis experience
 
-Honestly, I am very new in quantitative data analysis, let say I started at UGA. Most of my work deal with qualitative data or for quantitative data, they are prepared by data analyst. Therefore, my data analysis experience only relate to class assignment or projects. I started Using R last year, so please help me grow and I am happy if people can involve me in their project for data analysis (for Free :) ), I just need to learn and experience.
+Honestly, I am very new in quantitative data analysis, let say I started it at UGA. Most of my work deal with qualitative data or for quantitative data, they are prepared by data analysts. Therefore, my data analysis experience only relate to class assignment or projects. I started Using R last year, so please help me grow and I am happy if people can involve me in their project for data analysis (for Free :) ), I just need to learn and get more experience.
 
 # Research Interest
 
