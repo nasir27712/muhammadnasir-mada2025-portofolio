@@ -114,16 +114,25 @@ For your own explorations, tables and figures can be "quick and dirty". As long 
 # Box plot with Agecat and Height
 
 ```{r}
-p5 <- mydata %>% ggplot(aes(x=Agecat, y=Height)) + 
+# Ensure Agecat is a factor
+mydata <- mydata %>%
+  mutate(Agecat = as.factor(Agecat))
+
+# Create the boxplot
+p5 <- mydata %>% ggplot(aes(x = Agecat, y = Height)) + 
   geom_boxplot() + 
   labs(title = "Boxplot of Height by Agecat",
        x = "Agecat",
        y = "Height") +
   theme_minimal()
 
+# Plot the boxplot
 plot(p5)
+
+# Save the figure
 figure_file = here("starter-analysis-exercise", "results", "figures", "boxplot.png")
-ggsave(filename = figure_file, plot=p5)
+ggsave(filename = figure_file, plot = p5)
+
 ```
 
 # Scatter plot with weight and chol
