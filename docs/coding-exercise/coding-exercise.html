@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -149,8 +183,584 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>Placeholder file for the future R coding exercise.</p>
+<section id="install-all-packages-needed" class="level1">
+<h1>Install all packages needed</h1>
+<p>Install and library all packages needed in this section.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dslabs"</span>) <span class="co">#if we have not install this packages, we need to indtall it. This packege is for the data set </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The following package(s) will be installed:
+- dslabs [0.8.0]
+These packages will be installed into "C:/Users/mn27712/OneDrive - University of Georgia/DATA BACKUP/MACBOOK AND IPHONE_/Desktop/MADA2025/muhammadnasir-mada2025/renv/library/R-4.3/x86_64-w64-mingw32".
+
+# Installing packages --------------------------------------------------------
+- Installing dslabs ...                         OK [linked from cache]
+Successfully installed 1 package in 30 milliseconds.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The following package(s) will be installed:
+- tidyverse [2.0.0]
+These packages will be installed into "C:/Users/mn27712/OneDrive - University of Georgia/DATA BACKUP/MACBOOK AND IPHONE_/Desktop/MADA2025/muhammadnasir-mada2025/renv/library/R-4.3/x86_64-w64-mingw32".
+
+# Installing packages --------------------------------------------------------
+- Installing tidyverse ...                      OK [linked from cache]
+Successfully installed 1 package in 32 milliseconds.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyverse' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggplot2' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tibble' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyr' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'readr' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'purrr' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dplyr' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'stringr' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'forcats' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'lubridate' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The following package(s) will be installed:
+- ggplot2 [3.5.1]
+These packages will be installed into "C:/Users/mn27712/OneDrive - University of Georgia/DATA BACKUP/MACBOOK AND IPHONE_/Desktop/MADA2025/muhammadnasir-mada2025/renv/library/R-4.3/x86_64-w64-mingw32".
+
+# Installing packages --------------------------------------------------------
+- Installing ggplot2 ...                        OK [linked from cache]
+Successfully installed 1 package in 41 milliseconds.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'here' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>here() starts at C:/Users/mn27712/OneDrive - University of Georgia/DATA BACKUP/MACBOOK AND IPHONE_/Desktop/MADA2025/muhammadnasir-mada2025</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"patchwork"</span>)  <span class="co"># This package is to redefine "/" operator for plot arrangement</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The following package(s) will be installed:
+- patchwork [1.3.0]
+These packages will be installed into "C:/Users/mn27712/OneDrive - University of Georgia/DATA BACKUP/MACBOOK AND IPHONE_/Desktop/MADA2025/muhammadnasir-mada2025/renv/library/R-4.3/x86_64-w64-mingw32".
+
+# Installing packages --------------------------------------------------------
+- Installing patchwork ...                      OK [linked from cache]
+Successfully installed 1 package in 34 milliseconds.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'patchwork' was built under R version 4.3.3</code></pre>
+</div>
+</div>
+</section>
+<section id="loading-dataset" class="level1">
+<h1>Loading Dataset</h1>
+<p>In this projec, we use data from dslabs.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dslabs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dslabs' was built under R version 4.3.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(<span class="st">"gapminder"</span>) <span class="co"># this is to look at the description about the data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>starting httpd help server ... done</code></pre>
+</div>
+</div>
+<p>let’s look at the overview of the data structure</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   10545 obs. of  9 variables:
+ $ country         : Factor w/ 185 levels "Albania","Algeria",..: 1 2 3 4 5 6 7 8 9 10 ...
+ $ year            : int  1960 1960 1960 1960 1960 1960 1960 1960 1960 1960 ...
+ $ infant_mortality: num  115.4 148.2 208 NA 59.9 ...
+ $ life_expectancy : num  62.9 47.5 36 63 65.4 ...
+ $ fertility       : num  6.19 7.65 7.32 4.43 3.11 4.55 4.82 3.45 2.7 5.57 ...
+ $ population      : num  1636054 11124892 5270844 54681 20619075 ...
+ $ gdp             : num  NA 1.38e+10 NA NA 1.08e+11 ...
+ $ continent       : Factor w/ 5 levels "Africa","Americas",..: 4 1 1 2 2 3 2 5 4 3 ...
+ $ region          : Factor w/ 22 levels "Australia and New Zealand",..: 19 11 10 2 15 21 2 1 22 21 ...</code></pre>
+</div>
+</div>
+<p>Let’s take a look a summary of the data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                country           year      infant_mortality life_expectancy
+ Albania            :   57   Min.   :1960   Min.   :  1.50   Min.   :13.20  
+ Algeria            :   57   1st Qu.:1974   1st Qu.: 16.00   1st Qu.:57.50  
+ Angola             :   57   Median :1988   Median : 41.50   Median :67.54  
+ Antigua and Barbuda:   57   Mean   :1988   Mean   : 55.31   Mean   :64.81  
+ Argentina          :   57   3rd Qu.:2002   3rd Qu.: 85.10   3rd Qu.:73.00  
+ Armenia            :   57   Max.   :2016   Max.   :276.90   Max.   :83.90  
+ (Other)            :10203                  NA's   :1453                    
+   fertility       population             gdp               continent   
+ Min.   :0.840   Min.   :3.124e+04   Min.   :4.040e+07   Africa  :2907  
+ 1st Qu.:2.200   1st Qu.:1.333e+06   1st Qu.:1.846e+09   Americas:2052  
+ Median :3.750   Median :5.009e+06   Median :7.794e+09   Asia    :2679  
+ Mean   :4.084   Mean   :2.701e+07   Mean   :1.480e+11   Europe  :2223  
+ 3rd Qu.:6.000   3rd Qu.:1.523e+07   3rd Qu.:5.540e+10   Oceania : 684  
+ Max.   :9.220   Max.   :1.376e+09   Max.   :1.174e+13                  
+ NA's   :187     NA's   :185         NA's   :2972                       
+             region    
+ Western Asia   :1026  
+ Eastern Africa : 912  
+ Western Africa : 912  
+ Caribbean      : 741  
+ South America  : 684  
+ Southern Europe: 684  
+ (Other)        :5586  </code></pre>
+</div>
+</div>
+<p>Now, we want to check the type of object gapminder</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data.frame"</code></pre>
+</div>
+</div>
+<p>We can see that the object gapminder is a data frame</p>
+</section>
+<section id="processing-data" class="level1">
+<h1>Processing data</h1>
+<p>To start with, I want to create a new data set/ object called africadata, which I create by selecting from African countries only.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>africadata <span class="ot">&lt;-</span> <span class="fu">filter</span>(gapminder, continent<span class="sc">==</span> <span class="st">"Africa"</span>) <span class="co"># filter() function is used to filter specific observation only. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, I am going to check the new dataset using str() function</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(africadata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   2907 obs. of  9 variables:
+ $ country         : Factor w/ 185 levels "Albania","Algeria",..: 2 3 18 22 26 27 29 31 32 33 ...
+ $ year            : int  1960 1960 1960 1960 1960 1960 1960 1960 1960 1960 ...
+ $ infant_mortality: num  148 208 187 116 161 ...
+ $ life_expectancy : num  47.5 36 38.3 50.3 35.2 ...
+ $ fertility       : num  7.65 7.32 6.28 6.62 6.29 6.95 5.65 6.89 5.84 6.25 ...
+ $ population      : num  11124892 5270844 2431620 524029 4829291 ...
+ $ gdp             : num  1.38e+10 NA 6.22e+08 1.24e+08 5.97e+08 ...
+ $ continent       : Factor w/ 5 levels "Africa","Americas",..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ region          : Factor w/ 22 levels "Australia and New Zealand",..: 11 10 20 17 20 5 10 20 10 10 ...</code></pre>
+</div>
+</div>
+<p>Now, we can see that the number of variables is exactly same with the number of variable in gapminder dataset, but the number of observation only 2907 instead of 10545 as in gapminder. It is because in previous step, we try to select countries from African continent only.</p>
+<p>Now let see the summary of the data using summary() function</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(africadata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         country          year      infant_mortality life_expectancy
+ Algeria     :  57   Min.   :1960   Min.   : 11.40   Min.   :13.20  
+ Angola      :  57   1st Qu.:1974   1st Qu.: 62.20   1st Qu.:48.23  
+ Benin       :  57   Median :1988   Median : 93.40   Median :53.98  
+ Botswana    :  57   Mean   :1988   Mean   : 95.12   Mean   :54.38  
+ Burkina Faso:  57   3rd Qu.:2002   3rd Qu.:124.70   3rd Qu.:60.10  
+ Burundi     :  57   Max.   :2016   Max.   :237.40   Max.   :77.60  
+ (Other)     :2565                  NA's   :226                     
+   fertility       population             gdp               continent   
+ Min.   :1.500   Min.   :    41538   Min.   :4.659e+07   Africa  :2907  
+ 1st Qu.:5.160   1st Qu.:  1605232   1st Qu.:8.373e+08   Americas:   0  
+ Median :6.160   Median :  5570982   Median :2.448e+09   Asia    :   0  
+ Mean   :5.851   Mean   : 12235961   Mean   :9.346e+09   Europe  :   0  
+ 3rd Qu.:6.860   3rd Qu.: 13888152   3rd Qu.:6.552e+09   Oceania :   0  
+ Max.   :8.450   Max.   :182201962   Max.   :1.935e+11                  
+ NA's   :51      NA's   :51          NA's   :637                        
+                       region   
+ Eastern Africa           :912  
+ Western Africa           :912  
+ Middle Africa            :456  
+ Northern Africa          :342  
+ Southern Africa          :285  
+ Australia and New Zealand:  0  
+ (Other)                  :  0  </code></pre>
+</div>
+</div>
+<p>From the summary, we can see a simple summary of the data including number minimum, first Qu, median, mean, 3rd qu, and maximum value of numeric variables.</p>
+<p>From africadata, I want to create two new objects called infant and pop (stand for population). Object infant contains infant_mortatility and life_expectancy variables, and pop contains population and life_expectancy variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>infant <span class="ot">&lt;-</span> <span class="fu">select</span>(africadata, infant_mortality, life_expectancy)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(infant)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   2907 obs. of  2 variables:
+ $ infant_mortality: num  148 208 187 116 161 ...
+ $ life_expectancy : num  47.5 36 38.3 50.3 35.2 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(infant)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> infant_mortality life_expectancy
+ Min.   : 11.40   Min.   :13.20  
+ 1st Qu.: 62.20   1st Qu.:48.23  
+ Median : 93.40   Median :53.98  
+ Mean   : 95.12   Mean   :54.38  
+ 3rd Qu.:124.70   3rd Qu.:60.10  
+ Max.   :237.40   Max.   :77.60  
+ NA's   :226                     </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>pop <span class="ot">&lt;-</span> <span class="fu">select</span>(africadata, population, life_expectancy)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pop)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   2907 obs. of  2 variables:
+ $ population     : num  11124892 5270844 2431620 524029 4829291 ...
+ $ life_expectancy: num  47.5 36 38.3 50.3 35.2 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pop)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   population        life_expectancy
+ Min.   :    41538   Min.   :13.20  
+ 1st Qu.:  1605232   1st Qu.:48.23  
+ Median :  5570982   Median :53.98  
+ Mean   : 12235961   Mean   :54.38  
+ 3rd Qu.: 13888152   3rd Qu.:60.10  
+ Max.   :182201962   Max.   :77.60  
+ NA's   :51                         </code></pre>
+</div>
+</div>
+</section>
+<section id="plotting" class="level1">
+<h1>Plotting</h1>
+<p>In this section, I am going to create some plots.</p>
+<p>The first plot is a plot of life expectancy as a function of infant mortality in African countries.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> infant, <span class="fu">aes</span>(<span class="at">x =</span> infant_mortality, <span class="at">y =</span> life_expectancy)) <span class="sc">+</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">col =</span> <span class="st">"purple"</span>) <span class="sc">+</span> <span class="co"># to create plot points and set color to purple  </span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> <span class="co"># to create line without confidence interval</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">300</span>)) <span class="sc">+</span> <span class="co"># to set x-axis range</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>)) <span class="sc">+</span> <span class="co"># to set y-axis range</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"(Figure 1. Life Expectancy as a Function of Infant Mortality in Africa)"</span>, </span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Life Expectancy (Years)"</span>,</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Infant Mortality (per 1000)"</span>,</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: Gapminder Data"</span></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="co"># to create the name of each axis</span></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">1</span>), <span class="co"># Border around the entire plot (including title)</span></span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">12</span>, <span class="at">color =</span> <span class="st">"gray50"</span>, <span class="at">face =</span> <span class="st">"bold.italic"</span>), <span class="co"># to adjust the subtitle position, color and size (note, set vjust=185 for printed pictures, for website, set at 100 )</span></span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">13</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">color =</span> <span class="st">"gray40"</span>), <span class="co"># to adjust the subtitle position, color and size, hjust=horizontal and vjust= vertical </span></span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">45</span>, <span class="dv">10</span>) <span class="co"># (top, right, bottom, left) Increase the bottom margin to create space for the subtitle below the x-axis</span></span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.
+ℹ Please use the `linewidth` argument instead.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the plot</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(plot1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 226 rows containing non-finite outside the scale range
+(`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 226 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="coding-exercise_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>figure_file <span class="ot">=</span> <span class="fu">here</span>(<span class="st">"images"</span>,<span class="st">"infant mortality vs life expectancy.png"</span>) <span class="co"># to set up location for the pictures created </span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> figure_file, <span class="at">plot=</span>plot1) <span class="co"># save the pictures created </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Saving 7 x 5 in image
+`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 226 rows containing non-finite outside the scale range
+(`stat_smooth()`).
+Removed 226 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+</div>
+<p>From figure 1, it can be seen that there is a negative relationship between infant mortality rate and life expectancy, the higher the infant mortality the lower life expectancy of a country.</p>
+<p>Now, I want to see the relationship between population and life expectancy. In this plot, we will set population on log scale.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> pop, <span class="fu">aes</span>(<span class="at">x=</span> population, <span class="at">y=</span> life_expectancy))<span class="sc">+</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color=</span> <span class="st">"blue"</span>)<span class="sc">+</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span> <span class="co"># this is to set the x-axis in log scale </span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"(Figure 2. Life Expectancy as a Function of Population in Africa)"</span>, </span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Life Expectancy (Years)"</span>,</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Country Population (log scale)"</span>,</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: Gapminder Data"</span></span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="co"># to create the name of each axis</span></span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">1</span>), <span class="co"># Border around the entire plot (including title)</span></span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">12</span>, <span class="at">color =</span> <span class="st">"gray50"</span>, <span class="at">face =</span> <span class="st">"bold.italic"</span>), <span class="co"># to adjust the subtitle position, color and size (note, set vjust=185 for printed pictures, for website, set at 100 )</span></span>
+<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">13</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">color =</span> <span class="st">"gray40"</span>), <span class="co"># to adjust the subtitle position, color and size, hjust=horizontal and vjust= vertical </span></span>
+<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">45</span>, <span class="dv">10</span>) <span class="co"># (top, right, bottom, left) Increase the bottom margin to create space for the subtitle below the x-axis</span></span>
+<span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb58-16"><a href="#cb58-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(plot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 51 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="coding-exercise_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>figure_file <span class="ot">=</span> <span class="fu">here</span>(<span class="st">"images"</span>,<span class="st">"log_population vs life expectancy.png"</span>) <span class="co"># to set up location for the pictures created </span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> figure_file, <span class="at">plot=</span>plot2) <span class="co"># save the pictures created </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Saving 7 x 5 in image</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 51 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+</div>
+<p>From figure 2, overall there is a positive relationship between country population and life expectanc. However, the data look steak.</p>
+<p>There are several factors that might affect this trend. First, the data is over 56 year period (1960 to 2016), where the number of population in most of the country increasing and health condition improving. To get better understanding about this figure, we need to include other variables such as GDP, fertility and other variables.</p>
+</section>
+<section id="more-data-processing" class="level1">
+<h1>More data processing</h1>
+<p>In this step, I am going to find out which year</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>missing_years <span class="ot">&lt;-</span> africadata <span class="sc">%&gt;%</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(infant_mortality)) <span class="sc">%&gt;%</span> <span class="co"># Filter rows where infant_mortality is NA</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year) <span class="sc">%&gt;%</span>                    <span class="co"># Select the 'year' column</span></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()                          <span class="co"># Get unique years</span></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Display missing years</span></span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(missing_years)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   year
+1  1960
+2  1961
+3  1962
+4  1963
+5  1964
+6  1965
+7  1966
+8  1967
+9  1968
+10 1969
+11 1970
+12 1971
+13 1972
+14 1973
+15 1974
+16 1975
+17 1976
+18 1977
+19 1978
+20 1979
+21 1980
+22 1981
+23 2016</code></pre>
+</div>
+</div>
+<p>There are 23 years with missing data in infant mortality</p>
+<p>Now, I want to create a new object containing data of the year 2000 only.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>data_2000 <span class="ot">&lt;-</span> africadata <span class="sc">%&gt;%</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data_2000)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   51 obs. of  9 variables:
+ $ country         : Factor w/ 185 levels "Albania","Algeria",..: 2 3 18 22 26 27 29 31 32 33 ...
+ $ year            : int  2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 ...
+ $ infant_mortality: num  33.9 128.3 89.3 52.4 96.2 ...
+ $ life_expectancy : num  73.3 52.3 57.2 47.6 52.6 46.7 54.3 68.4 45.3 51.5 ...
+ $ fertility       : num  2.51 6.84 5.98 3.41 6.59 7.06 5.62 3.7 5.45 7.35 ...
+ $ population      : num  31183658 15058638 6949366 1736579 11607944 ...
+ $ gdp             : num  5.48e+10 9.13e+09 2.25e+09 5.63e+09 2.61e+09 ...
+ $ continent       : Factor w/ 5 levels "Africa","Americas",..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ region          : Factor w/ 22 levels "Australia and New Zealand",..: 11 10 20 17 20 5 10 20 10 10 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data_2000)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         country        year      infant_mortality life_expectancy
+ Algeria     : 1   Min.   :2000   Min.   : 12.30   Min.   :37.60  
+ Angola      : 1   1st Qu.:2000   1st Qu.: 60.80   1st Qu.:51.75  
+ Benin       : 1   Median :2000   Median : 80.30   Median :54.30  
+ Botswana    : 1   Mean   :2000   Mean   : 78.93   Mean   :56.36  
+ Burkina Faso: 1   3rd Qu.:2000   3rd Qu.:103.30   3rd Qu.:60.00  
+ Burundi     : 1   Max.   :2000   Max.   :143.30   Max.   :75.00  
+ (Other)     :45                                                  
+   fertility       population             gdp               continent 
+ Min.   :1.990   Min.   :    81154   Min.   :2.019e+08   Africa  :51  
+ 1st Qu.:4.150   1st Qu.:  2304687   1st Qu.:1.274e+09   Americas: 0  
+ Median :5.550   Median :  8799165   Median :3.238e+09   Asia    : 0  
+ Mean   :5.156   Mean   : 15659800   Mean   :1.155e+10   Europe  : 0  
+ 3rd Qu.:5.960   3rd Qu.: 17391242   3rd Qu.:8.654e+09   Oceania : 0  
+ Max.   :7.730   Max.   :122876723   Max.   :1.329e+11                
+                                                                      
+                       region  
+ Eastern Africa           :16  
+ Western Africa           :16  
+ Middle Africa            : 8  
+ Northern Africa          : 6  
+ Southern Africa          : 5  
+ Australia and New Zealand: 0  
+ (Other)                  : 0  </code></pre>
+</div>
+</div>
+<p>there are 51 country selected in 2000 without missing data for child mortatlity</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>plot3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> data_2000, <span class="fu">aes</span>(<span class="at">x =</span> infant_mortality, <span class="at">y =</span> life_expectancy)) <span class="sc">+</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> region)) <span class="sc">+</span> <span class="co"># Map 'region' to the color aesthetic</span></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> <span class="co"># Add a smoothing line</span></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"(Figure 3. Life Expectancy as a Function of Infant Mortality in Africa in 2000)"</span>, </span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Life Expectancy (Years)"</span>,</span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Infant Mortality (per 1000)"</span>,</span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: Gapminder Data"</span></span>
+<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">1</span>), <span class="co"># Border around the entire plot</span></span>
+<span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust=</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">12</span>, <span class="at">color =</span> <span class="st">"gray50"</span>, <span class="at">face =</span> <span class="st">"bold.italic"</span>), <span class="co"># Adjust subtitle position</span></span>
+<span id="cb70-13"><a href="#cb70-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">vjust=</span> <span class="sc">-</span><span class="dv">13</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">color =</span> <span class="st">"gray40"</span>), <span class="co"># Adjust caption position</span></span>
+<span id="cb70-14"><a href="#cb70-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">45</span>, <span class="dv">10</span>) <span class="co"># Adjust margins (top, right, bottom, left)</span></span>
+<span id="cb70-15"><a href="#cb70-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb70-16"><a href="#cb70-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-17"><a href="#cb70-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(plot3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="coding-exercise_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>figure_file <span class="ot">=</span> <span class="fu">here</span>(<span class="st">"images"</span>,<span class="st">"infant mortality vs life expectancy in 2000.png"</span>) <span class="co"># to set up location for the pictures created </span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> figure_file, <span class="at">plot=</span>plot3) <span class="co"># save the pictures created </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Saving 7 x 5 in image
+`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+</div>
+<p>Let see the plot for life expectancy vs country population</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>plot4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> data_2000, <span class="fu">aes</span>(<span class="at">x=</span> population, <span class="at">y=</span> life_expectancy))<span class="sc">+</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> region)) <span class="sc">+</span></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span> <span class="co"># this is to set the x-axis in log scale </span></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"(Figure 4. Life Expectancy as a Function of Population in Africa in 2000)"</span>, </span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Life Expectancy (Years)"</span>,</span>
+<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Country Population (log scale)"</span>,</span>
+<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: Gapminder Data"</span></span>
+<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="co"># to create the name of each axis</span></span>
+<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">1</span>), <span class="co"># Border around the entire plot (including title)</span></span>
+<span id="cb74-12"><a href="#cb74-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">12</span>, <span class="at">color =</span> <span class="st">"gray50"</span>, <span class="at">face =</span> <span class="st">"bold.italic"</span>), <span class="co"># to adjust the subtitle position, color and size (note, set vjust=185 for printed pictures, for website, set at 100 )</span></span>
+<span id="cb74-13"><a href="#cb74-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">13</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">color =</span> <span class="st">"gray40"</span>), <span class="co"># to adjust the subtitle position, color and size, hjust=horizontal and vjust= vertical </span></span>
+<span id="cb74-14"><a href="#cb74-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">45</span>, <span class="dv">10</span>) <span class="co"># (top, right, bottom, left) Increase the bottom margin to create space for the subtitle below the x-axis</span></span>
+<span id="cb74-15"><a href="#cb74-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb74-16"><a href="#cb74-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(plot4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="coding-exercise_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>figure_file <span class="ot">=</span> <span class="fu">here</span>(<span class="st">"images"</span>,<span class="st">"log_population vs life expectancy in 2000.png"</span>) <span class="co"># to set up location for the pictures created </span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> figure_file, <span class="at">plot=</span>plot4) <span class="co"># save the pictures created </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Saving 7 x 5 in image</code></pre>
+</div>
+</div>
+<p>From figure 3 and figure 4, the points of the plots are more clear because the data is only for the year 2000. In these figures, I use different color based on the region, it can help visualize some figures. For example, we can see that overall, Northern Africa region generally had higher life expectancy compared to other regions, while eastern region had lower life expectancy.</p>
+</section>
+<section id="fitting-simple-models" class="level1">
+<h1>Fitting simple models</h1>
+<p>In this part, I want to perform simple linear model to look at the relationship between infant mortality and life expectancy, and country population on life expectancy.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(life_expectancy <span class="sc">~</span> infant_mortality, <span class="at">data =</span> data_2000)</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = life_expectancy ~ infant_mortality, data = data_2000)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-22.6651  -3.7087   0.9914   4.0408   8.6817 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      71.29331    2.42611  29.386  &lt; 2e-16 ***
+infant_mortality -0.18916    0.02869  -6.594 2.83e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.221 on 49 degrees of freedom
+Multiple R-squared:  0.4701,    Adjusted R-squared:  0.4593 
+F-statistic: 43.48 on 1 and 49 DF,  p-value: 2.826e-08</code></pre>
+</div>
+</div>
+<p>Based on the simple linear model, the intercept is 71.4, meaning that the average life expectancy is 71.4 years when the infant mortality is 0. It is estimated that every 1000 increase child mortality results in decrease life expectancy by 0.2 year Based on the alpha=0.05, it can be concluded that there is a statistically significant relationship between infant mortality rate and life expectancy with p&lt;.0001.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(life_expectancy <span class="sc">~</span> population, <span class="at">data =</span> data_2000)</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = life_expectancy ~ population, data = data_2000)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-18.429  -4.602  -2.568   3.800  18.802 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 5.593e+01  1.468e+00  38.097   &lt;2e-16 ***
+population  2.756e-08  5.459e-08   0.505    0.616    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 8.524 on 49 degrees of freedom
+Multiple R-squared:  0.005176,  Adjusted R-squared:  -0.01513 
+F-statistic: 0.2549 on 1 and 49 DF,  p-value: 0.6159</code></pre>
+</div>
+</div>
+<p>The second model explain the relationship between life expectancy and country population. Based on the intercept, it is estimated that when country population is zero, the average life expectancy is 5.6 years, but in the reality, it does not make sense since none of country has 0 population. Based on the alpha= 5% there is no significant relationship between country population and life expectancy with p=0.616.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

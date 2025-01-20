@@ -3,3 +3,251 @@ title: "R Coding Exercise"
 ---
 
 Placeholder file for the future R coding exercise.
+
+# Install all packages needed
+
+Install and library all packages needed in this section.
+
+```{r}
+install.packages("dslabs") #if we have not install this packages, we need to indtall it. This packege is for the data set 
+
+install.packages("tidyverse")
+library(tidyverse)
+install.packages("ggplot2")
+library(ggplot2)
+library(here)
+install.packages("patchwork")  # This package is to redefine "/" operator for plot arrangement
+library(patchwork)
+```
+
+# Loading Dataset
+
+In this projec, we use data from dslabs.
+
+```{r}
+library(dslabs)
+
+help("gapminder") # this is to look at the description about the data
+```
+
+let's look at the overview of the data structure
+
+```{r}
+str(gapminder)
+```
+
+Let's take a look a summary of the data
+
+```{r}
+summary(gapminder)
+```
+
+Now, we want to check the type of object gapminder
+
+```{r}
+class(gapminder)
+```
+
+We can see that the object gapminder is a data frame
+
+# Processing data
+
+To start with, I want to create a new data set/ object called africadata, which I create by selecting from African countries only.
+
+```{r}
+africadata <- filter(gapminder, continent== "Africa") # filter() function is used to filter specific observation only. 
+```
+
+Now, I am going to check the new dataset using str() function
+
+```{r}
+str(africadata)
+```
+
+Now, we can see that the number of variables is exactly same with the number of variable in gapminder dataset, but the number of observation only 2907 instead of 10545 as in gapminder. It is because in previous step, we try to select countries from African continent only.
+
+Now let see the summary of the data using summary() function
+
+```{r}
+summary(africadata)
+```
+
+From the summary, we can see a simple summary of the data including number minimum, first Qu, median, mean, 3rd qu, and maximum value of numeric variables.
+
+From africadata, I want to create two new objects called infant and pop (stand for population). Object infant contains infant_mortatility and life_expectancy variables, and pop contains population and life_expectancy variables.
+
+```{r}
+infant <- select(africadata, infant_mortality, life_expectancy)
+str(infant)
+
+summary(infant)
+```
+
+```{r}
+pop <- select(africadata, population, life_expectancy)
+str(pop)
+summary(pop)
+```
+
+# Plotting
+
+In this section, I am going to create some plots.
+
+The first plot is a plot of life expectancy as a function of infant mortality in African countries.
+
+```{r}
+plot1 <- ggplot(data = infant, aes(x = infant_mortality, y = life_expectancy)) +
+  geom_point(col = "purple") + # to create plot points and set color to purple  
+  geom_smooth(method = "loess", se = FALSE) + # to create line without confidence interval
+  xlim(c(0, 300)) + # to set x-axis range
+  ylim(c(0, 100)) + # to set y-axis range
+  labs(
+    subtitle = "(Figure 1. Life Expectancy as a Function of Infant Mortality in Africa)", 
+    y = "Life Expectancy (Years)",
+    x = "Infant Mortality (per 1000)",
+    caption = "Source: Gapminder Data"
+  ) + # to create the name of each axis
+  theme(
+    plot.background = element_rect(color = "black", size = 1), # Border around the entire plot (including title)
+    plot.subtitle = element_text(hjust = 0.5, vjust = -1, size = 12, color = "gray50", face = "bold.italic"), # to adjust the subtitle position, color and size (note, set vjust=185 for printed pictures, for website, set at 100 )
+    plot.caption = element_text(hjust = 1, vjust = -13, size = 10, color = "gray40"), # to adjust the subtitle position, color and size, hjust=horizontal and vjust= vertical 
+    plot.margin = margin(10, 10, 45, 10) # (top, right, bottom, left) Increase the bottom margin to create space for the subtitle below the x-axis
+  )
+
+# Print the plot
+print(plot1)
+
+
+figure_file = here("images","infant mortality vs life expectancy.png") # to set up location for the pictures created 
+ggsave(filename = figure_file, plot=plot1) # save the pictures created 
+```
+
+From figure 1, it can be seen that there is a negative relationship between infant mortality rate and life expectancy, the higher the infant mortality the lower life expectancy of a country.
+
+Now, I want to see the relationship between population and life expectancy. In this plot, we will set population on log scale.
+
+```{r}
+plot2 <- ggplot(data = pop, aes(x= population, y= life_expectancy))+
+  geom_point(color= "blue")+
+  scale_x_log10() + # this is to set the x-axis in log scale 
+  labs(
+    subtitle = "(Figure 2. Life Expectancy as a Function of Population in Africa)", 
+    y = "Life Expectancy (Years)",
+    x = "Country Population (log scale)",
+    caption = "Source: Gapminder Data"
+  ) + # to create the name of each axis
+  theme(
+    plot.background = element_rect(color = "black", size = 1), # Border around the entire plot (including title)
+    plot.subtitle = element_text(hjust = 0.5, vjust = -1, size = 12, color = "gray50", face = "bold.italic"), # to adjust the subtitle position, color and size (note, set vjust=185 for printed pictures, for website, set at 100 )
+    plot.caption = element_text(hjust = 1, vjust = -13, size = 10, color = "gray40"), # to adjust the subtitle position, color and size, hjust=horizontal and vjust= vertical 
+    plot.margin = margin(10, 10, 45, 10) # (top, right, bottom, left) Increase the bottom margin to create space for the subtitle below the x-axis
+  )
+print(plot2)
+
+
+figure_file = here("images","log_population vs life expectancy.png") # to set up location for the pictures created 
+ggsave(filename = figure_file, plot=plot2) # save the pictures created 
+```
+
+From figure 2, overall there is a positive relationship between country population and life expectanc. However, the data look steak.
+
+There are several factors that might affect this trend. First, the data is over 56 year period (1960 to 2016), where the number of population in most of the country increasing and health condition improving. To get better understanding about this figure, we need to include other variables such as GDP, fertility and other variables.
+
+# More data processing
+
+In this step, I am going to find out which year
+
+```{r}
+missing_years <- africadata %>%
+  filter(is.na(infant_mortality)) %>% # Filter rows where infant_mortality is NA
+  select(year) %>%                    # Select the 'year' column
+  distinct()                          # Get unique years
+
+# Display missing years
+print(missing_years)
+```
+
+There are 23 years with missing data in infant mortality
+
+Now, I want to create a new object containing data of the year 2000 only.
+
+```{r}
+data_2000 <- africadata %>%
+  filter(year==2000)
+
+```
+
+```{r}
+str(data_2000)
+summary(data_2000)
+```
+
+there are 51 country selected in 2000 without missing data for child mortatlity
+
+```{r}
+plot3 <- ggplot(data = data_2000, aes(x = infant_mortality, y = life_expectancy)) +
+  geom_point(aes(color = region)) + # Map 'region' to the color aesthetic
+  geom_smooth(method = "loess", se = FALSE) + # Add a smoothing line
+  labs(
+    subtitle = "(Figure 3. Life Expectancy as a Function of Infant Mortality in Africa in 2000)", 
+    y = "Life Expectancy (Years)",
+    x = "Infant Mortality (per 1000)",
+    caption = "Source: Gapminder Data"
+  ) +
+  theme(
+    plot.background = element_rect(color = "black", size = 1), # Border around the entire plot
+    plot.subtitle = element_text(hjust = 0, vjust= 0, size = 12, color = "gray50", face = "bold.italic"), # Adjust subtitle position
+    plot.caption = element_text(hjust = 1, vjust= -13, size = 10, color = "gray40"), # Adjust caption position
+    plot.margin = margin(10, 10, 45, 10) # Adjust margins (top, right, bottom, left)
+  )
+
+print(plot3)
+
+figure_file = here("images","infant mortality vs life expectancy in 2000.png") # to set up location for the pictures created 
+ggsave(filename = figure_file, plot=plot3) # save the pictures created 
+```
+
+Let see the plot for life expectancy vs country population
+
+```{r}
+plot4 <- ggplot(data = data_2000, aes(x= population, y= life_expectancy))+
+  geom_point(aes(color = region)) +
+  scale_x_log10() + # this is to set the x-axis in log scale 
+  labs(
+    subtitle = "(Figure 4. Life Expectancy as a Function of Population in Africa in 2000)", 
+    y = "Life Expectancy (Years)",
+    x = "Country Population (log scale)",
+    caption = "Source: Gapminder Data"
+  ) + # to create the name of each axis
+  theme(
+    plot.background = element_rect(color = "black", size = 1), # Border around the entire plot (including title)
+    plot.subtitle = element_text(hjust = 0.5, vjust = -1, size = 12, color = "gray50", face = "bold.italic"), # to adjust the subtitle position, color and size (note, set vjust=185 for printed pictures, for website, set at 100 )
+    plot.caption = element_text(hjust = 1, vjust = -13, size = 10, color = "gray40"), # to adjust the subtitle position, color and size, hjust=horizontal and vjust= vertical 
+    plot.margin = margin(10, 10, 45, 10) # (top, right, bottom, left) Increase the bottom margin to create space for the subtitle below the x-axis
+  )
+print(plot4)
+
+
+figure_file = here("images","log_population vs life expectancy in 2000.png") # to set up location for the pictures created 
+ggsave(filename = figure_file, plot=plot4) # save the pictures created 
+```
+
+From figure 3 and figure 4, the points of the plots are more clear because the data is only for the year 2000. In these figures, I use different color based on the region, it can help visualize some figures. For example, we can see that overall, Northern Africa region generally had higher life expectancy compared to other regions, while eastern region had lower life expectancy.
+
+# Fitting simple models
+
+In this part, I want to perform simple linear model to look at the relationship between infant mortality and life expectancy, and country population on life expectancy.
+
+```{r}
+fit1 <- lm(life_expectancy ~ infant_mortality, data = data_2000)
+summary(fit1)
+```
+
+Based on the simple linear model, the intercept is 71.4, meaning that the average life expectancy is 71.4 years when the infant mortality is 0. It is estimated that every 1000 increase child mortality results in decrease life expectancy by 0.2 year Based on the alpha=0.05, it can be concluded that there is a statistically significant relationship between infant mortality rate and life expectancy with p\<.0001.
+
+```{r}
+fit2 <- lm(life_expectancy ~ population, data = data_2000)
+summary(fit2)
+```
+
+The second model explain the relationship between life expectancy and country population. Based on the intercept, it is estimated that when country population is zero, the average life expectancy is 5.6 years, but in the reality, it does not make sense since none of country has 0 population. Based on the alpha= 5% there is no significant relationship between country population and life expectancy with p=0.616.

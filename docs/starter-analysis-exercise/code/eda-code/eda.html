@@ -261,11 +261,11 @@ Attaching package: 'dplyr'</code></pre>
                            Values
 Name                       mydata
 Number of rows             9     
-Number of columns          3     
+Number of columns          5     
 _______________________          
 Column type frequency:           
   factor                   1     
-  numeric                  2     
+  numeric                  4     
 ________________________         
 Group variables            None  
 
@@ -274,9 +274,11 @@ Group variables            None
 1 Gender                0             1 FALSE          3 M: 4, F: 3, O: 2
 
 ── Variable type: numeric ──────────────────────────────────────────────────────
-  skim_variable n_missing complete_rate  mean   sd  p0 p25 p50 p75 p100 hist 
-1 Height                0             1 166.  16.0 133 156 166 178  183 ▂▁▃▃▇
-2 Weight                0             1  70.1 21.2  45  55  70  80  110 ▇▂▃▂▂</code></pre>
+  skim_variable n_missing complete_rate  mean    sd  p0 p25 p50 p75 p100 hist 
+1 Height                0             1 166.  16.0  133 156 166 178  183 ▂▁▃▃▇
+2 Weight                0             1  70.1 21.2   45  55  70  80  110 ▇▂▃▂▂
+3 Chol                  0             1 201.  63.2  120 160 176 243  310 ▅▇▁▇▂
+4 Agecat                0             1   2    1.22   0   2   2   3    3 ▃▁▁▆▇</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># save to file</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>summarytable_file <span class="ot">=</span> <span class="fu">here</span>(<span class="st">"starter-analysis-exercise"</span>,<span class="st">"results"</span>, <span class="st">"tables-files"</span>, <span class="st">"summarytable.rds"</span>)</span>
@@ -379,7 +381,6 @@ Group variables            None
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in qt((1 - level)/2, df): NaNs produced
-
 Warning in qt((1 - level)/2, df): no non-missing arguments to max; returning
 -Inf</code></pre>
 </div>
