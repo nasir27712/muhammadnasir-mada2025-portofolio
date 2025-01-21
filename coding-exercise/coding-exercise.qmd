@@ -1,4 +1,4 @@
----
+y---
 title: "R Coding Exercise"
 ---
 
@@ -251,3 +251,194 @@ summary(fit2)
 ```
 
 The second model explain the relationship between life expectancy and country population. Based on the intercept, it is estimated that when country population is zero, the average life expectancy is 5.6 years, but in the reality, it does not make sense since none of country has 0 population. Based on the alpha= 5% there is no significant relationship between country population and life expectancy with p=0.616.
+
+
+## Natalie's Addition to Muhammad's Exercise 3
+
+This section is contributed to by Natalie Cann. 
+
+I will first load packages needed for this exercise. 
+```{r}
+library(dslabs)
+library(ggplot2)
+library(tidyverse)
+library(dplyr)
+```
+I will use the "help()" function on the "us_contagious_diseases" data from dslabs.
+```{r}
+help(us_contagious_diseases)
+```
+The help file told me that this data frame contains yearly counts for Hepatitis A, Measles, Mumps, Pertussis, Polio, Rubella, and Smallpox in the United States. 
+
+Now, I will use str() on the "us_contagious_diseases" data frame. 
+```{r}
+str(us_contagious_diseases)
+```
+This informs me that the data set contains 6 variables (disease, state, year, weeks_reporting, count, and population) and 16,065 observations. Disease and state are factors, while the other four variables are numeric. 
+
+Next, I will use the summary() on the "us_contagious_diseases" data frame. 
+```{r}
+summary(us_contagious_diseases)
+```
+The summary above shows the diseases and states. It also shows the minimum, 1st quartile, median, mean, 3rd quartile and maximum values for the numeric variables (year, weeks_reporting, count, and population). 
+
+First, I will create a data frame containing only data for the state of Georgia. 
+```{r}
+GA_contagious_diseases <- filter(us_contagious_diseases, state == "Georgia") # I am using filter to obtain only data from GA
+View(GA_contagious_diseases) # I am viewing the data frame to ensure it only contains data from GA
+```
+This worked, as only GA data is shown in the new data frame. 
+
+Now, I will run str() and summary() on the GA_contagious_diseases data frame. 
+```{r}
+str(GA_contagious_diseases)
+summary(GA_contagious_diseases)
+```
+This shows me that all the variables are the same as before, but they only contain data from GA. 
+
+Now, I will create a data frame that contains only data from GA in 1950. I will use this data frame to create a plot of the number of cases of each disease in GA in 1950. 
+```{r}
+GA_contagious_diseases_1950 <- filter(GA_contagious_diseases, year == 1950) # I am using filter to obtain only data from GA in 1950
+
+# I will run str() and summar() on the GA_contagious_diseases_1950 data frame to get a better look at the data
+str(GA_contagious_diseases_1950) 
+summary(GA_contagious_diseases_1950)
+```
+You can see that now, the only year appearing in the data set is 1950. Therefore, all the variables now reflect only data from 1950 in GA. 
+
+Next, I will rename the "count" variable to "number_of_cases". 
+```{r}
+GA_contagious_diseases_1950 <- rename(GA_contagious_diseases_1950, number_of_cases = count) # I am renaming the "count" variable to "number_of_cases" via the rename() function (and then assigning it back to GA_contagious_diseases_1950)
+
+colnames(GA_contagious_diseases_1950) # I am checking to see if the previous step was done properly
+```
+I see this was done correctly, as the variable that used to be called "count" is now called "number_of_cases". 
+
+Now, I will create a bar graph to display the number of cases of each contagious disease reported in GA in 1950. 
+```{r}
+custom_colors_1950 <- c("Measles" = "#6fe51e", "Pertussis" = "#2ce1b0", "Polio" = "#2cb2e1", "Smallpox" = "#3a83e6") # I am creating a vector of colors that I will use to fill each disease's bar on the graph below
+
+ggplot(GA_contagious_diseases_1950, aes (x = disease, y = number_of_cases, fill = disease)) + # Using ggplot on the GA_contagious_diseases_1950 data frame and setting x and y equal to diseases and number of cases (respectively) and setting fill equal to disease
+  geom_bar(stat = "identity") + # Specifying the geom as geom_bar() to create a bar graph 
+  labs(title = "Reported Number of Cases of Contagious Diseases \n in State of Georgia in 1950", x = "Disease", y = "Number of Cases") + # Renaming title and axes
+  scale_fill_manual(values = custom_colors_1950) + # Setting the fill colors of the bars to the custom colors I created above 
+  geom_text(aes(label = number_of_cases), vjust = -0.5) + # Adding text labels to the top of each bar to show the number of cases
+  theme(legend.position = "bottom", plot.title = element_text(size = 18, face = "bold", hjust = 0.5), axis.title.x = element_text(size = 12, face = "bold"), axis.title.y = element_text(size = 12, face = "bold")) + # Putting legend at the bottom; increasing size, boldness, and center of title/axes
+  scale_y_continuous(limits = c(0, 2500), breaks = seq(0, 2500, by = 500)) # Setting the y-axis limits and breaks to better see the text of number of cases at the top
+```
+You can see from the bar graph above that the number of Measles cases in GA in 1950 was the highest out of all the diseases shown here (with the number of cases being 2159). 
+
+Now, I will create a data frame that contains Measles data from all states in 1950. 
+```{r}
+Measles_1950 <- filter(us_contagious_diseases, disease == "Measles", year == 1950) # I am using filter to obtain only Measles data from all states in 1950
+
+# I will run str() and summary() on the Measles_1950 data frame to get a better look at the data
+str(Measles_1950) 
+summary(Measles_1950)
+```
+This shows data only from the Measles disease; it includes data from every state that reported measles data in 1950. 
+
+Once again, I will rename the "count" variable to "number_of_cases". 
+```{r}
+Measles_1950 <- rename(Measles_1950, number_of_cases = count) # I am renaming the "count" variable to "number_of_cases" via the rename() function 
+
+colnames(Measles_1950) # Making sure this was done correctly
+```
+As seen by the output, I can see that this variable is now called "number_of_cases". 
+
+Now, I will create a bar graph to display the number of Measles cases reported in each state in 1950. 
+```{r}
+custom_colors_Measles_1950 <- c("#53d127", "#71f45d", "#2ce1b0", "#40dcd9", "#2cb2e1", "#3a83e6")
+
+ggplot(Measles_1950, aes(x = state, y = number_of_cases, fill = number_of_cases)) + 
+  geom_bar(stat = "identity") +  # Correct stat for using y data directly
+  labs(title = "Reported Number of Measles Cases \n in the United States in 1950", 
+       x = "State", 
+       y = "Number of Cases") + # Rename title and axes
+  geom_text(aes(label = number_of_cases), vjust = -0.5, size = 1.5) +  # Display labels above bars
+  theme(legend.position = "none",  # Remove legend 
+        plot.title = element_text(size = 18, face = "bold", hjust = 0.5), 
+        axis.title.x = element_text(size = 12, face = "bold"), 
+        axis.title.y = element_text(size = 12, face = "bold"), # Increase size and boldness of title and axes
+        axis.text.x = element_text(angle = 45, hjust = 1)) + # Rotate state names
+  scale_fill_gradientn(colors = custom_colors_Measles_1950) # Set custom color scheme made
+```
+This bar graph shows the number of Measles cases reported in each state in 1950. As you can see, Michigan had the highest number of reported cases of Measles; on the other hand, Alaska had the lowest number of reported cases of Measles. 
+
+Now, I will create a new variable within the Measles_1950 data frame that assess number of cases in each region of the country. 
+```{r}
+Measles_1950$region <- ifelse(Measles_1950$state %in% c("Maine", "New Hampshire", "Vermont", "Massachusetts", "Rhode Island", "Connecticut", "New York", "New Jersey", "Pennsylvania", "Delaware", "Maryland", "District Of Columbia"), "Northeast", # contains states from the Northeast
+                        ifelse(Measles_1950$state %in% c("Ohio", "Michigan", "Indiana", "Illinois", "Wisconsin", "Minnesota", "Iowa", "Missouri", "North Dakota", "South Dakota", "Nebraska", "Kansas"),  "Midwest", # contains states from the Midwest
+                        ifelse(Measles_1950$state %in% c("Virginia", "West Virginia", "North Carolina", "South Carolina", "Georgia", "Florida", "Kentucky", "Tennessee", "Alabama", "Mississippi", "Arkansas", "Louisiana"), "South", # contains states from the South
+                        ifelse(Measles_1950$state %in% c("Texas", "Oklahoma", "New Mexico", "Arizona"), "Southwest", # contains states from the Southwest
+                        ifelse(Measles_1950$state %in% c("Alaska", "Hawaii"), "Non-Contiguous", # contains states not connected to the main US
+                        "West"))))) # any other state will be categorized as the West
+
+head(Measles_1950) # I am checking to ensure this was done properly
+```
+I will create a version of this data frame that contains the number of cases of Measles in each region of the US. 
+```{r}
+region_Measles_cases_1950 <- Measles_1950 %>% # Creating new data frame that groups data by region and then includes the total number of cases in each region
+  group_by(region) %>%
+  summarize(total_cases = sum(number_of_cases))
+```
+ 
+Now, we can create a bar graph to display the number of Measles cases reported in each region in 1950. 
+```{r}
+ggplot(region_Measles_cases_1950, aes(x = region, y = total_cases, fill = total_cases)) +  # Using ggplot on the region_Measles_cases_1950 data frame and setting x and y equal to region and total_cases (respectively) and setting fill equal to region
+  geom_bar(stat = "identity") +  # Use 'identity' since we are providing y values directly
+  labs(title = "Reported Measles Cases by Region in 1950", 
+       x = "Region", 
+       y = "Number of Cases") + # Rename title and axes
+  geom_text(aes(label = total_cases), vjust = -0.5, size = 3) +  # Add labels above bars
+  theme(legend.position = "right", plot.title = element_text(size = 18, face = "bold", hjust = 0.5),
+        axis.title.x = element_text(size = 12, face = "bold"), 
+        axis.title.y = element_text(size = 12, face = "bold"), # Increase size and boldness of title and axes
+        axis.text.x = element_text(angle = 45, hjust = 1)) + # Rotate state names
+  scale_y_continuous(limits = c(0, 130000), breaks = seq(0, 130000, by = 20000)) + # Setting the y-axis limits and breaks to better see the text of number of cases at the top
+  scale_fill_gradientn(colors = custom_colors_Measles_1950) # Set custom color scheme made
+
+```
+As you can see, the Midwest had the highest number of reported Measles cases in 1950 (115836). The Non-Contiguous region had the lowest number of reported Measles cases in 1950 (0) - it is important to note that Alaska and Hawaii are the only states in this region and that Alaska did not report any cases. 
+
+I will create a Scatterplot of the number of cases of Measles in each state in 1950. 
+```{r}
+Measles_1950$state <- factor(Measles_1950$state, 
+                             levels = unique(Measles_1950$state[order(Measles_1950$region)]))
+# I am reordering the states based on the region they are in (instead of alphabetical order) via levels(), unique(), and order()
+
+ggplot(Measles_1950, aes(x = state, y = number_of_cases, color = region)) + 
+  geom_point(size = 3) +  # Specify geom as geom_point to make a scatterplot
+  labs(title = "Reported Measles Cases in Each State in 1950", 
+       x = "State", 
+       y = "Number of Cases") +  # Rename title and axes
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),  # Rotate state names 
+        legend.position = "bottom",  # Position legend at the bottom
+        plot.title = element_text(size = 18, face = "bold", hjust = 0.5), 
+        axis.title.x = element_text(size = 12, face = "bold"), 
+        axis.title.y = element_text(size = 12, face = "bold")) +  # Increase size and boldness of title and axes
+  scale_color_manual(values = c("Northeast" = "#53d127", "Midwest" = "#71f45d", "South" = "#2ce1b0", 
+                               "Southwest" = "#47e2e7", "Non-Contiguous" = "#2cb2e1", "West" = "#3a83e6"))  # Assign specific colors to each region
+```
+As you can see from the scatterplot above, the Midwest and the Northeast have the greatest amount of variation in the number of reported Measles cases in 1950. 
+
+I will now use the lm() function to fit a linear model with number_of_cases as the outcome and region of the United States as the predictor. Then, I will apply the summary() function to view the results. 
+```{r}
+fit_1950 <- lm(number_of_cases ~ region, data = Measles_1950) # Running a linear fit via lm()
+summary(fit_1950) # Viewing results of linear model via summary()
+```
+The P-value of this model is greater than 0.05, which means we must fail to reject the null hypothesis (that there is no relationship between the number of Measles cases and the region of the US). This means that the region of the US does not have a significant impact on the number of Measles cases reported in 1950. 
+
+I will run an ANOVA (Analysis of Variance) test to asses if there are significant differences in the means of the number of Measles cases reported in each region in the US in 1950.
+```{r}
+anova_result <- aov(number_of_cases ~ region, data = Measles_1950) # Running ANOVA test with aov() function
+summary(anova_result) # Viewing a summary of results
+```
+The F-value of the ANOVA table is 1.386, and the P-value is 0.248. Since 0.248 > 0.05, we must fail to reject the null hypothesis, which is stated previously. Therefore, this result is consistent with the linear fit model results above; region of the US does not appear to have a significant impact on the number of Measles cases in 1950. 
+
+I will now put the summary into a table. 
+```{r}
+anova_df <- as.data.frame(summary(anova_result)[[1]]) # Putting the summary of the ANOVA test into a data frame 
+print(anova_df) # Printing the new data frame
+```
+Here is the printed ANOVA results. 
