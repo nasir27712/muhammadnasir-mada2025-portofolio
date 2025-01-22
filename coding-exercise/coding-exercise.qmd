@@ -439,6 +439,6 @@ The F-value of the ANOVA table is 1.386, and the P-value is 0.248. Since 0.248 >
 I will now put the summary into a table. 
 ```{r}
 anova_df <- as.data.frame(summary(anova_result)[[1]]) # Putting the summary of the ANOVA test into a data frame 
-print(anova_df) # Printing the new data frame
+print(anova_df) # To Printing the new data frame
 ```
 Here is the printed ANOVA results. 
