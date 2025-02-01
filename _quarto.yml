@@ -15,7 +15,8 @@ website:
           - text: "R Coding Exercise"
             file: coding-exercise/coding-exercise.qmd
           - text: "Data Exercise"
-            file: data-exercise/data-exercise.qdm
+            file: data-exercise/data-exercise.qmd
+
     right:
       - icon: github 
         href: https://github.com/nasir27712/muhammadnasir-mada2025-portopolio      
