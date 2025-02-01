@@ -139,6 +139,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../coding-exercise/coding-exercise.html">
  <span class="dropdown-text">R Coding Exercise</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../data-exercise/data-exercise.qdm">
+ <span class="dropdown-text">Data Exercise</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -181,7 +185,7 @@ These packages will be installed into "C:/Users/mn27712/OneDrive - University of
 
 # Installing packages --------------------------------------------------------
 - Installing dslabs ...                         OK [linked from cache]
-Successfully installed 1 package in 89 milliseconds.</code></pre>
+Successfully installed 1 package in 43 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -191,7 +195,7 @@ These packages will be installed into "C:/Users/mn27712/OneDrive - University of
 
 # Installing packages --------------------------------------------------------
 - Installing tidyverse ...                      OK [linked from cache]
-Successfully installed 1 package in 62 milliseconds.</code></pre>
+Successfully installed 1 package in 39 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -244,7 +248,7 @@ These packages will be installed into "C:/Users/mn27712/OneDrive - University of
 
 # Installing packages --------------------------------------------------------
 - Installing ggplot2 ...                        OK [linked from cache]
-Successfully installed 1 package in 29 milliseconds.</code></pre>
+Successfully installed 1 package in 40 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -262,7 +266,7 @@ These packages will be installed into "C:/Users/mn27712/OneDrive - University of
 
 # Installing packages --------------------------------------------------------
 - Installing patchwork ...                      OK [linked from cache]
-Successfully installed 1 package in 35 milliseconds.</code></pre>
+Successfully installed 1 package in 40 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -1101,7 +1105,7 @@ Residuals   45 2.989e+09 66418472               </code></pre>
 <p>I will now put the summary into a table.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>anova_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">summary</span>(anova_result)[[<span class="dv">1</span>]]) <span class="co"># Putting the summary of the ANOVA test into a data frame </span></span>
-<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(anova_df) <span class="co"># Printing the new data frame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(anova_df) <span class="co"># To Printing the  data frame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Df     Sum Sq  Mean Sq  F value    Pr(&gt;F)
 region       5  460249478 92049896 1.385908 0.2476114
