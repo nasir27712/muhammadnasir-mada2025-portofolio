@@ -1,19 +1,16 @@
-y---
-title: "Data Exercise"
----
+y--- title: "Data Exercise" ---
 
-# About the dataset 
+# About the dataset
 
 The data is obtained fom The University of Michigan Health and Retirement Study (HRS). HRS is a longitudinal panel study that surveys a representative sample of approximately 20,000 people in America, supported by the National Institute on Aging (NIA U01AG009740) and the Social Security Administration.
 
 Through its unique and in-depth interviews, the HRS provides an invaluable and growing body of multidisciplinary data that researchers can use to address important questions about the challenges and opportunities of aging.
 
-Please visit: https://hrsdata.isr.umich.edu/data-products/public-survey-data?_gl=1*8ofhfg*_ga*MTc5MDM4ODE3NS4xNzM4MzU5MjU5*_ga_FF28MW3MW2*MTczODM1OTI1OS4xLjEuMTczODM1OTI3NC4wLjAuMA.. 
+Please visit: https://hrsdata.isr.umich.edu/data-products/public-survey-data?\_gl=1*8ofhfg*\_ga*MTc5MDM4ODE3NS4xNzM4MzU5MjU5*\_ga_FF28MW3MW2\*MTczODM1OTI1OS4xLjEuMTczODM1OTI3NC4wLjAuMA..
 
-The data is in STATA format. 
+The data is in STATA format.
 
-I plan to conduct survival analysis for retired people who had high Cholesterol in 2014 until they Heart Attack. 
-
+I plan to conduct survival analysis for retired people who had high Cholesterol in 2014 until they Heart Attack.
 
 # Install all packages needed
 
@@ -36,13 +33,12 @@ library(haven)
 
 # Loading Dataset
 
-This dataset is longitudinal survey. In this analisys, I take three years, 2014, 2016,and 2018. I will read data per year then combine them. 
+This dataset is longitudinal survey. In this analisys, I take three years, 2014, 2016,and 2018. I will read data per year then combine them.
 
-In this part, I will load the dataset using here() function. 
+In this part, I will load the dataset using here() function.
 
+Reading data for 2014 and 2016 needs several steps, because the data is in STATA format, and also we need to match with dictionary. \### Data for 2014
 
-Reading data for 2014 and 2016 needs several steps, because the data is in STATA format, and also we need to match with dictionary. 
-### Data for 2014 
 ```{r}
 ## set path  dictionary 
 dict.file2014 <- here::here("data-exercise","data", "H14C_R.dct")
@@ -83,10 +79,10 @@ df2014 <- read_fwf(
 # Add column labels to headers
 #attributes(df2014)$variable.labels <- df.dict2014$col.lbl
 
+head(df2014)
 ```
 
-
-### Data for 2016 
+### Data for 2016
 
 ```{r}
 ## set path  dictionary 
@@ -127,28 +123,30 @@ df2016 <- read_fwf(
 
 # Add column labels to headers
 #attributes(df2016)$variable.labels <- df.dict2016$col.lbl 
-
+head(df2016)
 ```
 
+### Data for 2018
 
-### Data for 2018 
-Data for 2018 is simple to read because it has R data format. It does not need many steps needed as data for 2014 and 2016. 
+Data for 2018 is simple to read because it has R data format. It does not need many steps needed as data for 2014 and 2016.
+
 ```{r}
 df2018 <- here::here("data-exercise","data", "2018_h18c_r.dta")
 df2018 <- read_dta(df2018)
-
+head(df2018)
 ```
 
-
 ### Data for 2020
+
 ```{r}
 df2020 <- here::here("data-exercise","data", "2020_H20C_R.dta")
 df2020 <- read_dta(df2020)
-
+head(df2020)
 ```
 
 ### Data for 2022
-The data is in STATA format 
+
+The data is in STATA format
 
 ```{r}
 ## set path  dictionary 
@@ -189,16 +187,15 @@ df2022 <- read_fwf(
 
 # Add column labels to headers
 #attributes(df2022)$variable.labels <- df.dict2022$col.lbl #
-
+head(df2022)
 ```
 
+# Data Cleaning
 
-
-# Data Cleaning 
-
-## Select variables needed for each year 
+## Select variables needed for each year
 
 Variables that needed in this study include Household Identification number, Respondent Person Identification number, High Cholesterol Status, Years first had heart attack, Month first had heart attack, Ever had heart attack.
+
 ```{r}
 #data2014
 da2014 <- df2014 %>% 
@@ -235,10 +232,8 @@ da2022 <- df2022 %>%
   rename( hhid = HHID, pn = PN, chol = SC283, ha= SC040, year = SC258, month = SC259) # I rename the column names because in this year, they use different name. 
 ```
 
+## Combine dataset
 
-
-
-## Combine dataset 
 ```{r}
 # Perform a full join step-by-step
 merged_data <- da2014 %>%
@@ -251,15 +246,16 @@ merged_data <- da2014 %>%
 head(merged_data)
 ```
 
-I realize that we only need cholesterol status in 2014, therefore, I want to delete cholesterol in 2016 and 2018 
+I realize that we only need cholesterol status in 2014, therefore, I want to delete cholesterol in 2016 and 2018
 
 ```{r}
 df <- merged_data[, !(colnames(merged_data) %in% c("chol_2016", "chol", "chol_2020", "chol_2022"))] %>% # deleting cholesterol from 2016 and 2018 
   rename(ha_2018 = ha, year_2018 =year, month_2018 = month) # I rename variables from 2018 
 ```
 
-# Exploratory data 
-I want to create pie chat to show persons having high cholesterol in 2014. 
+# Exploratory data
+
+I want to create pie chat to show persons having high cholesterol in 2014.
 
 ```{r}
 table_1 <- table(df$chol_2014)
@@ -294,13 +290,12 @@ plot1 <- ggplot(chol_df, aes(x = "", y = Count, fill = Chol_stat)) +
 figure_file = here("data-exercise","result","figures","chol_status.png")
 ggsave(filename = figure_file, plot=plot1) 
 
-plot1
+print(plot1)
 
 ```
 
+I want to create plot number of person having Heart Attack in each year
 
-
-I want to create plot number of person having Heart Attack in each year 
 ```{r}
 table_2 <- table(df$ha_2014)
 table_3 <- table(df$ha_2016)
@@ -347,8 +342,7 @@ table_ha <- table_ha %>%
 head(table_ha)
 ```
 
-
-After creating long table, I want to create plot to sho the number of heart attack cases each observation year. 
+After creating long table, I want to create plot to show the number of heart attack cases each observation year.
 
 ```{r}
 plot2 <- ggplot(table_ha, aes(x = years, y = count)) +
@@ -367,17 +361,10 @@ plot2 <- ggplot(table_ha, aes(x = years, y = count)) +
 figure_file = here("data-exercise","result","figures","heart attack cases.png")
 ggsave(filename = figure_file, plot=plot2) 
 
-plot2 
+print(plot2) 
 ```
 
-
-
-
-
-
-Now, I want to perform inclusion and inclusion criteria. I will include person who had high cholesterol level in 2014, but they did not have heart attack (disease free) in 2014. 
-
-
+Now, I want to perform inclusion and inclusion criteria. I will include person who had high cholesterol level in 2014, but they did not have heart attack (disease free) in 2014.
 
 ```{r}
 # Step 1: Filter the dataset
@@ -388,10 +375,3 @@ df_filtered <- df %>%
 data <- df_filtered
 
 ```
-
-
-
-
-
-
-
