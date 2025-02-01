@@ -1,6 +1,7 @@
 ---
 title: "Data Exercise" 
-output: html_document 
+output: html
+editor: visual
 ---
 
 # About the dataset
