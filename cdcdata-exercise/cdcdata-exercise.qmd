@@ -34,7 +34,7 @@ library(haven)
 library(dplyr)
 install.packages("janitor")
 library(janitor)
-
+library(procs)
 ```
 
 # Loading the dataset
@@ -47,12 +47,12 @@ bostwana <- read_csv(bostwana) # read the dataset stored in specified path
 head(bostwana)
 dim(bostwana)
 ```
-The dataset contains 11369 observations and 322 columns. 
 
+The dataset contains 11369 observations and 322 columns.
 
-# Data Cleaning 
+# Data Cleaning
 
-I want to select interesting variables for further analysis and clean the data as needed including dropping/ lablig missing values. 
+I want to select interesting variables for further analysis and clean the data as needed including dropping/ lablig missing values.
 
 ```{r}
 bost_df <- bostwana %>% 
@@ -62,23 +62,20 @@ head(bost_df)
 summary(bost_df)
 ```
 
-Note: 
-To make easy for further analysis, I selected several variables: 
+Note: To make easy for further analysis, I selected several variables:
 
-- region = region of sbject 
-- random_arm = randomized arm 
-- age= age
-- age5cat = age category 
-- employment_status = employment status 
-- hiv_status_current = Current HIV status 
-- viral_load_yr3 = viral load in year 3 of the study 
-- cd4_survey_yr3 = CD4 count in year 3
-- cd4_surveydays_yr3 = numbers of days enrolled to survey year 3.
-- arv_duration_days = number of day (duration) taking ARV 
+-   region = region of sbject
+-   random_arm = randomized arm
+-   age= age
+-   age5cat = age category
+-   employment_status = employment status
+-   hiv_status_current = Current HIV status
+-   viral_load_yr3 = viral load in year 3 of the study
+-   cd4_survey_yr3 = CD4 count in year 3
+-   cd4_surveydays_yr3 = numbers of days enrolled to survey year 3.
+-   arv_duration_days = number of day (duration) taking ARV
 
-
-
-In this excercise, I would like to see the relationship between viral load, lenght of enrollment, ARV duration, and CD4 count. Therefore, I will drop all missing data in those variables. 
+In this excercise, I would like to see the relationship between viral load, lenght of enrollment, ARV duration, and CD4 count. Therefore, I will drop all missing data in those variables.
 
 ```{r}
 
@@ -90,16 +87,13 @@ data <- bost_df %>%
          arv_duration_days !=0) # I found some observation contain 0 I drop those observation
 ```
 
-
-
 ```{r}
 
 sapply(data, class) # I want to check class of all variables 
 
 ```
 
-
-For N/A information in categorical data, I lable those missing value wih 999. However, the values are in characters. I want to change the values into factors to make us easy in analysis. 
+For N/A information in categorical data, I lable those missing value wih 999. However, the values are in characters. I want to change the values into factors to make us easy in analysis.
 
 ```{r}
 data <- data %>% 
@@ -149,7 +143,8 @@ sapply(data, class) # check character of the variables
 
 ```
 
-I want to replace all N/A with 999 in categorical variables. 
+I want to replace all N/A with 999 in categorical variables.
+
 ```{r}
 
 data <- data %>%
@@ -159,7 +154,7 @@ data <- data %>%
 dim(data)
 ```
 
-The data is clean now and ready for data exploration and analysis. There are 539 obserations and 13 variables in the final data. 
+The data is clean now and ready for data exploration and analysis. There are 539 obserations and 13 variables in the final data.
 
 ```{r}
 summary_stats <- data %>%
@@ -173,8 +168,7 @@ print(summary_stats)
 
 ```
 
-
-Now I want to make summary statistics for Viral load and visualize it ina plot. 
+Now I want to make summary statistics for Viral load and visualize it ina plot.
 
 ```{r}
 
@@ -201,7 +195,7 @@ figure_file = here("cdcdata-exercise", "pictures", "CD4 Mean and SD .png") # to 
 ggsave(filename = figure_file, plot=plot1) # save the pictures created 
 ```
 
-Now I want to make summary statistics for viral load and visualize it in a plot. 
+Now I want to make summary statistics for viral load and visualize it in a plot.
 
 ```{r}
 
@@ -228,11 +222,9 @@ figure_file = here("cdcdata-exercise", "pictures", "Viral Load Mean and SD .png"
 ggsave(filename = figure_file, plot=plot2) # save the pictures created
 ```
 
+# Data Exploration
 
-
-# Data Exploration 
-
-In this part, I want to explore the data and vizualise it before data analysis. 
+In this part, I want to explore the data and vizualise it before data analysis.
 
 ```{r}
 plot3 <- ggplot(data, aes(x = viral_load_yr3, y = cd4_survey_yr3, color = region)) + 
@@ -254,8 +246,6 @@ print(plot3)
 figure_file = here("cdcdata-exercise", "pictures", "Viral Load VS CD4 based on region .png") # to set up location for the pictures created 
 ggsave(filename = figure_file, plot=plot3) # save the pictures created
 ```
-
-
 
 ```{r}
 plot4 <- ggplot(data, aes(x = arv_duration_days , y = cd4_survey_yr3, color = region)) + 
@@ -280,3 +270,341 @@ figure_file = here("cdcdata-exercise", "pictures", "ARV Duration VS CD4 count ba
 ggsave(filename = figure_file, plot=plot4) # save the pictures created
 ```
 
+
+# This section contributed by Rayleen Lewis.
+
+#### Performing a few more checks
+Prior to creating the synthetic dataset, I wanted to check on a few more things with the data, like number of persons in each region and arm of the study. It also looks like most people are virally suppressed, so I wanted to look at the viral load among people who had values >200. I also want to get the median and IQR of CD4 count by region.
+
+```{r}
+#Number of persons in each region
+table(data$region)
+
+#Number of persons in each arm of the study
+table(data$random_arm)
+
+#Confirming that basically everyone is virally suppressed
+data_supp <- data %>%
+  filter(viral_load_yr3>200)
+ggplot(data_supp, aes(x = viral_load_yr3)) + geom_histogram()
+data_rl <- data %>%
+  mutate(viral_2 = if_else(viral_load_yr3 < 200, 0, 1))
+table(data_rl$viral_2)
+#95% are virally suppressed (viral load <200)
+
+#Mean (SD) of CD4 count by arm
+proc_means(data, var = cd4_survey_yr3, class = random_arm)
+proc_means(data, var = viral_load_yr3, class = random_arm)
+
+```
+
+#### Generating synthetic data
+
+I aimed to reproduce a dataset similar to the dataset above. The following prompt was used in ChatGPT to generate the code in the next code chunk:
+using R, create a dataset with 539 observations and variables called region with 3 levels (values 0, 1, 2), arm with 2 levels (0, 1), cd4 (continuous), viral_load (continuous). 55% of observations should have an arm value of 1. 95% of the values for viral_load should be <200. Among observations with arm = 0, viral_load should have a mean of 3256 and standard deviation of 19241 and cd4 should have a mean of 604 and standard deviation of 265. Among observations with arm = 1, viral_load should have a mean of 610 and standard deviation of 3854 and cd4 should have a mean of 632 and standard deviation of 290. 160 observations should have a region value of 0, 192 should have a region value equal to 1 and the rest should have a region value equal to 2. 
+
+
+```{r}
+set.seed(123)  # For reproducibility
+
+# Define the number of observations
+n <- 539
+
+# Define region values
+region <- c(rep(0, 160), rep(1, 192), rep(2, n - 160 - 192))
+
+# Define arm values ensuring 55% are 1
+arm <- sample(c(0, 1), n, replace = TRUE, prob = c(0.45, 0.55))
+
+# Generate cd4 values based on arm
+cd4 <- ifelse(arm == 0,
+              rnorm(sum(arm == 0), mean = 604, sd = 265),
+              rnorm(sum(arm == 1), mean = 632, sd = 290))
+
+# Generate viral_load values based on arm
+viral_load <- ifelse(arm == 0,
+                     rnorm(sum(arm == 0), mean = 3256, sd = 19241),
+                     rnorm(sum(arm == 1), mean = 610, sd = 3854))
+
+# Ensure 95% of viral_load values are <200
+threshold <- quantile(viral_load, 0.95)
+viral_load <- ifelse(viral_load > 200, runif(length(viral_load), min = 0, max = 200), viral_load)
+
+# Create data frame
+dataset <- data.frame(region = factor(region), arm = factor(arm), cd4 = cd4, viral_load = viral_load)
+
+# Check dataset
+summary(dataset)
+```
+I noticed that >25% of the viral load values were negative. I needed to update the code to set the minimum value to 40 (based on the original dataset). To update the code, I used the following follow-up prompt:
+can you update the code so that the min value for viral_load is 40?
+
+```{r}
+set.seed(123)  # For reproducibility
+
+# Define the number of observations
+n <- 539
+
+# Define region values
+region <- c(rep(0, 160), rep(1, 192), rep(2, n - 160 - 192))
+
+# Define arm values ensuring 55% are 1
+arm <- sample(c(0, 1), n, replace = TRUE, prob = c(0.45, 0.55))
+
+# Generate cd4 values based on arm
+cd4 <- ifelse(arm == 0,
+              rnorm(sum(arm == 0), mean = 604, sd = 265),
+              rnorm(sum(arm == 1), mean = 632, sd = 290))
+
+# Generate viral_load values based on arm
+viral_load <- ifelse(arm == 0,
+                     rnorm(sum(arm == 0), mean = 3256, sd = 19241),
+                     rnorm(sum(arm == 1), mean = 610, sd = 3854))
+
+# Ensure 95% of viral_load values are <200 while maintaining a minimum of 40
+threshold <- quantile(viral_load, 0.95)
+viral_load <- ifelse(viral_load > 200, runif(length(viral_load), min = 40, max = 200), viral_load)
+viral_load <- pmax(viral_load, 40)  # Ensure minimum value is 40
+
+# Create data frame
+dataset <- data.frame(region = factor(region), arm = factor(arm), cd4 = cd4, viral_load = viral_load)
+
+# Check dataset
+summary(dataset)
+
+```
+
+
+
+#### Recreating tables and plots from above
+ To check the synthetic dataset, I will recreate some of the results from above. 
+ 
+```{r}
+# Mean and SD of viral load and CD4 count by arm
+#Synthetic dataset
+proc_means(dataset, var = cd4, class = arm)
+#Original dataset
+proc_means(data, var = cd4_survey_yr3, class = random_arm)
+
+#Synthetic dataset
+proc_means(dataset, var = viral_load, class = arm)
+#Original dataset
+proc_means(data, var = viral_load_yr3, class = random_arm)
+
+```
+ The means and standard deviations for each arm are very comparable between the original and synthetic datasets. The means are within 15 of each other. The number in each arm is also similar. 
+ 
+ I also used ChatGPT to create plots similar to the plots above to see how well ChatGPT could continue to use the dataset. I supplied this prompt to create the code for the plots:
+ write code to create three plots. first, plot the mean cd4 by arm with error bars showing 1 standard deviation, color arm = 0 as red and arm = 1 as teal. For the second plot, perform the same as the first plot using viral_load instead of cd4. For the third plot, create a scatterplot with cd4 as the y and viral_load as the x, coloring the dots by region.
+ 
+ As a note, based on my prompt, R assigned one of the colors in Plots 1 and 2 as teal, which isn't a color R recognized. I changed teal to blue in the code below.
+```{r}
+# Compute summary statistics for CD4 by arm
+cd4_summary <- dataset %>%
+  group_by(arm) %>%
+  summarise(mean_cd4 = mean(cd4),
+            sd_cd4 = sd(cd4)) 
+
+# First plot: Mean CD4 by arm with error bars
+p1 <- ggplot(cd4_summary, aes(x = arm, y = mean_cd4, fill = arm)) +
+  geom_bar(stat = "identity", position = position_dodge(), color = "black") +
+  geom_errorbar(aes(ymin = mean_cd4 - sd_cd4, ymax = mean_cd4 + sd_cd4), width = 0.2) +
+  scale_fill_manual(values = c("0" = "red", "1" = "blue")) +
+  labs(title = "Mean CD4 by Arm", x = "Arm", y = "Mean CD4 Count") +
+  theme_minimal()
+
+# Compute summary statistics for Viral Load by arm
+viral_summary <- dataset %>%
+  group_by(arm) %>%
+  summarise(mean_viral = mean(viral_load),
+            sd_viral = sd(viral_load)) 
+
+# Second plot: Mean Viral Load by arm with error bars
+p2 <- ggplot(viral_summary, aes(x = arm, y = mean_viral, fill = arm)) +
+  geom_bar(stat = "identity", position = position_dodge(), color = "black") +
+  geom_errorbar(aes(ymin = mean_viral - sd_viral, ymax = mean_viral + sd_viral), width = 0.2) +
+  scale_fill_manual(values = c("0" = "red", "1" = "blue")) +
+  labs(title = "Mean Viral Load by Arm", x = "Arm", y = "Mean Viral Load") +
+  theme_minimal()
+
+# Third plot: Scatterplot of CD4 vs. Viral Load, colored by Region
+p3 <- ggplot(dataset, aes(x = viral_load, y = cd4, color = region)) +
+  geom_point(alpha = 0.7) +
+  scale_color_manual(values = c("0" = "blue", "1" = "green", "2" = "purple")) +
+  labs(title = "Scatterplot of CD4 vs Viral Load", x = "Viral Load", y = "CD4 Count") +
+  theme_minimal()
+
+# Display plots
+print(p1)
+print(p2)
+print(p3)
+```
+ 
+ 
+ The synthetic viral load variable has a max of 200, even though 5% of values were supposed to be above 200 leading to a mean value of 3300 for arm = 0 and 610 for arm = 1. To get around this, I told ChatGPT what the problem was and suggested a solution: 
+ For the dataset creation, the mean viral_load is too low. Can the order of the steps for confirming 95% of value are below 200 and sampling from the distribution be switched?
+ 
+
+ 
+```{r}
+set.seed(123)  # For reproducibility
+
+# Define the number of observations
+n <- 539
+
+# Define region values
+region <- c(rep(0, 160), rep(1, 192), rep(2, n - 160 - 192))
+
+# Define arm values ensuring 55% are 1
+arm <- sample(c(0, 1), n, replace = TRUE, prob = c(0.45, 0.55))
+
+# Generate cd4 values based on arm
+cd4 <- ifelse(arm == 0,
+              rnorm(sum(arm == 0), mean = 604, sd = 265),
+              rnorm(sum(arm == 1), mean = 632, sd = 290))
+
+# Generate viral_load values based on arm
+viral_load <- numeric(n)  # Initialize vector
+viral_load[arm == 0] <- rnorm(sum(arm == 0), mean = 3256, sd = 19241)
+viral_load[arm == 1] <- rnorm(sum(arm == 1), mean = 610, sd = 3854)
+
+# Ensure 95% of viral_load values are <200 while keeping original distribution
+high_values <- which(viral_load >= quantile(viral_load, 0.95))
+viral_load[high_values] <- runif(length(high_values), min = 40, max = 200)  # Keep min at 40
+
+# Create data frame
+dataset <- data.frame(region = factor(region), arm = factor(arm), cd4 = cd4, viral_load = viral_load)
+
+# Check dataset
+summary(dataset)
+
+```
+ 
+```{r}
+# Compute summary statistics for CD4 by arm
+cd4_summary <- dataset %>%
+  group_by(arm) %>%
+  summarise(mean_cd4 = mean(cd4),
+            sd_cd4 = sd(cd4)) 
+
+# First plot: Mean CD4 by arm with error bars
+p1 <- ggplot(cd4_summary, aes(x = arm, y = mean_cd4, fill = arm)) +
+  geom_bar(stat = "identity", position = position_dodge(), color = "black") +
+  geom_errorbar(aes(ymin = mean_cd4 - sd_cd4, ymax = mean_cd4 + sd_cd4), width = 0.2) +
+  scale_fill_manual(values = c("0" = "red", "1" = "blue")) +
+  labs(title = "Mean CD4 by Arm", x = "Arm", y = "Mean CD4 Count") +
+  theme_minimal()
+
+# Compute summary statistics for Viral Load by arm
+viral_summary <- dataset %>%
+  group_by(arm) %>%
+  summarise(mean_viral = mean(viral_load),
+            sd_viral = sd(viral_load)) 
+
+# Second plot: Mean Viral Load by arm with error bars
+p2 <- ggplot(viral_summary, aes(x = arm, y = mean_viral, fill = arm)) +
+  geom_bar(stat = "identity", position = position_dodge(), color = "black") +
+  geom_errorbar(aes(ymin = mean_viral - sd_viral, ymax = mean_viral + sd_viral), width = 0.2) +
+  scale_fill_manual(values = c("0" = "red", "1" = "blue")) +
+  labs(title = "Mean Viral Load by Arm", x = "Arm", y = "Mean Viral Load") +
+  theme_minimal()
+
+# Third plot: Scatterplot of CD4 vs. Viral Load, colored by Region
+p3 <- ggplot(dataset, aes(x = viral_load, y = cd4, color = region)) +
+  geom_point(alpha = 0.7) +
+  scale_color_manual(values = c("0" = "blue", "1" = "green", "2" = "purple")) +
+  labs(title = "Scatterplot of CD4 vs Viral Load", x = "Viral Load", y = "CD4 Count") +
+  theme_minimal()
+
+# Display plots
+print(p1)
+print(p2)
+print(p3)
+```
+
+
+ 
+ This resulted in viral_load values that were negative again, so I added a final prompt:
+ Can you update so the lowest value for viral_load is 40?
+ 
+ The following code was created:
+
+
+```{r}
+set.seed(123)  # For reproducibility
+
+# Define the number of observations
+n <- 539
+
+# Define region values
+region <- c(rep(0, 160), rep(1, 192), rep(2, n - 160 - 192))
+
+# Define arm values ensuring 55% are 1
+arm <- sample(c(0, 1), n, replace = TRUE, prob = c(0.45, 0.55))
+
+# Generate cd4 values based on arm
+cd4 <- ifelse(arm == 0,
+              rnorm(sum(arm == 0), mean = 604, sd = 265),
+              rnorm(sum(arm == 1), mean = 632, sd = 290))
+
+# Generate viral_load values based on arm
+viral_load <- numeric(n)  # Initialize vector
+viral_load[arm == 0] <- rnorm(sum(arm == 0), mean = 3256, sd = 19241)
+viral_load[arm == 1] <- rnorm(sum(arm == 1), mean = 610, sd = 3854)
+
+# Ensure 95% of viral_load values are <200 while keeping original distribution
+high_values <- which(viral_load >= quantile(viral_load, 0.95))
+viral_load[high_values] <- runif(length(high_values), min = 40, max = 200)  # Keep min at 40
+
+# Ensure minimum viral_load is 40
+viral_load <- pmax(viral_load, 40)
+
+# Create data frame
+dataset <- data.frame(region = factor(region), arm = factor(arm), cd4 = cd4, viral_load = viral_load)
+
+# Check dataset
+summary(dataset)
+```
+```{r}
+# Compute summary statistics for CD4 by arm
+cd4_summary <- dataset %>%
+  group_by(arm) %>%
+  summarise(mean_cd4 = mean(cd4),
+            sd_cd4 = sd(cd4)) 
+
+# First plot: Mean CD4 by arm with error bars
+p1 <- ggplot(cd4_summary, aes(x = arm, y = mean_cd4, fill = arm)) +
+  geom_bar(stat = "identity", position = position_dodge(), color = "black") +
+  geom_errorbar(aes(ymin = mean_cd4 - sd_cd4, ymax = mean_cd4 + sd_cd4), width = 0.2) +
+  scale_fill_manual(values = c("0" = "red", "1" = "blue")) +
+  labs(title = "Mean CD4 by Arm", x = "Arm", y = "Mean CD4 Count") +
+  theme_minimal()
+
+# Compute summary statistics for Viral Load by arm
+viral_summary <- dataset %>%
+  group_by(arm) %>%
+  summarise(mean_viral = mean(viral_load),
+            sd_viral = sd(viral_load)) 
+
+# Second plot: Mean Viral Load by arm with error bars
+p2 <- ggplot(viral_summary, aes(x = arm, y = mean_viral, fill = arm)) +
+  geom_bar(stat = "identity", position = position_dodge(), color = "black") +
+  geom_errorbar(aes(ymin = mean_viral - sd_viral, ymax = mean_viral + sd_viral), width = 0.2) +
+  scale_fill_manual(values = c("0" = "red", "1" = "blue")) +
+  labs(title = "Mean Viral Load by Arm", x = "Arm", y = "Mean Viral Load") +
+  theme_minimal()
+
+# Third plot: Scatterplot of CD4 vs. Viral Load, colored by Region
+p3 <- ggplot(dataset, aes(x = viral_load, y = cd4, color = region)) +
+  geom_point(alpha = 0.7) +
+  scale_color_manual(values = c("0" = "blue", "1" = "green", "2" = "purple")) +
+  labs(title = "Scatterplot of CD4 vs Viral Load", x = "Viral Load", y = "CD4 Count") +
+  theme_minimal()
+
+# Display plots
+print(p1)
+print(p2)
+print(p3)
+```
+ 
+ The bar chart for CD4 by arm is very similar to the original data. Based on the bar chart for viral load, the means appear simialr but the standard errors are reduced compared to the original data. The final plot, the scatterplot of CD4 count by viral load, showed that many more observations had higher viral loads and many more had viral loads above 200. It seems like ChatGPT isn't handling the prompts for this variable well. Overall, the synthetic data look good but not perfect.
