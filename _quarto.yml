@@ -19,7 +19,7 @@ website:
           - text: "CDC Data Exercise"
             file: cdcdata-exercise/cdcdata-exercise.qmd
           - text: "Visualization Exercise"
-            file: presentation-exercise/visualization-exercise.qmd
+            file: presentation-exercise/presentation-exercise.qmd
 
     right:
       - icon: github 

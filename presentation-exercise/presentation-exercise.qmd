@@ -4,8 +4,6 @@ output: html
 editor: visual
 ---
 
-
-
 ### Install Packages
 
 ```{r}
@@ -33,13 +31,15 @@ library(gt)
 install.packages("gtExtras", dependencies = TRUE)
 library(gtExtras)
 ```
+
 ### About the dataset
 
-In this axercise, I use US Weather History Dataset which contains weather summary of several cities. In this exercise, I only use Philadelphia as example, because the chart are same across the cities. I got the dataset and chart from fivethirtyeight. Link:  https://fivethirtyeight.com/features/what-12-months-of-record-setting-temperatures-looks-like-across-the-u-s/
+In this axercise, I use US Weather History Dataset which contains weather summary of several cities. In this exercise, I only use Philadelphia as example, because the chart are same across the cities. I got the dataset and chart from fivethirtyeight. Link: https://fivethirtyeight.com/features/what-12-months-of-record-setting-temperatures-looks-like-across-the-u-s/
 
 Dataset link: https://data.fivethirtyeight.com/
 
-@fig-temperature is the original graph. 
+@fig-temperature is the original graph.
+
 ```{r}
 
 #| label: fig-temperature
@@ -249,10 +249,9 @@ knitr::include_graphics(here("presentation-exercise","results","figures","philad
 
 # Part 2: Creating a table
 
-I create a table containing weather summary of Philadelphia in each season. To create this table, I got help from ChatGPT, I added mulptiple prompt step by step. I went throught multiple steps. 
+I create a table containing weather summary of Philadelphia in each season. To create this table, I got help from ChatGPT, I added mulptiple prompt step by step. I went throught multiple steps.
 
-Before asking AI to generate the code to create a table, I create subsets for each seasons. 
-
+Before asking AI to generate the code to create a table, I create subsets for each seasons.
 
 ```{r}
 #extract data
@@ -276,14 +275,12 @@ summary(spring)
 
 ```
 
+In this step, I used ChatGPT to create table. Here is the prompt that I used:
 
-In this step, I used ChatGPT to create table. Here is the prompt that I used: 
+Now I have 4 subsets: summer, fall,, winter, and spring. Those subsets have actual_mean_temp, average_min_temp, average_max_temp, average_precipitation. I want to create a beautiful and easy read table. Please give me idea and step by step, including code.
 
-Now I have 4 subsets: summer, fall,, winter, and spring. 
-Those subsets have actual_mean_temp, average_min_temp, average_max_temp, average_precipitation. 
-I want to create a beautiful and easy read table. Please give me idea and step by step, including code. 
+The firt table generated did not look good. Therefore, I add more prompt in each feature that I want. For example, I want to add icons representing the season, I want to arrange inidcators in the column, and seasons as rows. I actually added more prompt.
 
-The firt table generated did not look good. Therefore, I add more prompt in each feature that I want. For example, I want to add icons representing the season, I want to arrange inidcators in the column, and seasons as rows. I actually added more prompt. 
 ```{r}
 
 # Summarize the data for each season
@@ -311,8 +308,6 @@ summary_table <- bind_rows(
 )
 
 ```
-
-
 
 ```{r}
 # Add seasonal icons in a separate column
@@ -352,11 +347,11 @@ styled_table <- summary_table %>%
     )
   )
 
+table_file1 = here("presentation-exercise","results", "tables", "weather.rds")
+saveRDS(styled_table, file = table_file1)
+
 # Print the table
 styled_table
 
 
 ```
-
-
-
