@@ -34,7 +34,7 @@ library(gtExtras)
 
 ### About the dataset
 
-In this axercise, I use US Weather History Dataset which contains weather summary of several cities. In this exercise, I only use Philadelphia as example, because the chart are same across the cities. I got the dataset and chart from fivethirtyeight. Link: https://fivethirtyeight.com/features/what-12-months-of-record-setting-temperatures-looks-like-across-the-u-s/
+In this exercise, I use US Weather History Dataset which contains weather summary of several cities. In this exercise, I only use Philadelphia as example, because the chart are same across the cities. I got the dataset and chart from fivethirtyeight. Link: https://fivethirtyeight.com/features/what-12-months-of-record-setting-temperatures-looks-like-across-the-u-s/
 
 Dataset link: https://data.fivethirtyeight.com/
 
@@ -52,7 +52,7 @@ knitr::include_graphics(here("presentation-exercise","results","figures","phila-
 
 ```{r}
 # Load the dataset
-data_loc <- here("presentation-exercise", "data", "Philadelphia.csv") 
+data_loc <- here("presentation-exercise", "data", "KPHL.csv") 
 data <- read_csv(data_loc)
 
 data$date <- as.Date(data$date, format="%Y-%m-%d") # convert variable into date format 
@@ -249,7 +249,7 @@ knitr::include_graphics(here("presentation-exercise","results","figures","philad
 
 # Part 2: Creating a table
 
-I create a table containing weather summary of Philadelphia in each season. To create this table, I got help from ChatGPT, I added mulptiple prompt step by step. I went throught multiple steps.
+I create a table containing weather summary of Philadelphia in each season. To create this table, I got help from ChatGPT, I added multiple prompt step by step. I went through multiple steps.
 
 Before asking AI to generate the code to create a table, I create subsets for each seasons.
 
@@ -279,7 +279,7 @@ In this step, I used ChatGPT to create table. Here is the prompt that I used:
 
 Now I have 4 subsets: summer, fall,, winter, and spring. Those subsets have actual_mean_temp, average_min_temp, average_max_temp, average_precipitation. I want to create a beautiful and easy read table. Please give me idea and step by step, including code.
 
-The firt table generated did not look good. Therefore, I add more prompt in each feature that I want. For example, I want to add icons representing the season, I want to arrange inidcators in the column, and seasons as rows. I actually added more prompt.
+The first table generated did not look good. Therefore, I add more prompt in each feature that I want. For example, I want to add icons representing the season, I want to arrange indicators in the column, and seasons as rows. I actually added more prompt.
 
 ```{r}
 
