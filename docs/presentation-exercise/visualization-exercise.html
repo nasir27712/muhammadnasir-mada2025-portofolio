@@ -147,6 +147,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../cdcdata-exercise/cdcdata-exercise.html">
  <span class="dropdown-text">CDC Data Exercise</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../presentation-exercise/visualization-exercise.html">
+ <span class="dropdown-text">Visualization Exercise</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -190,8 +194,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="about-the-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="about-the-dataset">About the dataset</h2>
 <section id="install-packages" class="level3">
 <h3 class="anchored" data-anchor-id="install-packages">Install Packages</h3>
 <div class="cell">
@@ -203,7 +205,7 @@ These packages will be installed into "C:/Users/mn27712/OneDrive - University of
 
 # Installing packages --------------------------------------------------------
 - Installing tidyverse ...                      OK [linked from cache]
-Successfully installed 1 package in 46 milliseconds.</code></pre>
+Successfully installed 1 package in 29 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -226,7 +228,7 @@ These packages will be installed into "C:/Users/mn27712/OneDrive - University of
 
 # Installing packages --------------------------------------------------------
 - Installing ggplot2 ...                        OK [linked from cache]
-Successfully installed 1 package in 50 milliseconds.</code></pre>
+Successfully installed 1 package in 35 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -241,7 +243,7 @@ These packages will be installed into "C:/Users/mn27712/OneDrive - University of
 
 # Installing packages --------------------------------------------------------
 - Installing patchwork ...                      OK [linked from cache]
-Successfully installed 1 package in 45 milliseconds.</code></pre>
+Successfully installed 1 package in 27 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"writexl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -252,7 +254,7 @@ These packages will be installed into "C:/Users/mn27712/OneDrive - University of
 
 # Installing packages --------------------------------------------------------
 - Installing writexl ...                        OK [linked from cache]
-Successfully installed 1 package in 39 milliseconds.</code></pre>
+Successfully installed 1 package in 31 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
@@ -264,7 +266,7 @@ These packages will be installed into "C:/Users/mn27712/OneDrive - University of
 
 # Installing packages --------------------------------------------------------
 - Installing ggforce ...                        OK [linked from cache]
-Successfully installed 1 package in 52 milliseconds.</code></pre>
+Successfully installed 1 package in 30 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggforce)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -275,7 +277,7 @@ These packages will be installed into "C:/Users/mn27712/OneDrive - University of
 
 # Installing packages --------------------------------------------------------
 - Installing dplyr ...                          OK [linked from cache]
-Successfully installed 1 package in 30 milliseconds.</code></pre>
+Successfully installed 1 package in 29 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -288,7 +290,7 @@ These packages will be installed into "C:/Users/mn27712/OneDrive - University of
 
 # Installing packages --------------------------------------------------------
 - Installing ggridges ...                       OK [linked from cache]
-Successfully installed 1 package in 33 milliseconds.</code></pre>
+Successfully installed 1 package in 28 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)  <span class="co">#</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
@@ -300,15 +302,32 @@ These packages will be installed into "C:/Users/mn27712/OneDrive - University of
 
 # Installing packages --------------------------------------------------------
 - Installing gt ...                             OK [linked from cache]
-Successfully installed 1 package in 47 milliseconds.</code></pre>
+Successfully installed 1 package in 15 milliseconds.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"gtExtras"</span>, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The following package(s) will be installed:
+- gtExtras [0.5.0]
+These packages will be installed into "C:/Users/mn27712/OneDrive - University of Georgia/DATA BACKUP/MACBOOK AND IPHONE_/Desktop/MADA2025/muhammadnasir-mada2025/renv/library/windows/R-4.4/x86_64-w64-mingw32".
+
+# Installing packages --------------------------------------------------------
+- Installing gtExtras ...                       OK [linked from cache]
+Successfully installed 1 package in 15 milliseconds.</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtExtras)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="about-the-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="about-the-dataset">About the dataset</h3>
+<p>In this axercise, I use US Weather History Dataset which contains weather summary of several cities. In this exercise, I only use Philadelphia as example, because the chart are same across the cities. I got the dataset and chart from fivethirtyeight. Link: https://fivethirtyeight.com/features/what-12-months-of-record-setting-temperatures-looks-like-across-the-u-s/</p>
+<p>Dataset link: https://data.fivethirtyeight.com/</p>
+<p><a href="#fig-temperature" class="quarto-xref">Figure&nbsp;1</a> is the original graph.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-temperature</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Temperature Record in Philadelphia."</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: FALSE</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">here</span>(<span class="st">"presentation-exercise"</span>,<span class="st">"results"</span>,<span class="st">"figures"</span>,<span class="st">"phila-ori.png"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-temperature</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Temperature Record in Philadelphia."</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: FALSE</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">here</span>(<span class="st">"presentation-exercise"</span>,<span class="st">"results"</span>,<span class="st">"figures"</span>,<span class="st">"phila-ori.png"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -321,9 +340,9 @@ Successfully installed 1 package in 47 milliseconds.</code></pre>
 <section id="read-the-dataset" class="level3">
 <h3 class="anchored" data-anchor-id="read-the-dataset">Read the dataset</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>data_loc <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"presentation-exercise"</span>, <span class="st">"data"</span>, <span class="st">"KPHL.csv"</span>) </span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(data_loc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>data_loc <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"presentation-exercise"</span>, <span class="st">"data"</span>, <span class="st">"Philadelphia.csv"</span>) </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(data_loc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 365 Columns: 13
 ── Column specification ────────────────────────────────────────────────────────
@@ -334,8 +353,8 @@ dbl (12): actual_mean_temp, actual_min_temp, actual_max_temp, average_min_te...
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(data<span class="sc">$</span>date, <span class="at">format=</span><span class="st">"%Y-%m-%d"</span>) <span class="co"># convert variable into date format </span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(data<span class="sc">$</span>date, <span class="at">format=</span><span class="st">"%Y-%m-%d"</span>) <span class="co"># convert variable into date format </span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 13
   date       actual_mean_temp actual_min_temp actual_max_temp average_min_temp
@@ -353,7 +372,7 @@ dbl (12): actual_mean_temp, actual_min_temp, actual_max_temp, average_min_te...
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      date            actual_mean_temp actual_min_temp actual_max_temp
  Min.   :2014-07-01   Min.   :10.00    Min.   : 2.00   Min.   :17.00  
@@ -392,26 +411,26 @@ dbl (12): actual_mean_temp, actual_min_temp, actual_max_temp, average_min_te...
 <p>ChatGPT: Of course, I will be always be your friend, what can I help you?</p>
 <p>Me: Today, I want to regenerate a chart. Here I provide the picture of the chart, the original link of the chart, and the dataset. Please generate the code to create the exact same chart, including the color, display, and also legend. Please look at the chart very details to be able to create the same chart. Please generate the code in R.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>plot_1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> date)) <span class="sc">+</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Shaded area for normal range</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> average_min_temp, <span class="at">ymax =</span> average_max_temp), <span class="at">fill =</span> <span class="st">"tan"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Shaded area for record range</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> record_min_temp, <span class="at">ymax =</span> record_max_temp), <span class="at">fill =</span> <span class="st">"grey"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Lines for actual min and max temps</span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> actual_min_temp, <span class="at">ymax =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Points for new record highs and lows</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">filter</span>(data, actual_max_temp <span class="sc">&gt;</span> record_max_temp), <span class="fu">aes</span>(<span class="at">y =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">filter</span>(data, actual_min_temp <span class="sc">&lt;</span> record_min_temp), <span class="fu">aes</span>(<span class="at">y =</span> actual_min_temp), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Labels and themes</span></span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Philadelphia"</span>,</span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>,</span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Temperature (°F)"</span>,</span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Data source: wunderground.com</span><span class="sc">\n</span><span class="st">Author: Randy Olson (randalolson.com / @randal_olson)"</span>) <span class="sc">+</span></span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span>
-<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(plot_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>plot_1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> date)) <span class="sc">+</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Shaded area for normal range</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> average_min_temp, <span class="at">ymax =</span> average_max_temp), <span class="at">fill =</span> <span class="st">"tan"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Shaded area for record range</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> record_min_temp, <span class="at">ymax =</span> record_max_temp), <span class="at">fill =</span> <span class="st">"grey"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Lines for actual min and max temps</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> actual_min_temp, <span class="at">ymax =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Points for new record highs and lows</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">filter</span>(data, actual_max_temp <span class="sc">&gt;</span> record_max_temp), <span class="fu">aes</span>(<span class="at">y =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">filter</span>(data, actual_min_temp <span class="sc">&lt;</span> record_min_temp), <span class="fu">aes</span>(<span class="at">y =</span> actual_min_temp), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Labels and themes</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Philadelphia"</span>,</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Temperature (°F)"</span>,</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Data source: wunderground.com</span><span class="sc">\n</span><span class="st">Author: Randy Olson (randalolson.com / @randal_olson)"</span>) <span class="sc">+</span></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(plot_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -423,28 +442,28 @@ dbl (12): actual_mean_temp, actual_min_temp, actual_max_temp, average_min_te...
 <p>Me: Hi, thank you for generating the code. However, there are some detail different with the original chart.</p>
 <p>Here, I modify by myself with some help from ChatGPT. In this step, I try to adjust the line. I see from the original chart, it is look more bar than line.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>plot_2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> date)) <span class="sc">+</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Shaded area for normal range</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> average_min_temp, <span class="at">ymax =</span> average_max_temp), <span class="at">fill =</span> <span class="st">"#9B9B9B"</span>, <span class="at">alpha =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Shaded area for record range</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> record_min_temp, <span class="at">ymax =</span> record_max_temp), <span class="at">fill =</span> <span class="st">"#696651"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> actual_min_temp, <span class="at">ymax =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> actual_min_temp, <span class="at">ymax =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"#4B3B47"</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>)<span class="sc">+</span></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">filter</span>(data, actual_max_temp <span class="sc">&gt;</span> record_max_temp), <span class="fu">aes</span>(<span class="at">y =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">filter</span>(data, actual_min_temp <span class="sc">&lt;</span> record_min_temp), <span class="fu">aes</span>(<span class="at">y =</span> actual_min_temp), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Labels and themes</span></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Philadelphia"</span>,</span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>,</span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Temperature (°F)"</span>,</span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Data source: wunderground.com</span><span class="sc">\n</span><span class="st">Author: Randy Olson (randalolson.com / @randal_olson)"</span>) <span class="sc">+</span></span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>plot_2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> date)) <span class="sc">+</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Shaded area for normal range</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> average_min_temp, <span class="at">ymax =</span> average_max_temp), <span class="at">fill =</span> <span class="st">"#9B9B9B"</span>, <span class="at">alpha =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Shaded area for record range</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> record_min_temp, <span class="at">ymax =</span> record_max_temp), <span class="at">fill =</span> <span class="st">"#696651"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> actual_min_temp, <span class="at">ymax =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> actual_min_temp, <span class="at">ymax =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"#4B3B47"</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>)<span class="sc">+</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">filter</span>(data, actual_max_temp <span class="sc">&gt;</span> record_max_temp), <span class="fu">aes</span>(<span class="at">y =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">filter</span>(data, actual_min_temp <span class="sc">&lt;</span> record_min_temp), <span class="fu">aes</span>(<span class="at">y =</span> actual_min_temp), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Labels and themes</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Philadelphia"</span>,</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Temperature (°F)"</span>,</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Data source: wunderground.com</span><span class="sc">\n</span><span class="st">Author: Randy Olson (randalolson.com / @randal_olson)"</span>) <span class="sc">+</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ℹ Please use `linewidth` instead.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(plot_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(plot_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -455,45 +474,45 @@ dbl (12): actual_mean_temp, actual_min_temp, actual_max_temp, average_min_te...
 </div>
 <p>This is the step where I change many things, including, put the date (months) in both sides (top and bottom, and put ’14 below Jul, and ’15 below Jan), I also put the temperature both side. In the previous chart, the grip also did not show every month. Therefore, I adjust the grip into each month and the temperature for every 10 Fahrenheit degree. I adjust the position of the caption (source and author).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>plot_3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> date)) <span class="sc">+</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Shaded area for normal range</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> average_min_temp, <span class="at">ymax =</span> average_max_temp), <span class="at">fill =</span> <span class="st">"#9B9B9B"</span>, <span class="at">alpha =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Shaded area for record range</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> record_min_temp, <span class="at">ymax =</span> record_max_temp), <span class="at">fill =</span> <span class="st">"#696651"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Temperature ranges</span></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> actual_min_temp, <span class="at">ymax =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> actual_min_temp, <span class="at">ymax =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"#4B3B47"</span>, <span class="at">linewidth =</span> <span class="dv">2</span>, <span class="at">linetype =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Record-breaking temperatures (Fixed)</span></span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(actual_max_temp), actual_max_temp <span class="sc">&gt;</span> record_max_temp),</span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(actual_min_temp), actual_min_temp <span class="sc">&lt;</span> record_min_temp),</span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> actual_min_temp), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Labels and themes</span></span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Philadelphia"</span>,</span>
-<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>,</span>
-<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Temperature (°F)"</span>,</span>
-<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Data source: wunderground.com</span><span class="sc">\n</span><span class="st">Author: Randy Olson (randalolson.com / @randal_olson)"</span>) <span class="sc">+</span></span>
-<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Custom theme</span></span>
-<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
-<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"grey50"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>),  <span class="co"># Remove empty linetype value</span></span>
-<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Align caption to the left</span></span>
-<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption.position =</span> <span class="st">"plot"</span>,</span>
-<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">face =</span> <span class="st">"italic"</span>, <span class="at">size =</span> <span class="dv">10</span>)</span>
-<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Define x-axis (date) for both top and bottom</span></span>
-<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"1 month"</span>, <span class="at">date_labels =</span> <span class="st">"%b"</span>,</span>
-<span id="cb33-32"><a href="#cb33-32" aria-hidden="true" tabindex="-1"></a>               <span class="at">sec.axis =</span> <span class="fu">dup_axis</span>(<span class="at">name =</span> <span class="cn">NULL</span>)) <span class="sc">+</span>  <span class="co"># Duplicate axis at top</span></span>
-<span id="cb33-33"><a href="#cb33-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Define y-axis (temperature) for both left and right</span></span>
-<span id="cb33-34"><a href="#cb33-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">110</span>, <span class="dv">10</span>),</span>
-<span id="cb33-35"><a href="#cb33-35" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sec.axis =</span> <span class="fu">dup_axis</span>(<span class="at">name =</span> <span class="cn">NULL</span>),</span>
-<span id="cb33-36"><a href="#cb33-36" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="fu">min</span>(data<span class="sc">$</span>record_min_temp) <span class="sc">-</span> <span class="dv">5</span>, <span class="fu">max</span>(data<span class="sc">$</span>record_max_temp) <span class="sc">+</span> <span class="dv">5</span>))  <span class="co"># Ensure all values fit</span></span>
-<span id="cb33-37"><a href="#cb33-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-38"><a href="#cb33-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the chart</span></span>
-<span id="cb33-39"><a href="#cb33-39" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(plot_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>plot_3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> date)) <span class="sc">+</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Shaded area for normal range</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> average_min_temp, <span class="at">ymax =</span> average_max_temp), <span class="at">fill =</span> <span class="st">"#9B9B9B"</span>, <span class="at">alpha =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Shaded area for record range</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> record_min_temp, <span class="at">ymax =</span> record_max_temp), <span class="at">fill =</span> <span class="st">"#696651"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Temperature ranges</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> actual_min_temp, <span class="at">ymax =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> actual_min_temp, <span class="at">ymax =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"#4B3B47"</span>, <span class="at">linewidth =</span> <span class="dv">2</span>, <span class="at">linetype =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Record-breaking temperatures (Fixed)</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(actual_max_temp), actual_max_temp <span class="sc">&gt;</span> record_max_temp),</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(actual_min_temp), actual_min_temp <span class="sc">&lt;</span> record_min_temp),</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> actual_min_temp), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Labels and themes</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Philadelphia"</span>,</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Temperature (°F)"</span>,</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Data source: wunderground.com</span><span class="sc">\n</span><span class="st">Author: Randy Olson (randalolson.com / @randal_olson)"</span>) <span class="sc">+</span></span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Custom theme</span></span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"grey50"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>),  <span class="co"># Remove empty linetype value</span></span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Align caption to the left</span></span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption.position =</span> <span class="st">"plot"</span>,</span>
+<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">face =</span> <span class="st">"italic"</span>, <span class="at">size =</span> <span class="dv">10</span>)</span>
+<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Define x-axis (date) for both top and bottom</span></span>
+<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"1 month"</span>, <span class="at">date_labels =</span> <span class="st">"%b"</span>,</span>
+<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a>               <span class="at">sec.axis =</span> <span class="fu">dup_axis</span>(<span class="at">name =</span> <span class="cn">NULL</span>)) <span class="sc">+</span>  <span class="co"># Duplicate axis at top</span></span>
+<span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Define y-axis (temperature) for both left and right</span></span>
+<span id="cb35-34"><a href="#cb35-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">110</span>, <span class="dv">10</span>),</span>
+<span id="cb35-35"><a href="#cb35-35" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sec.axis =</span> <span class="fu">dup_axis</span>(<span class="at">name =</span> <span class="cn">NULL</span>),</span>
+<span id="cb35-36"><a href="#cb35-36" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="fu">min</span>(data<span class="sc">$</span>record_min_temp) <span class="sc">-</span> <span class="dv">5</span>, <span class="fu">max</span>(data<span class="sc">$</span>record_max_temp) <span class="sc">+</span> <span class="dv">5</span>))  <span class="co"># Ensure all values fit</span></span>
+<span id="cb35-37"><a href="#cb35-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-38"><a href="#cb35-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the chart</span></span>
+<span id="cb35-39"><a href="#cb35-39" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(plot_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -504,73 +523,73 @@ dbl (12): actual_mean_temp, actual_min_temp, actual_max_temp, average_min_te...
 </div>
 <p>The chart looks much better. However, the new record for high and low temperature did not show up in the chart. Therefore, I try to create a new set then insert it into the chart.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify new record highs and lows</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>weather_data_subset <span class="ot">&lt;-</span> data</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>new_max_records <span class="ot">&lt;-</span> weather_data_subset <span class="sc">%&gt;%</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(record_max_temp <span class="sc">&lt;=</span> actual_max_temp)</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>new_min_records <span class="ot">&lt;-</span> weather_data_subset <span class="sc">%&gt;%</span></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(record_min_temp <span class="sc">&gt;=</span> actual_min_temp)</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Insert the new record into the plot </span></span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(weather_data_subset, <span class="fu">aes</span>(<span class="at">x =</span> date)) <span class="sc">+</span></span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Shaded area for normal range</span></span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> average_min_temp, <span class="at">ymax =</span> average_max_temp), <span class="at">fill =</span> <span class="st">"#73736D"</span>, <span class="at">alpha =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Shaded area for record range</span></span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> record_min_temp, <span class="at">ymax =</span> record_max_temp), <span class="at">fill =</span>  <span class="st">"#9a9a77"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Temperature ranges</span></span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> actual_min_temp, <span class="at">ymax =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> actual_min_temp, <span class="at">ymax =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"#4B3B47"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Record-breaking temperatures</span></span>
-<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> new_max_records, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> new_min_records, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> actual_min_temp), <span class="at">color =</span> <span class="st">"lightblue"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create the legend </span></span>
-<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> <span class="fu">as.Date</span>(<span class="st">"2014-08-10"</span>) <span class="sc">-</span><span class="dv">4</span>, <span class="at">xmax =</span> <span class="fu">as.Date</span>(<span class="st">"2014-08-11"</span>) <span class="sc">+</span> <span class="dv">4</span>, <span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> <span class="dv">40</span>), <span class="at">fill =</span> <span class="st">"#9a9a77"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span> <span class="co"># First bar</span></span>
-<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> <span class="fu">as.Date</span>(<span class="st">"2014-08-10"</span>) <span class="sc">-</span><span class="dv">4</span>, <span class="at">xmax =</span> <span class="fu">as.Date</span>(<span class="st">"2014-08-11"</span>) <span class="sc">+</span> <span class="dv">4</span>, <span class="at">ymin =</span> <span class="dv">10</span>, <span class="at">ymax =</span> <span class="dv">30</span>), <span class="at">fill =</span> <span class="st">"#73736D"</span>, <span class="at">alpha =</span> <span class="fl">0.9</span>) <span class="sc">+</span> <span class="co"># Second bar</span></span>
-<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> <span class="fu">as.Date</span>(<span class="st">"2014-08-10"</span>) <span class="sc">-</span><span class="dv">4</span>, <span class="at">xmax =</span> <span class="fu">as.Date</span>(<span class="st">"2014-08-11"</span>) <span class="sc">+</span> <span class="dv">4</span>, <span class="at">ymin =</span> <span class="dv">15</span>, <span class="at">ymax =</span> <span class="dv">25</span>), <span class="at">fill =</span> <span class="st">"#4B3B47"</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span>   <span class="co"># Third bar</span></span>
-<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Add two points inside the horizontal bar</span></span>
-<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.Date</span>(<span class="st">"2014-08-10"</span>), <span class="at">y =</span> <span class="dv">42</span>), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>  <span class="co"># Point 1</span></span>
-<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.Date</span>(<span class="st">"2014-08-10"</span>), <span class="at">y =</span> <span class="sc">-</span><span class="dv">2</span>), <span class="at">color =</span> <span class="st">"lightblue"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>  <span class="co"># Point 2</span></span>
-<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.Date</span>(<span class="st">"2014-09-10"</span>), <span class="at">y =</span> <span class="dv">25</span>, <span class="at">label =</span> <span class="st">"New </span><span class="sc">\n</span><span class="st">record high"</span>), <span class="at">family=</span> <span class="st">"Serif"</span>, <span class="at">color =</span> <span class="st">"#73736D"</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="co"># adding text </span></span>
-<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.Date</span>(<span class="st">"2014-09-10"</span>), <span class="at">y =</span> <span class="sc">-</span><span class="dv">12</span>, <span class="at">label =</span> <span class="st">"New </span><span class="sc">\n</span><span class="st">recod low"</span>), <span class="at">family =</span> <span class="st">"Serif"</span>,<span class="at">color =</span> <span class="st">"#73736D"</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="co"># Adding text </span></span>
-<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.Date</span>(<span class="st">"2014-07-10"</span>), <span class="at">y =</span> <span class="dv">30</span>, <span class="at">label =</span> <span class="st">"Record high"</span>), <span class="at">family =</span><span class="st">"Serif"</span>, <span class="at">color =</span><span class="st">"#73736D"</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="co"># adding text </span></span>
-<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.Date</span>(<span class="st">"2014-07-10"</span>), <span class="at">y =</span> <span class="dv">2</span>, <span class="at">label =</span> <span class="st">"Recod low"</span>), <span class="at">family =</span><span class="st">"Serif"</span>, <span class="at">color =</span> <span class="st">"#73736D"</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="co"># Adding text </span></span>
-<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.Date</span>(<span class="st">"2014-09-10"</span>), <span class="at">y =</span> <span class="dv">15</span>, <span class="at">label =</span> <span class="st">"Normal range"</span>), <span class="at">family =</span> <span class="st">"Serif"</span>, <span class="at">color =</span><span class="st">"#73736D"</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="co"># adding text </span></span>
-<span id="cb34-33"><a href="#cb34-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.Date</span>(<span class="st">"2014-07-06"</span>), <span class="at">y =</span> <span class="dv">14</span>, <span class="at">label =</span> <span class="st">"Actual range"</span>), <span class="at">family =</span> <span class="st">"Serif"</span>,<span class="at">color =</span> <span class="st">"#73736D"</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="co"># Adding text </span></span>
-<span id="cb34-34"><a href="#cb34-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Labels and themes</span></span>
-<span id="cb34-35"><a href="#cb34-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Philadelphia"</span>,</span>
-<span id="cb34-36"><a href="#cb34-36" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>,</span>
-<span id="cb34-37"><a href="#cb34-37" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Temperature (°F)"</span>,</span>
-<span id="cb34-38"><a href="#cb34-38" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Data source: wunderground.com</span><span class="sc">\n</span><span class="st">Author: Randy Olson (randalolson.com / @randal_olson)"</span>) <span class="sc">+</span></span>
-<span id="cb34-39"><a href="#cb34-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Custom theme</span></span>
-<span id="cb34-40"><a href="#cb34-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb34-41"><a href="#cb34-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb34-42"><a href="#cb34-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb34-43"><a href="#cb34-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
-<span id="cb34-44"><a href="#cb34-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"grey50"</span>, <span class="at">linetype =</span> <span class="st">"longdash"</span>, <span class="at">linewidth=</span> <span class="fl">0.2</span>),</span>
-<span id="cb34-45"><a href="#cb34-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb34-46"><a href="#cb34-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption.position =</span> <span class="st">"plot"</span>,</span>
-<span id="cb34-47"><a href="#cb34-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb34-48"><a href="#cb34-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)  <span class="co"># Ensure x-axis labels are readable</span></span>
-<span id="cb34-49"><a href="#cb34-49" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb34-50"><a href="#cb34-50" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Custom x-axis labels</span></span>
-<span id="cb34-51"><a href="#cb34-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(</span>
-<span id="cb34-52"><a href="#cb34-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">"2014-07-01"</span>), <span class="fu">as.Date</span>(<span class="st">"2015-07-01"</span>), <span class="at">by =</span> <span class="st">"1 month"</span>),</span>
-<span id="cb34-53"><a href="#cb34-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Jul</span><span class="sc">\n</span><span class="st">'14"</span>, <span class="st">"Aug"</span>, <span class="st">"Sep"</span>, <span class="st">"Oct"</span>, <span class="st">"Nov"</span>, <span class="st">"Dec"</span>, <span class="st">"Jan</span><span class="sc">\n</span><span class="st">'15"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>, <span class="st">"Apr"</span>, <span class="st">"May"</span>, <span class="st">"Jun"</span>, <span class="st">"Jul"</span>), <span class="co"># Jul\'14 is to place '14 under Jul, and the same for jan 15</span></span>
-<span id="cb34-54"><a href="#cb34-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">sec.axis =</span> <span class="fu">dup_axis</span>(<span class="at">name =</span> <span class="cn">NULL</span>)</span>
-<span id="cb34-55"><a href="#cb34-55" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb34-56"><a href="#cb34-56" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Define y-axis (temperature)</span></span>
-<span id="cb34-57"><a href="#cb34-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
-<span id="cb34-58"><a href="#cb34-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">110</span>, <span class="dv">10</span>),</span>
-<span id="cb34-59"><a href="#cb34-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">sec.axis =</span> <span class="fu">dup_axis</span>(<span class="at">name =</span> <span class="cn">NULL</span>),</span>
-<span id="cb34-60"><a href="#cb34-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="fu">min</span>(weather_data_subset<span class="sc">$</span>record_min_temp) <span class="sc">-</span> <span class="dv">5</span>, </span>
-<span id="cb34-61"><a href="#cb34-61" aria-hidden="true" tabindex="-1"></a>               <span class="fu">max</span>(weather_data_subset<span class="sc">$</span>record_max_temp) <span class="sc">+</span> <span class="dv">5</span>),</span>
-<span id="cb34-62"><a href="#cb34-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(x, <span class="st">"°F"</span>))  <span class="co"># Add degree symbol to y-axis labels</span></span>
-<span id="cb34-63"><a href="#cb34-63" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb34-64"><a href="#cb34-64" aria-hidden="true" tabindex="-1"></a><span class="co"># save the chart</span></span>
-<span id="cb34-65"><a href="#cb34-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-66"><a href="#cb34-66" aria-hidden="true" tabindex="-1"></a>chart_location <span class="ot">&lt;-</span> <span class="fu">here</span>( <span class="st">"presentation-exercise"</span>,<span class="st">"results"</span>, <span class="st">"figures"</span>, <span class="st">"philadelphia.png"</span>) <span class="co"># to set up location for the pictures created </span></span>
-<span id="cb34-67"><a href="#cb34-67" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> chart_location, <span class="at">plot=</span>plot1, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">units =</span> <span class="st">"in"</span>, <span class="at">dpi =</span> <span class="dv">300</span>) <span class="co"># save the pictures created </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify new record highs and lows</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>weather_data_subset <span class="ot">&lt;-</span> data</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>new_max_records <span class="ot">&lt;-</span> weather_data_subset <span class="sc">%&gt;%</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(record_max_temp <span class="sc">&lt;=</span> actual_max_temp)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>new_min_records <span class="ot">&lt;-</span> weather_data_subset <span class="sc">%&gt;%</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(record_min_temp <span class="sc">&gt;=</span> actual_min_temp)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Insert the new record into the plot </span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(weather_data_subset, <span class="fu">aes</span>(<span class="at">x =</span> date)) <span class="sc">+</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Shaded area for normal range</span></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> average_min_temp, <span class="at">ymax =</span> average_max_temp), <span class="at">fill =</span> <span class="st">"#73736D"</span>, <span class="at">alpha =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Shaded area for record range</span></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> record_min_temp, <span class="at">ymax =</span> record_max_temp), <span class="at">fill =</span>  <span class="st">"#9a9a77"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Temperature ranges</span></span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> actual_min_temp, <span class="at">ymax =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> actual_min_temp, <span class="at">ymax =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"#4B3B47"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Record-breaking temperatures</span></span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> new_max_records, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> actual_max_temp), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> new_min_records, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> actual_min_temp), <span class="at">color =</span> <span class="st">"lightblue"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create the legend </span></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> <span class="fu">as.Date</span>(<span class="st">"2014-08-10"</span>) <span class="sc">-</span><span class="dv">4</span>, <span class="at">xmax =</span> <span class="fu">as.Date</span>(<span class="st">"2014-08-11"</span>) <span class="sc">+</span> <span class="dv">4</span>, <span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> <span class="dv">40</span>), <span class="at">fill =</span> <span class="st">"#9a9a77"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span> <span class="co"># First bar</span></span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> <span class="fu">as.Date</span>(<span class="st">"2014-08-10"</span>) <span class="sc">-</span><span class="dv">4</span>, <span class="at">xmax =</span> <span class="fu">as.Date</span>(<span class="st">"2014-08-11"</span>) <span class="sc">+</span> <span class="dv">4</span>, <span class="at">ymin =</span> <span class="dv">10</span>, <span class="at">ymax =</span> <span class="dv">30</span>), <span class="at">fill =</span> <span class="st">"#73736D"</span>, <span class="at">alpha =</span> <span class="fl">0.9</span>) <span class="sc">+</span> <span class="co"># Second bar</span></span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> <span class="fu">as.Date</span>(<span class="st">"2014-08-10"</span>) <span class="sc">-</span><span class="dv">4</span>, <span class="at">xmax =</span> <span class="fu">as.Date</span>(<span class="st">"2014-08-11"</span>) <span class="sc">+</span> <span class="dv">4</span>, <span class="at">ymin =</span> <span class="dv">15</span>, <span class="at">ymax =</span> <span class="dv">25</span>), <span class="at">fill =</span> <span class="st">"#4B3B47"</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span>   <span class="co"># Third bar</span></span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Add two points inside the horizontal bar</span></span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.Date</span>(<span class="st">"2014-08-10"</span>), <span class="at">y =</span> <span class="dv">42</span>), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>  <span class="co"># Point 1</span></span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.Date</span>(<span class="st">"2014-08-10"</span>), <span class="at">y =</span> <span class="sc">-</span><span class="dv">2</span>), <span class="at">color =</span> <span class="st">"lightblue"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>  <span class="co"># Point 2</span></span>
+<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.Date</span>(<span class="st">"2014-09-10"</span>), <span class="at">y =</span> <span class="dv">25</span>, <span class="at">label =</span> <span class="st">"New </span><span class="sc">\n</span><span class="st">record high"</span>), <span class="at">family=</span> <span class="st">"Serif"</span>, <span class="at">color =</span> <span class="st">"#73736D"</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="co"># adding text </span></span>
+<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.Date</span>(<span class="st">"2014-09-10"</span>), <span class="at">y =</span> <span class="sc">-</span><span class="dv">12</span>, <span class="at">label =</span> <span class="st">"New </span><span class="sc">\n</span><span class="st">recod low"</span>), <span class="at">family =</span> <span class="st">"Serif"</span>,<span class="at">color =</span> <span class="st">"#73736D"</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="co"># Adding text </span></span>
+<span id="cb36-30"><a href="#cb36-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.Date</span>(<span class="st">"2014-07-10"</span>), <span class="at">y =</span> <span class="dv">30</span>, <span class="at">label =</span> <span class="st">"Record high"</span>), <span class="at">family =</span><span class="st">"Serif"</span>, <span class="at">color =</span><span class="st">"#73736D"</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="co"># adding text </span></span>
+<span id="cb36-31"><a href="#cb36-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.Date</span>(<span class="st">"2014-07-10"</span>), <span class="at">y =</span> <span class="dv">2</span>, <span class="at">label =</span> <span class="st">"Recod low"</span>), <span class="at">family =</span><span class="st">"Serif"</span>, <span class="at">color =</span> <span class="st">"#73736D"</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="co"># Adding text </span></span>
+<span id="cb36-32"><a href="#cb36-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.Date</span>(<span class="st">"2014-09-10"</span>), <span class="at">y =</span> <span class="dv">15</span>, <span class="at">label =</span> <span class="st">"Normal range"</span>), <span class="at">family =</span> <span class="st">"Serif"</span>, <span class="at">color =</span><span class="st">"#73736D"</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="co"># adding text </span></span>
+<span id="cb36-33"><a href="#cb36-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.Date</span>(<span class="st">"2014-07-06"</span>), <span class="at">y =</span> <span class="dv">14</span>, <span class="at">label =</span> <span class="st">"Actual range"</span>), <span class="at">family =</span> <span class="st">"Serif"</span>,<span class="at">color =</span> <span class="st">"#73736D"</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="co"># Adding text </span></span>
+<span id="cb36-34"><a href="#cb36-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Labels and themes</span></span>
+<span id="cb36-35"><a href="#cb36-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Philadelphia"</span>,</span>
+<span id="cb36-36"><a href="#cb36-36" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb36-37"><a href="#cb36-37" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Temperature (°F)"</span>,</span>
+<span id="cb36-38"><a href="#cb36-38" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Data source: wunderground.com</span><span class="sc">\n</span><span class="st">Author: Randy Olson (randalolson.com / @randal_olson)"</span>) <span class="sc">+</span></span>
+<span id="cb36-39"><a href="#cb36-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Custom theme</span></span>
+<span id="cb36-40"><a href="#cb36-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb36-41"><a href="#cb36-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb36-42"><a href="#cb36-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb36-43"><a href="#cb36-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb36-44"><a href="#cb36-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"grey50"</span>, <span class="at">linetype =</span> <span class="st">"longdash"</span>, <span class="at">linewidth=</span> <span class="fl">0.2</span>),</span>
+<span id="cb36-45"><a href="#cb36-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb36-46"><a href="#cb36-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption.position =</span> <span class="st">"plot"</span>,</span>
+<span id="cb36-47"><a href="#cb36-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb36-48"><a href="#cb36-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)  <span class="co"># Ensure x-axis labels are readable</span></span>
+<span id="cb36-49"><a href="#cb36-49" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-50"><a href="#cb36-50" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Custom x-axis labels</span></span>
+<span id="cb36-51"><a href="#cb36-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(</span>
+<span id="cb36-52"><a href="#cb36-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">"2014-07-01"</span>), <span class="fu">as.Date</span>(<span class="st">"2015-07-01"</span>), <span class="at">by =</span> <span class="st">"1 month"</span>),</span>
+<span id="cb36-53"><a href="#cb36-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Jul</span><span class="sc">\n</span><span class="st">'14"</span>, <span class="st">"Aug"</span>, <span class="st">"Sep"</span>, <span class="st">"Oct"</span>, <span class="st">"Nov"</span>, <span class="st">"Dec"</span>, <span class="st">"Jan</span><span class="sc">\n</span><span class="st">'15"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>, <span class="st">"Apr"</span>, <span class="st">"May"</span>, <span class="st">"Jun"</span>, <span class="st">"Jul"</span>), <span class="co"># Jul\'14 is to place '14 under Jul, and the same for jan 15</span></span>
+<span id="cb36-54"><a href="#cb36-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">sec.axis =</span> <span class="fu">dup_axis</span>(<span class="at">name =</span> <span class="cn">NULL</span>)</span>
+<span id="cb36-55"><a href="#cb36-55" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-56"><a href="#cb36-56" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Define y-axis (temperature)</span></span>
+<span id="cb36-57"><a href="#cb36-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb36-58"><a href="#cb36-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">110</span>, <span class="dv">10</span>),</span>
+<span id="cb36-59"><a href="#cb36-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">sec.axis =</span> <span class="fu">dup_axis</span>(<span class="at">name =</span> <span class="cn">NULL</span>),</span>
+<span id="cb36-60"><a href="#cb36-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="fu">min</span>(weather_data_subset<span class="sc">$</span>record_min_temp) <span class="sc">-</span> <span class="dv">5</span>, </span>
+<span id="cb36-61"><a href="#cb36-61" aria-hidden="true" tabindex="-1"></a>               <span class="fu">max</span>(weather_data_subset<span class="sc">$</span>record_max_temp) <span class="sc">+</span> <span class="dv">5</span>),</span>
+<span id="cb36-62"><a href="#cb36-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(x, <span class="st">"°F"</span>))  <span class="co"># Add degree symbol to y-axis labels</span></span>
+<span id="cb36-63"><a href="#cb36-63" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb36-64"><a href="#cb36-64" aria-hidden="true" tabindex="-1"></a><span class="co"># save the chart</span></span>
+<span id="cb36-65"><a href="#cb36-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-66"><a href="#cb36-66" aria-hidden="true" tabindex="-1"></a>chart_location <span class="ot">&lt;-</span> <span class="fu">here</span>( <span class="st">"presentation-exercise"</span>,<span class="st">"results"</span>, <span class="st">"figures"</span>, <span class="st">"philadelphia.png"</span>) <span class="co"># to set up location for the pictures created </span></span>
+<span id="cb36-67"><a href="#cb36-67" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> chart_location, <span class="at">plot=</span>plot1, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">units =</span> <span class="st">"in"</span>, <span class="at">dpi =</span> <span class="dv">300</span>) <span class="co"># save the pictures created </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in geom_point(aes(x = as.Date("2014-08-10"), y = 42), color = "red", : All aesthetics have length 1, but the data has 365 rows.
 ℹ Please consider using `annotate()` or provide this layer with data containing
@@ -628,135 +647,239 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
 </div>
 </div>
 </section>
-</section>
 <section id="part-2-creating-a-table" class="level1">
 <h1>Part 2: Creating a table</h1>
-<p>Before creating a table, I want to look at the data closer and more detail.</p>
+<p>I create a table containing weather summary of Philadelphia in each season. To create this table, I got help from ChatGPT, I added mulptiple prompt step by step. I went throught multiple steps.</p>
+<p>Before asking AI to generate the code to create a table, I create subsets for each seasons.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 13
-  date       actual_mean_temp actual_min_temp actual_max_temp average_min_temp
-  &lt;date&gt;                &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;
-1 2014-07-01               83              72              93               68
-2 2014-07-02               86              75              96               68
-3 2014-07-03               83              74              92               68
-4 2014-07-04               73              68              78               68
-5 2014-07-05               74              64              83               69
-6 2014-07-06               75              64              86               69
-# ℹ 8 more variables: average_max_temp &lt;dbl&gt;, record_min_temp &lt;dbl&gt;,
-#   record_max_temp &lt;dbl&gt;, record_min_temp_year &lt;dbl&gt;,
-#   record_max_temp_year &lt;dbl&gt;, actual_precipitation &lt;dbl&gt;,
-#   average_precipitation &lt;dbl&gt;, record_precipitation &lt;dbl&gt;</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co">#extract data</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>weather_data <span class="ot">&lt;-</span> data</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract month for filtering</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>weather_data<span class="sc">$</span>Month <span class="ot">&lt;-</span> <span class="fu">format</span>(data<span class="sc">$</span>date, <span class="st">"%m"</span>)</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create subsets</span></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>summer <span class="ot">&lt;-</span> <span class="fu">filter</span>(weather_data, Month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"06"</span>, <span class="st">"07"</span>, <span class="st">"08"</span>))  <span class="co"># June - August</span></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>fall <span class="ot">&lt;-</span> <span class="fu">filter</span>(weather_data, Month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"09"</span>, <span class="st">"10"</span>, <span class="st">"11"</span>))    <span class="co"># September - November</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>winter <span class="ot">&lt;-</span> <span class="fu">filter</span>(weather_data, Month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"12"</span>, <span class="st">"01"</span>, <span class="st">"02"</span>))  <span class="co"># December - February</span></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>spring <span class="ot">&lt;-</span> <span class="fu">filter</span>(weather_data, Month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"03"</span>, <span class="st">"04"</span>, <span class="st">"05"</span>))  <span class="co"># March - May</span></span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(summer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      date            actual_mean_temp actual_min_temp actual_max_temp
- Min.   :2014-07-01   Min.   :10.00    Min.   : 2.00   Min.   :17.00  
- 1st Qu.:2014-09-30   1st Qu.:39.00    1st Qu.:33.00   1st Qu.:46.00  
- Median :2014-12-30   Median :59.00    Median :50.00   Median :69.00  
- Mean   :2014-12-30   Mean   :55.88    Mean   :47.27   Mean   :63.98  
- 3rd Qu.:2015-03-31   3rd Qu.:73.00    3rd Qu.:64.00   3rd Qu.:82.00  
+ Min.   :2014-07-01   Min.   :56.00    Min.   :53.00   Min.   :58.00  
+ 1st Qu.:2014-07-23   1st Qu.:73.00    1st Qu.:64.00   1st Qu.:81.00  
+ Median :2014-08-15   Median :76.00    Median :68.00   Median :84.50  
+ Mean   :2014-11-12   Mean   :76.14    Mean   :67.30   Mean   :84.35  
+ 3rd Qu.:2015-06-07   3rd Qu.:80.00    3rd Qu.:70.25   3rd Qu.:89.00  
  Max.   :2015-06-30   Max.   :86.00    Max.   :77.00   Max.   :96.00  
- average_min_temp average_max_temp record_min_temp  record_max_temp 
- Min.   :25.00    Min.   :40.00    Min.   :-11.00   Min.   : 61.00  
- 1st Qu.:32.00    1st Qu.:49.00    1st Qu.:  9.00   1st Qu.: 73.00  
- Median :46.00    Median :66.00    Median : 29.00   Median : 88.00  
- Mean   :47.22    Mean   :64.72    Mean   : 28.03   Mean   : 84.99  
- 3rd Qu.:63.00    3rd Qu.:81.00    3rd Qu.: 46.00   3rd Qu.: 97.00  
- Max.   :70.00    Max.   :87.00    Max.   : 59.00   Max.   :106.00  
+ average_min_temp average_max_temp record_min_temp record_max_temp 
+ Min.   :59.00    Min.   :79.00    Min.   :44.00   Min.   : 93.00  
+ 1st Qu.:66.00    1st Qu.:84.00    1st Qu.:48.75   1st Qu.: 98.00  
+ Median :68.00    Median :86.00    Median :52.00   Median : 99.00  
+ Mean   :67.09    Mean   :85.04    Mean   :51.68   Mean   : 99.16  
+ 3rd Qu.:69.00    3rd Qu.:87.00    3rd Qu.:55.00   3rd Qu.:100.25  
+ Max.   :70.00    Max.   :87.00    Max.   :59.00   Max.   :106.00  
  record_min_temp_year record_max_temp_year actual_precipitation
- Min.   :1872         Min.   :1874         Min.   :0.0000      
- 1st Qu.:1930         1st Qu.:1931         1st Qu.:0.0000      
- Median :1960         Median :1957         Median :0.0000      
- Mean   :1947         Mean   :1958         Mean   :0.1245      
- 3rd Qu.:1969         3rd Qu.:1990         3rd Qu.:0.0500      
- Max.   :2014         Max.   :2014         Max.   :2.0100      
- average_precipitation record_precipitation
- Min.   :0.0800        Min.   :0.850       
- 1st Qu.:0.1000        1st Qu.:1.550       
- Median :0.1100        Median :1.880       
- Mean   :0.1138        Mean   :2.135       
- 3rd Qu.:0.1200        3rd Qu.:2.490       
- Max.   :0.1500        Max.   :8.020       </code></pre>
+ Min.   :1884         Min.   :1888         Min.   :0.0000      
+ 1st Qu.:1952         1st Qu.:1930         1st Qu.:0.0000      
+ Median :1963         Median :1957         Median :0.0000      
+ Mean   :1960         Mean   :1961         Mean   :0.1818      
+ 3rd Qu.:1972         3rd Qu.:1994         3rd Qu.:0.1950      
+ Max.   :1999         Max.   :2012         Max.   :1.9600      
+ average_precipitation record_precipitation    Month          
+ Min.   :0.0900        Min.   :1.040        Length:92         
+ 1st Qu.:0.1100        1st Qu.:1.958        Class :character  
+ Median :0.1200        Median :2.440        Mode  :character  
+ Mean   :0.1226        Mean   :2.689                          
+ 3rd Qu.:0.1400        3rd Qu.:3.050                          
+ Max.   :0.1500        Max.   :8.020                          </code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fall)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      date            actual_mean_temp actual_min_temp actual_max_temp
+ Min.   :2014-09-01   Min.   :28.00    Min.   :20.00   Min.   :36.00  
+ 1st Qu.:2014-09-23   1st Qu.:50.50    1st Qu.:42.00   1st Qu.:57.00  
+ Median :2014-10-16   Median :61.00    Median :52.00   Median :70.00  
+ Mean   :2014-10-16   Mean   :58.79    Mean   :50.54   Mean   :66.55  
+ 3rd Qu.:2014-11-07   3rd Qu.:67.00    3rd Qu.:59.00   3rd Qu.:75.00  
+ Max.   :2014-11-30   Max.   :84.00    Max.   :74.00   Max.   :93.00  
+ average_min_temp average_max_temp record_min_temp record_max_temp 
+ Min.   :35.00    Min.   :50.00    Min.   : 8.00   Min.   : 70.00  
+ 1st Qu.:41.50    1st Qu.:59.00    1st Qu.:25.00   1st Qu.: 78.00  
+ Median :48.00    Median :67.00    Median :31.00   Median : 87.00  
+ Mean   :49.34    Mean   :66.95    Mean   :31.53   Mean   : 85.23  
+ 3rd Qu.:57.50    3rd Qu.:75.00    3rd Qu.:39.00   3rd Qu.: 92.00  
+ Max.   :65.00    Max.   :83.00    Max.   :53.00   Max.   :102.00  
+ record_min_temp_year record_max_temp_year actual_precipitation
+ Min.   :1875         Min.   :1879         Min.   :0.0000      
+ 1st Qu.:1944         1st Qu.:1927         1st Qu.:0.0000      
+ Median :1961         Median :1949         Median :0.0000      
+ Mean   :1954         Mean   :1949         Mean   :0.0911      
+ 3rd Qu.:1969         3rd Qu.:1975         3rd Qu.:0.0100      
+ Max.   :2013         Max.   :2014         Max.   :1.0500      
+ average_precipitation record_precipitation    Month          
+ Min.   :0.0800        Min.   :0.900        Length:91         
+ 1st Qu.:0.1000        1st Qu.:1.600        Class :character  
+ Median :0.1100        Median :1.950        Mode  :character  
+ Mean   :0.1093        Mean   :2.276                          
+ 3rd Qu.:0.1200        3rd Qu.:2.725                          
+ Max.   :0.1400        Max.   :6.630                          </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(winter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      date            actual_mean_temp actual_min_temp actual_max_temp
+ Min.   :2014-12-01   Min.   :10.00    Min.   : 2.00   Min.   :17.00  
+ 1st Qu.:2014-12-23   1st Qu.:27.25    1st Qu.:20.00   1st Qu.:34.00  
+ Median :2015-01-14   Median :34.00    Median :27.00   Median :41.00  
+ Mean   :2015-01-14   Mean   :33.06    Mean   :25.74   Mean   :39.87  
+ 3rd Qu.:2015-02-05   3rd Qu.:39.75    3rd Qu.:33.00   3rd Qu.:45.75  
+ Max.   :2015-02-28   Max.   :56.00    Max.   :47.00   Max.   :65.00  
+ average_min_temp average_max_temp record_min_temp   record_max_temp
+ Min.   :25.00    Min.   :40.00    Min.   :-11.000   Min.   :61.00  
+ 1st Qu.:26.00    1st Qu.:41.00    1st Qu.:  0.000   1st Qu.:65.00  
+ Median :27.00    Median :42.00    Median :  3.000   Median :68.00  
+ Mean   :27.84    Mean   :42.94    Mean   :  2.778   Mean   :68.03  
+ 3rd Qu.:29.00    3rd Qu.:45.00    3rd Qu.:  6.750   3rd Qu.:70.00  
+ Max.   :34.00    Max.   :50.00    Max.   : 15.000   Max.   :79.00  
+ record_min_temp_year record_max_temp_year actual_precipitation
+ Min.   :1875         Min.   :1874         Min.   :0.0000      
+ 1st Qu.:1897         1st Qu.:1941         1st Qu.:0.0000      
+ Median :1942         Median :1968         Median :0.0000      
+ Mean   :1937         Mean   :1963         Mean   :0.1128      
+ 3rd Qu.:1977         3rd Qu.:1996         3rd Qu.:0.0475      
+ Max.   :2014         Max.   :2013         Max.   :1.8400      
+ average_precipitation record_precipitation    Month          
+ Min.   :0.0900        Min.   :0.900        Length:90         
+ 1st Qu.:0.0900        1st Qu.:1.343        Class :character  
+ Median :0.1000        Median :1.585        Mode  :character  
+ Mean   :0.1027        Mean   :1.687                          
+ 3rd Qu.:0.1100        3rd Qu.:1.847                          
+ Max.   :0.1300        Max.   :3.860                          </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spring)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      date            actual_mean_temp actual_min_temp actual_max_temp
+ Min.   :2015-03-01   Min.   :19.00    Min.   :11.00   Min.   :26.00  
+ 1st Qu.:2015-03-23   1st Qu.:44.00    1st Qu.:34.00   1st Qu.:51.75  
+ Median :2015-04-15   Median :56.00    Median :46.00   Median :66.50  
+ Mean   :2015-04-15   Mean   :55.09    Mean   :45.04   Mean   :64.67  
+ 3rd Qu.:2015-05-08   3rd Qu.:65.50    3rd Qu.:54.00   3rd Qu.:77.00  
+ Max.   :2015-05-31   Max.   :81.00    Max.   :71.00   Max.   :92.00  
+ average_min_temp average_max_temp record_min_temp record_max_temp
+ Min.   :30.00    Min.   :48.00    Min.   : 5.00   Min.   :71.00  
+ 1st Qu.:36.75    1st Qu.:55.75    1st Qu.:14.00   1st Qu.:82.00  
+ Median :44.00    Median :64.00    Median :27.00   Median :90.00  
+ Mean   :44.22    Mean   :63.51    Mean   :25.62   Mean   :87.16  
+ 3rd Qu.:51.25    3rd Qu.:71.25    3rd Qu.:35.25   3rd Qu.:92.25  
+ Max.   :59.00    Max.   :78.00    Max.   :43.00   Max.   :97.00  
+ record_min_temp_year record_max_temp_year actual_precipitation
+ Min.   :1872         Min.   :1880         Min.   :0.0000      
+ 1st Qu.:1894         1st Qu.:1936         1st Qu.:0.0000      
+ Median :1956         Median :1962         Median :0.0000      
+ Mean   :1938         Mean   :1958         Mean   :0.1118      
+ 3rd Qu.:1966         3rd Qu.:1990         3rd Qu.:0.0300      
+ Max.   :2002         Max.   :2013         Max.   :2.0100      
+ average_precipitation record_precipitation    Month          
+ Min.   :0.1000        Min.   :0.850        Length:92         
+ 1st Qu.:0.1100        1st Qu.:1.478        Class :character  
+ Median :0.1200        Median :1.765        Mode  :character  
+ Mean   :0.1202        Mean   :1.882                          
+ 3rd Qu.:0.1300        3rd Qu.:2.192                          
+ Max.   :0.1400        Max.   :4.420                          </code></pre>
+</div>
+</div>
+<p>In this step, I used ChatGPT to create table. Here is the prompt that I used:</p>
+<p>Now I have 4 subsets: summer, fall,, winter, and spring. Those subsets have actual_mean_temp, average_min_temp, average_max_temp, average_precipitation. I want to create a beautiful and easy read table. Please give me idea and step by step, including code.</p>
+<p>The firt table generated did not look good. Therefore, I add more prompt in each feature that I want. For example, I want to add icons representing the season, I want to arrange inidcators in the column, and seasons as rows. I actually added more prompt.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize the data for each season</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>summary_table <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  summer <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">Season =</span> <span class="st">"Summer"</span>, </span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>                       <span class="st">`</span><span class="at">Avg Min Temp (°F)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(average_min_temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>                       <span class="st">`</span><span class="at">Avg Mean Temp (°F)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(actual_mean_temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>                       <span class="st">`</span><span class="at">Avg Max Temp (°F)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(average_max_temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>                       <span class="st">`</span><span class="at">Avg Precipitation (inches)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(average_precipitation, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>  fall <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">Season =</span> <span class="st">"Fall"</span>, </span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>                     <span class="st">`</span><span class="at">Avg Min Temp (°F)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(average_min_temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>                     <span class="st">`</span><span class="at">Avg Mean Temp (°F)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(actual_mean_temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>                     <span class="st">`</span><span class="at">Avg Max Temp (°F)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(average_max_temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>                     <span class="st">`</span><span class="at">Avg Precipitation (inches)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(average_precipitation, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>  winter <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">Season =</span> <span class="st">"Winter"</span>, </span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>                       <span class="st">`</span><span class="at">Avg Min Temp (°F)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(average_min_temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>                       <span class="st">`</span><span class="at">Avg Mean Temp (°F)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(actual_mean_temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>                       <span class="st">`</span><span class="at">Avg Max Temp (°F)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(average_max_temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a>                       <span class="st">`</span><span class="at">Avg Precipitation (inches)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(average_precipitation, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a>  spring <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">Season =</span> <span class="st">"Spring"</span>, </span>
+<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a>                       <span class="st">`</span><span class="at">Avg Min Temp (°F)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(average_min_temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a>                       <span class="st">`</span><span class="at">Avg Mean Temp (°F)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(actual_mean_temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a>                       <span class="st">`</span><span class="at">Avg Max Temp (°F)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(average_max_temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a>                       <span class="st">`</span><span class="at">Avg Precipitation (inches)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(average_precipitation, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Create a summary table with select columns</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>summary_table <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date, actual_mean_temp, actual_min_temp, actual_max_temp, average_min_temp, average_max_temp) <span class="sc">%&gt;%</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">year =</span> <span class="fu">format</span>(date, <span class="st">"%Y"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Min_Temperature =</span> <span class="fu">min</span>(actual_min_temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Max_Temperature =</span> <span class="fu">max</span>(actual_max_temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Avg_Min_Temperature =</span> <span class="fu">mean</span>(average_min_temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Avg_Max_Temperature =</span> <span class="fu">mean</span>(average_max_temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the table using gt</span></span>
-<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>gt_table <span class="ot">&lt;-</span> summary_table <span class="sc">%&gt;%</span></span>
-<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(</span>
-<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Annual Temperature Summary"</span>,</span>
-<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Philadelphia (2014-2015)"</span></span>
-<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(</span>
-<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"Temperature Range"</span>,</span>
-<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(Min_Temperature, Max_Temperature)</span>
-<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(</span>
-<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"Average Temperature"</span>,</span>
-<span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(Avg_Min_Temperature, Avg_Max_Temperature)</span>
-<span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb47-27"><a href="#cb47-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
-<span id="cb47-28"><a href="#cb47-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="st">"Year"</span>,</span>
-<span id="cb47-29"><a href="#cb47-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">Min_Temperature =</span> <span class="st">"Min Temp (°F)"</span>,</span>
-<span id="cb47-30"><a href="#cb47-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">Max_Temperature =</span> <span class="st">"Max Temp (°F)"</span>,</span>
-<span id="cb47-31"><a href="#cb47-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">Avg_Min_Temperature =</span> <span class="st">"Avg Min Temp (°F)"</span>,</span>
-<span id="cb47-32"><a href="#cb47-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">Avg_Max_Temperature =</span> <span class="st">"Avg Max Temp (°F)"</span></span>
-<span id="cb47-33"><a href="#cb47-33" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb47-34"><a href="#cb47-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(</span>
-<span id="cb47-35"><a href="#cb47-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(Min_Temperature, Max_Temperature, Avg_Min_Temperature, Avg_Max_Temperature),</span>
-<span id="cb47-36"><a href="#cb47-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">decimals =</span> <span class="dv">1</span></span>
-<span id="cb47-37"><a href="#cb47-37" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb47-38"><a href="#cb47-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
-<span id="cb47-39"><a href="#cb47-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">list</span>(</span>
-<span id="cb47-40"><a href="#cb47-40" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cell_fill</span>(<span class="at">color =</span> <span class="st">"#f0f0f0"</span>),</span>
-<span id="cb47-41"><a href="#cb47-41" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">12</span>)</span>
-<span id="cb47-42"><a href="#cb47-42" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb47-43"><a href="#cb47-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_title</span>(<span class="at">groups =</span> <span class="fu">c</span>(<span class="st">"title"</span>, <span class="st">"subtitle"</span>))</span>
-<span id="cb47-44"><a href="#cb47-44" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb47-45"><a href="#cb47-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
-<span id="cb47-46"><a href="#cb47-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_fill</span>(<span class="at">color =</span> <span class="st">"#E7F6FF"</span>),</span>
-<span id="cb47-47"><a href="#cb47-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">columns =</span> <span class="fu">c</span>(Min_Temperature, Max_Temperature))</span>
-<span id="cb47-48"><a href="#cb47-48" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb47-49"><a href="#cb47-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
-<span id="cb47-50"><a href="#cb47-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_fill</span>(<span class="at">color =</span> <span class="st">"#FFFAE5"</span>),</span>
-<span id="cb47-51"><a href="#cb47-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">columns =</span> <span class="fu">c</span>(Avg_Min_Temperature, Avg_Max_Temperature))</span>
-<span id="cb47-52"><a href="#cb47-52" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb47-53"><a href="#cb47-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-54"><a href="#cb47-54" aria-hidden="true" tabindex="-1"></a><span class="co"># View the table</span></span>
-<span id="cb47-55"><a href="#cb47-55" aria-hidden="true" tabindex="-1"></a>gt_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add seasonal icons in a separate column</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>summary_table <span class="ot">&lt;-</span> summary_table <span class="sc">%&gt;%</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at"> </span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"☀️"</span>, <span class="st">"🍂"</span>, <span class="st">"❄️"</span>, <span class="st">"🌸"</span>))  <span class="co"># Adding icons for Summer, Fall, Winter, Spring</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a styled gt table</span></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>styled_table <span class="ot">&lt;-</span> summary_table <span class="sc">%&gt;%</span></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">md</span>(<span class="st">"**Philadelphia Seasonal Weather Summary**"</span>),</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="fu">md</span>(<span class="st">"*Weather data from July 2014 - June 2015*"</span>)</span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(<span class="at">label =</span> <span class="st">"Temperature (°F)"</span>, <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">Avg Min Temp (°F)</span><span class="st">`</span>, <span class="st">`</span><span class="at">Avg Mean Temp (°F)</span><span class="st">`</span>, <span class="st">`</span><span class="at">Avg Max Temp (°F)</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(<span class="at">label =</span> <span class="st">"Precipitation"</span>, <span class="at">columns =</span> <span class="st">`</span><span class="at">Avg Precipitation (inches)</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(</span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">where</span>(is.numeric),</span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">decimals =</span> <span class="dv">1</span></span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_move_to_start</span>(<span class="at">columns =</span> <span class="st">"Season"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_move</span>(<span class="at">columns =</span> <span class="st">" "</span>, <span class="at">after =</span> <span class="st">"Season"</span>) <span class="sc">%&gt;%</span>  <span class="co"># Moves icon column after season</span></span>
+<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(</span>
+<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">align =</span> <span class="st">"left"</span>,</span>
+<span id="cb54-22"><a href="#cb54-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="st">"Season"</span>  <span class="co"># Keep Season column left-aligned</span></span>
+<span id="cb54-23"><a href="#cb54-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb54-24"><a href="#cb54-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(</span>
+<span id="cb54-25"><a href="#cb54-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">align =</span> <span class="st">"center"</span>,</span>
+<span id="cb54-26"><a href="#cb54-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at"> </span><span class="st">`</span>, <span class="st">`</span><span class="at">Avg Min Temp (°F)</span><span class="st">`</span>, <span class="st">`</span><span class="at">Avg Mean Temp (°F)</span><span class="st">`</span>, <span class="st">`</span><span class="at">Avg Max Temp (°F)</span><span class="st">`</span>, <span class="st">`</span><span class="at">Avg Precipitation (inches)</span><span class="st">`</span>)  <span class="co"># Center all other columns</span></span>
+<span id="cb54-27"><a href="#cb54-27" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb54-28"><a href="#cb54-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_source_note</span>(<span class="fu">md</span>(<span class="st">"**Source:** https://www.wunderground.com/, July 2014 - June 2015."</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb54-29"><a href="#cb54-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_footnote</span>(<span class="at">footnote =</span> <span class="st">"Precipitation measured in inches"</span>, <span class="at">locations =</span> <span class="fu">cells_column_labels</span>(<span class="at">columns =</span> <span class="st">`</span><span class="at">Avg Precipitation (inches)</span><span class="st">`</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb54-30"><a href="#cb54-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data_color</span>(</span>
+<span id="cb54-31"><a href="#cb54-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">Avg Min Temp (°F)</span><span class="st">`</span>, <span class="st">`</span><span class="at">Avg Max Temp (°F)</span><span class="st">`</span>),</span>
+<span id="cb54-32"><a href="#cb54-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">colors =</span> scales<span class="sc">::</span><span class="fu">col_numeric</span>(</span>
+<span id="cb54-33"><a href="#cb54-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"white"</span>, <span class="st">"red"</span>),</span>
+<span id="cb54-34"><a href="#cb54-34" aria-hidden="true" tabindex="-1"></a>      <span class="at">domain =</span> <span class="fu">range</span>(summary_table<span class="sc">$</span><span class="st">`</span><span class="at">Avg Min Temp (°F)</span><span class="st">`</span>, summary_table<span class="sc">$</span><span class="st">`</span><span class="at">Avg Max Temp (°F)</span><span class="st">`</span>)</span>
+<span id="cb54-35"><a href="#cb54-35" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb54-36"><a href="#cb54-36" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Since gt v0.9.0, the `colors` argument has been deprecated.
+• Please use the `fn` argument instead.
+This warning is displayed once every 8 hours.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the table</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>styled_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="morodqogga" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#morodqogga table {
+<div id="psgmzscyaj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#psgmzscyaj table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#morodqogga thead, #morodqogga tbody, #morodqogga tfoot, #morodqogga tr, #morodqogga td, #morodqogga th {
+#psgmzscyaj thead, #psgmzscyaj tbody, #psgmzscyaj tfoot, #psgmzscyaj tr, #psgmzscyaj td, #psgmzscyaj th {
   border-style: none;
 }
 
-#morodqogga p {
+#psgmzscyaj p {
   margin: 0;
   padding: 0;
 }
 
-#morodqogga .gt_table {
+#psgmzscyaj .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -782,12 +905,12 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   border-left-color: #D3D3D3;
 }
 
-#morodqogga .gt_caption {
+#psgmzscyaj .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#morodqogga .gt_title {
+#psgmzscyaj .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -799,7 +922,7 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   border-bottom-width: 0;
 }
 
-#morodqogga .gt_subtitle {
+#psgmzscyaj .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -811,7 +934,7 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   border-top-width: 0;
 }
 
-#morodqogga .gt_heading {
+#psgmzscyaj .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -823,13 +946,13 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   border-right-color: #D3D3D3;
 }
 
-#morodqogga .gt_bottom_border {
+#psgmzscyaj .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#morodqogga .gt_col_headings {
+#psgmzscyaj .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -844,7 +967,7 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   border-right-color: #D3D3D3;
 }
 
-#morodqogga .gt_col_heading {
+#psgmzscyaj .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -864,7 +987,7 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   overflow-x: hidden;
 }
 
-#morodqogga .gt_column_spanner_outer {
+#psgmzscyaj .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -876,15 +999,15 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   padding-right: 4px;
 }
 
-#morodqogga .gt_column_spanner_outer:first-child {
+#psgmzscyaj .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#morodqogga .gt_column_spanner_outer:last-child {
+#psgmzscyaj .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#morodqogga .gt_column_spanner {
+#psgmzscyaj .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -896,11 +1019,11 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   width: 100%;
 }
 
-#morodqogga .gt_spanner_row {
+#psgmzscyaj .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#morodqogga .gt_group_heading {
+#psgmzscyaj .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -926,7 +1049,7 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   text-align: left;
 }
 
-#morodqogga .gt_empty_group_heading {
+#psgmzscyaj .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -941,15 +1064,15 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   vertical-align: middle;
 }
 
-#morodqogga .gt_from_md > :first-child {
+#psgmzscyaj .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#morodqogga .gt_from_md > :last-child {
+#psgmzscyaj .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#morodqogga .gt_row {
+#psgmzscyaj .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -968,7 +1091,7 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   overflow-x: hidden;
 }
 
-#morodqogga .gt_stub {
+#psgmzscyaj .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -981,7 +1104,7 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   padding-right: 5px;
 }
 
-#morodqogga .gt_stub_row_group {
+#psgmzscyaj .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -995,15 +1118,15 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   vertical-align: top;
 }
 
-#morodqogga .gt_row_group_first td {
+#psgmzscyaj .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#morodqogga .gt_row_group_first th {
+#psgmzscyaj .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#morodqogga .gt_summary_row {
+#psgmzscyaj .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1013,16 +1136,16 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   padding-right: 5px;
 }
 
-#morodqogga .gt_first_summary_row {
+#psgmzscyaj .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#morodqogga .gt_first_summary_row.thick {
+#psgmzscyaj .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#morodqogga .gt_last_summary_row {
+#psgmzscyaj .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1032,7 +1155,7 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   border-bottom-color: #D3D3D3;
 }
 
-#morodqogga .gt_grand_summary_row {
+#psgmzscyaj .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1042,7 +1165,7 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   padding-right: 5px;
 }
 
-#morodqogga .gt_first_grand_summary_row {
+#psgmzscyaj .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1052,7 +1175,7 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   border-top-color: #D3D3D3;
 }
 
-#morodqogga .gt_last_grand_summary_row_top {
+#psgmzscyaj .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1062,11 +1185,11 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   border-bottom-color: #D3D3D3;
 }
 
-#morodqogga .gt_striped {
+#psgmzscyaj .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#morodqogga .gt_table_body {
+#psgmzscyaj .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1075,7 +1198,7 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   border-bottom-color: #D3D3D3;
 }
 
-#morodqogga .gt_footnotes {
+#psgmzscyaj .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1089,7 +1212,7 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   border-right-color: #D3D3D3;
 }
 
-#morodqogga .gt_footnote {
+#psgmzscyaj .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1098,7 +1221,7 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   padding-right: 5px;
 }
 
-#morodqogga .gt_sourcenotes {
+#psgmzscyaj .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1112,7 +1235,7 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   border-right-color: #D3D3D3;
 }
 
-#morodqogga .gt_sourcenote {
+#psgmzscyaj .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1120,125 +1243,137 @@ Figure&nbsp;1: Temperature Record in Philadelphia (imitation)
   padding-right: 5px;
 }
 
-#morodqogga .gt_left {
+#psgmzscyaj .gt_left {
   text-align: left;
 }
 
-#morodqogga .gt_center {
+#psgmzscyaj .gt_center {
   text-align: center;
 }
 
-#morodqogga .gt_right {
+#psgmzscyaj .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#morodqogga .gt_font_normal {
+#psgmzscyaj .gt_font_normal {
   font-weight: normal;
 }
 
-#morodqogga .gt_font_bold {
+#psgmzscyaj .gt_font_bold {
   font-weight: bold;
 }
 
-#morodqogga .gt_font_italic {
+#psgmzscyaj .gt_font_italic {
   font-style: italic;
 }
 
-#morodqogga .gt_super {
+#psgmzscyaj .gt_super {
   font-size: 65%;
 }
 
-#morodqogga .gt_footnote_marks {
+#psgmzscyaj .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#morodqogga .gt_asterisk {
+#psgmzscyaj .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#morodqogga .gt_indent_1 {
+#psgmzscyaj .gt_indent_1 {
   text-indent: 5px;
 }
 
-#morodqogga .gt_indent_2 {
+#psgmzscyaj .gt_indent_2 {
   text-indent: 10px;
 }
 
-#morodqogga .gt_indent_3 {
+#psgmzscyaj .gt_indent_3 {
   text-indent: 15px;
 }
 
-#morodqogga .gt_indent_4 {
+#psgmzscyaj .gt_indent_4 {
   text-indent: 20px;
 }
 
-#morodqogga .gt_indent_5 {
+#psgmzscyaj .gt_indent_5 {
   text-indent: 25px;
 }
 
-#morodqogga .katex-display {
+#psgmzscyaj .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#morodqogga div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#psgmzscyaj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-</colgroup>
-<thead>
-<tr class="gt_heading header">
-<th colspan="5" class="gt_heading gt_title gt_font_normal" style="background-color: #F0F0F0; font-size: 12; font-weight: bold">Annual Temperature Summary</th>
-</tr>
-<tr class="gt_heading even">
-<th colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="background-color: #F0F0F0; font-size: 12; font-weight: bold">Philadelphia (2014-2015)</th>
-</tr>
-<tr class="gt_col_headings gt_spanner_row header">
-<th rowspan="2" id="year" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Year</th>
-<th colspan="2" id="Temperature Range" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
-Temperature Range
-</div></th>
-<th colspan="2" id="Average Temperature" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
-Average Temperature
-</div></th>
-</tr>
-<tr class="gt_col_headings even">
-<th id="Min_Temperature" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Min Temp (°F)</th>
-<th id="Max_Temperature" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Max Temp (°F)</th>
-<th id="Avg_Min_Temperature" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Avg Min Temp (°F)</th>
-<th id="Avg_Max_Temperature" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Avg Max Temp (°F)</th>
-</tr>
-</thead>
-<tbody class="gt_table_body">
-<tr class="odd">
-<td class="gt_row gt_right" headers="year">2014</td>
-<td class="gt_row gt_right" headers="Min_Temperature" style="background-color: #E7F6FF">20.0</td>
-<td class="gt_row gt_right" headers="Max_Temperature" style="background-color: #E7F6FF">96.0</td>
-<td class="gt_row gt_right" headers="Avg_Min_Temperature" style="background-color: #FFFAE5">52.6</td>
-<td class="gt_row gt_right" headers="Avg_Max_Temperature" style="background-color: #FFFAE5">69.7</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="year">2015</td>
-<td class="gt_row gt_right" headers="Min_Temperature" style="background-color: #E7F6FF">2.0</td>
-<td class="gt_row gt_right" headers="Max_Temperature" style="background-color: #E7F6FF">95.0</td>
-<td class="gt_row gt_right" headers="Avg_Min_Temperature" style="background-color: #FFFAE5">41.7</td>
-<td class="gt_row gt_right" headers="Avg_Max_Temperature" style="background-color: #FFFAE5">59.7</td>
-</tr>
-</tbody>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="6" class="gt_heading gt_title gt_font_normal" style=""><span data-qmd-base64="PHN0cm9uZz5QaGlsYWRlbHBoaWEgU2Vhc29uYWwgV2VhdGhlciBTdW1tYXJ5PC9zdHJvbmc+"><span class="gt_from_md"><strong>Philadelphia Seasonal Weather Summary</strong></span></span></td>
+    </tr>
+    <tr class="gt_heading">
+      <td colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style=""><span data-qmd-base64="PGVtPldlYXRoZXIgZGF0YSBmcm9tIEp1bHkgMjAxNCAtIEp1bmUgMjAxNTwvZW0+"><span class="gt_from_md"><em>Weather data from July 2014 - June 2015</em></span></span></td>
+    </tr>
+    <tr class="gt_col_headings gt_spanner_row">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="Season">Season</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1" scope="col" id="a-"> </th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="3" scope="colgroup" id="Temperature (°F)">
+        <div class="gt_column_spanner">Temperature (°F)</div>
+      </th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="1" scope="col" id="Precipitation">
+        <div class="gt_column_spanner">Precipitation</div>
+      </th>
+    </tr>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Avg-Min-Temp-(°F)">Avg Min Temp (°F)</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Avg-Mean-Temp-(°F)">Avg Mean Temp (°F)</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Avg-Max-Temp-(°F)">Avg Max Temp (°F)</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Avg-Precipitation-(inches)">Avg Precipitation (inches)<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="Season" class="gt_row gt_left">Summer</td>
+<td headers=" " class="gt_row gt_center">☀️</td>
+<td headers="Avg Min Temp (°F)" class="gt_row gt_center" style="background-color: #FFB7A0; color: #000000;">67.1</td>
+<td headers="Avg Mean Temp (°F)" class="gt_row gt_center">76.1</td>
+<td headers="Avg Max Temp (°F)" class="gt_row gt_center" style="background-color: #FF0000; color: #FFFFFF;">85.0</td>
+<td headers="Avg Precipitation (inches)" class="gt_row gt_center">0.1</td></tr>
+    <tr><td headers="Season" class="gt_row gt_left">Fall</td>
+<td headers=" " class="gt_row gt_center">🍂</td>
+<td headers="Avg Min Temp (°F)" class="gt_row gt_center" style="background-color: #DCC5FF; color: #000000;">49.3</td>
+<td headers="Avg Mean Temp (°F)" class="gt_row gt_center">58.8</td>
+<td headers="Avg Max Temp (°F)" class="gt_row gt_center" style="background-color: #FFB8A2; color: #000000;">66.9</td>
+<td headers="Avg Precipitation (inches)" class="gt_row gt_center">0.1</td></tr>
+    <tr><td headers="Season" class="gt_row gt_left">Winter</td>
+<td headers=" " class="gt_row gt_center">❄️</td>
+<td headers="Avg Min Temp (°F)" class="gt_row gt_center" style="background-color: #0000FF; color: #FFFFFF;">27.8</td>
+<td headers="Avg Mean Temp (°F)" class="gt_row gt_center">33.1</td>
+<td headers="Avg Max Temp (°F)" class="gt_row gt_center" style="background-color: #B892FF; color: #000000;">42.9</td>
+<td headers="Avg Precipitation (inches)" class="gt_row gt_center">0.1</td></tr>
+    <tr><td headers="Season" class="gt_row gt_left">Spring</td>
+<td headers=" " class="gt_row gt_center">🌸</td>
+<td headers="Avg Min Temp (°F)" class="gt_row gt_center" style="background-color: #C09CFF; color: #000000;">44.2</td>
+<td headers="Avg Mean Temp (°F)" class="gt_row gt_center">55.1</td>
+<td headers="Avg Max Temp (°F)" class="gt_row gt_center" style="background-color: #FFD0BF; color: #000000;">63.5</td>
+<td headers="Avg Precipitation (inches)" class="gt_row gt_center">0.1</td></tr>
+  </tbody>
+  <tfoot class="gt_sourcenotes">
+    <tr>
+      <td class="gt_sourcenote" colspan="6"><span data-qmd-base64="PHN0cm9uZz5Tb3VyY2U6PC9zdHJvbmc+IDxhIGhyZWY9Imh0dHBzOi8vd3d3Lnd1bmRlcmdyb3VuZC5jb20vIj5odHRwczovL3d3dy53dW5kZXJncm91bmQuY29tLzwvYT4sIEp1bHkgMjAxNCAtIEp1bmUgMjAxNS4="><span class="gt_from_md"><strong>Source:</strong> <a href="https://www.wunderground.com/">https://www.wunderground.com/</a>, July 2014 - June 2015.</span></span></td>
+    </tr>
+  </tfoot>
+  <tfoot class="gt_footnotes">
+    <tr>
+      <td class="gt_footnote" colspan="6"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> Precipitation measured in inches</td>
+    </tr>
+  </tfoot>
 </table>
-
 </div>
 </div>
 </div>

@@ -4,8 +4,6 @@ output: html
 editor: visual
 ---
 
-## About the dataset
-
 
 
 ### Install Packages
@@ -32,8 +30,16 @@ library(ggridges)  #
 library(forcats)
 install.packages("gt")
 library(gt)
-
+install.packages("gtExtras", dependencies = TRUE)
+library(gtExtras)
 ```
+### About the dataset
+
+In this axercise, I use US Weather History Dataset which contains weather summary of several cities. In this exercise, I only use Philadelphia as example, because the chart are same across the cities. I got the dataset and chart from fivethirtyeight. Link:  https://fivethirtyeight.com/features/what-12-months-of-record-setting-temperatures-looks-like-across-the-u-s/
+
+Dataset link: https://data.fivethirtyeight.com/
+
+@fig-temperature is the original graph. 
 ```{r}
 
 #| label: fig-temperature
@@ -42,12 +48,11 @@ library(gt)
 knitr::include_graphics(here("presentation-exercise","results","figures","phila-ori.png"))
 ```
 
-
 ### Read the dataset
 
 ```{r}
 # Load the dataset
-data_loc <- here("presentation-exercise", "data", "KPHL.csv") 
+data_loc <- here("presentation-exercise", "data", "Philadelphia.csv") 
 data <- read_csv(data_loc)
 
 data$date <- as.Date(data$date, format="%Y-%m-%d") # convert variable into date format 
@@ -244,71 +249,114 @@ knitr::include_graphics(here("presentation-exercise","results","figures","philad
 
 # Part 2: Creating a table
 
-Before creating a table, I want to look at the data closer and more detail.
+I create a table containing weather summary of Philadelphia in each season. To create this table, I got help from ChatGPT, I added mulptiple prompt step by step. I went throught multiple steps. 
+
+Before asking AI to generate the code to create a table, I create subsets for each seasons. 
+
 
 ```{r}
-head(data)
+#extract data
+weather_data <- data
+
+
+# Extract month for filtering
+weather_data$Month <- format(data$date, "%m")
+
+# Create subsets
+summer <- filter(weather_data, Month %in% c("06", "07", "08"))  # June - August
+fall <- filter(weather_data, Month %in% c("09", "10", "11"))    # September - November
+winter <- filter(weather_data, Month %in% c("12", "01", "02"))  # December - February
+spring <- filter(weather_data, Month %in% c("03", "04", "05"))  # March - May
+
+summary(summer)
+summary(fall)
+summary(winter)
+summary(spring)
+
+
 ```
 
+
+In this step, I used ChatGPT to create table. Here is the prompt that I used: 
+
+Now I have 4 subsets: summer, fall,, winter, and spring. 
+Those subsets have actual_mean_temp, average_min_temp, average_max_temp, average_precipitation. 
+I want to create a beautiful and easy read table. Please give me idea and step by step, including code. 
+
+The firt table generated did not look good. Therefore, I add more prompt in each feature that I want. For example, I want to add icons representing the season, I want to arrange inidcators in the column, and seasons as rows. I actually added more prompt. 
 ```{r}
-summary(data)
+
+# Summarize the data for each season
+summary_table <- bind_rows(
+  summer %>% summarise(Season = "Summer", 
+                       `Avg Min Temp (°F)` = mean(average_min_temp, na.rm = TRUE),
+                       `Avg Mean Temp (°F)` = mean(actual_mean_temp, na.rm = TRUE),
+                       `Avg Max Temp (°F)` = mean(average_max_temp, na.rm = TRUE),
+                       `Avg Precipitation (inches)` = mean(average_precipitation, na.rm = TRUE)),
+  fall %>% summarise(Season = "Fall", 
+                     `Avg Min Temp (°F)` = mean(average_min_temp, na.rm = TRUE),
+                     `Avg Mean Temp (°F)` = mean(actual_mean_temp, na.rm = TRUE),
+                     `Avg Max Temp (°F)` = mean(average_max_temp, na.rm = TRUE),
+                     `Avg Precipitation (inches)` = mean(average_precipitation, na.rm = TRUE)),
+  winter %>% summarise(Season = "Winter", 
+                       `Avg Min Temp (°F)` = mean(average_min_temp, na.rm = TRUE),
+                       `Avg Mean Temp (°F)` = mean(actual_mean_temp, na.rm = TRUE),
+                       `Avg Max Temp (°F)` = mean(average_max_temp, na.rm = TRUE),
+                       `Avg Precipitation (inches)` = mean(average_precipitation, na.rm = TRUE)),
+  spring %>% summarise(Season = "Spring", 
+                       `Avg Min Temp (°F)` = mean(average_min_temp, na.rm = TRUE),
+                       `Avg Mean Temp (°F)` = mean(actual_mean_temp, na.rm = TRUE),
+                       `Avg Max Temp (°F)` = mean(average_max_temp, na.rm = TRUE),
+                       `Avg Precipitation (inches)` = mean(average_precipitation, na.rm = TRUE))
+)
+
 ```
 
-```{r}
-# Example: Create a summary table with select columns
-summary_table <- data %>%
-  select(date, actual_mean_temp, actual_min_temp, actual_max_temp, average_min_temp, average_max_temp) %>%
-  group_by(year = format(date, "%Y")) %>%
-  summarise(
-    Min_Temperature = min(actual_min_temp, na.rm = TRUE),
-    Max_Temperature = max(actual_max_temp, na.rm = TRUE),
-    Avg_Min_Temperature = mean(average_min_temp, na.rm = TRUE),
-    Avg_Max_Temperature = mean(average_max_temp, na.rm = TRUE)
-  )
 
-# Create the table using gt
-gt_table <- summary_table %>%
+
+```{r}
+# Add seasonal icons in a separate column
+summary_table <- summary_table %>%
+  mutate(` ` = c("☀️", "🍂", "❄️", "🌸"))  # Adding icons for Summer, Fall, Winter, Spring
+
+# Create a styled gt table
+styled_table <- summary_table %>%
   gt() %>%
   tab_header(
-    title = "Annual Temperature Summary",
-    subtitle = "Philadelphia (2014-2015)"
+    title = md("**Philadelphia Seasonal Weather Summary**"),
+    subtitle = md("*Weather data from July 2014 - June 2015*")
   ) %>%
-  tab_spanner(
-    label = "Temperature Range",
-    columns = c(Min_Temperature, Max_Temperature)
-  ) %>%
-  tab_spanner(
-    label = "Average Temperature",
-    columns = c(Avg_Min_Temperature, Avg_Max_Temperature)
-  ) %>%
-  cols_label(
-    year = "Year",
-    Min_Temperature = "Min Temp (°F)",
-    Max_Temperature = "Max Temp (°F)",
-    Avg_Min_Temperature = "Avg Min Temp (°F)",
-    Avg_Max_Temperature = "Avg Max Temp (°F)"
-  ) %>%
+  tab_spanner(label = "Temperature (°F)", columns = c(`Avg Min Temp (°F)`, `Avg Mean Temp (°F)`, `Avg Max Temp (°F)`)) %>%
+  tab_spanner(label = "Precipitation", columns = `Avg Precipitation (inches)`) %>%
   fmt_number(
-    columns = c(Min_Temperature, Max_Temperature, Avg_Min_Temperature, Avg_Max_Temperature),
+    columns = where(is.numeric),
     decimals = 1
   ) %>%
-  tab_style(
-    style = list(
-      cell_fill(color = "#f0f0f0"),
-      cell_text(weight = "bold", size = 12)
-    ),
-    locations = cells_title(groups = c("title", "subtitle"))
+  cols_move_to_start(columns = "Season") %>%
+  cols_move(columns = " ", after = "Season") %>%  # Moves icon column after season
+  cols_align(
+    align = "left",
+    columns = "Season"  # Keep Season column left-aligned
   ) %>%
-  tab_style(
-    style = cell_fill(color = "#E7F6FF"),
-    locations = cells_body(columns = c(Min_Temperature, Max_Temperature))
+  cols_align(
+    align = "center",
+    columns = c(` `, `Avg Min Temp (°F)`, `Avg Mean Temp (°F)`, `Avg Max Temp (°F)`, `Avg Precipitation (inches)`)  # Center all other columns
   ) %>%
-  tab_style(
-    style = cell_fill(color = "#FFFAE5"),
-    locations = cells_body(columns = c(Avg_Min_Temperature, Avg_Max_Temperature))
+  tab_source_note(md("**Source:** https://www.wunderground.com/, July 2014 - June 2015.")) %>%
+  tab_footnote(footnote = "Precipitation measured in inches", locations = cells_column_labels(columns = `Avg Precipitation (inches)`))%>%
+  data_color(
+    columns = c(`Avg Min Temp (°F)`, `Avg Max Temp (°F)`),
+    colors = scales::col_numeric(
+      palette = c("blue", "white", "red"),
+      domain = range(summary_table$`Avg Min Temp (°F)`, summary_table$`Avg Max Temp (°F)`)
+    )
   )
 
-# View the table
-gt_table
+# Print the table
+styled_table
+
 
 ```
+
+
+
