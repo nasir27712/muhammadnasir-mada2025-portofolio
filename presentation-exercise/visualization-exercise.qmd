@@ -1,0 +1,314 @@
+---
+title: "Data Presentation" 
+output: html
+editor: visual
+---
+
+## About the dataset
+
+
+
+### Install Packages
+
+```{r}
+install.packages("tidyverse")
+library(tidyverse)
+install.packages("ggplot2")
+library(ggplot2)
+library(here)
+install.packages("patchwork")  # This package is to redefine "/" operator for plot arrangement
+library(patchwork)
+install.packages("writexl")
+library(writexl)
+library(haven)
+install.packages("ggforce")
+library(ggforce)
+install.packages("dplyr")
+library(dplyr)
+library(tidyverse)
+library(lubridate)
+install.packages("ggridges") 
+library(ggridges)  #
+library(forcats)
+install.packages("gt")
+library(gt)
+
+```
+```{r}
+
+#| label: fig-temperature
+#| fig-cap: "Temperature Record in Philadelphia."
+#| echo: FALSE
+knitr::include_graphics(here("presentation-exercise","results","figures","phila-ori.png"))
+```
+
+
+### Read the dataset
+
+```{r}
+# Load the dataset
+data_loc <- here("presentation-exercise", "data", "KPHL.csv") 
+data <- read_csv(data_loc)
+
+data$date <- as.Date(data$date, format="%Y-%m-%d") # convert variable into date format 
+head(data)
+```
+
+```{r}
+summary(data)
+```
+
+### Prompt to AI
+
+Me: Hi Good morning, thanks for being my best friend for coding activities.
+
+ChatGPT: Of course, I will be always be your friend, what can I help you?
+
+Me: Today, I want to regenerate a chart. Here I provide the picture of the chart, the original link of the chart, and the dataset. Please generate the code to create the exact same chart, including the color, display, and also legend. Please look at the chart very details to be able to create the same chart. Please generate the code in R.
+
+```{r}
+# Create the plot
+plot_1 <- ggplot(data, aes(x = date)) +
+  # Shaded area for normal range
+  geom_ribbon(aes(ymin = average_min_temp, ymax = average_max_temp), fill = "tan", alpha = 0.5) +
+  # Shaded area for record range
+  geom_ribbon(aes(ymin = record_min_temp, ymax = record_max_temp), fill = "grey", alpha = 0.3) +
+  # Lines for actual min and max temps
+  geom_linerange(aes(ymin = actual_min_temp, ymax = actual_max_temp), color = "black") +
+  # Points for new record highs and lows
+  geom_point(data = filter(data, actual_max_temp > record_max_temp), aes(y = actual_max_temp), color = "red", size = 2) +
+  geom_point(data = filter(data, actual_min_temp < record_min_temp), aes(y = actual_min_temp), color = "blue", size = 2) +
+  # Labels and themes
+  labs(title = "Philadelphia",
+       x = NULL,
+       y = "Temperature (°F)",
+       caption = "Data source: wunderground.com\nAuthor: Randy Olson (randalolson.com / @randal_olson)") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"))
+
+plot(plot_1)
+```
+
+Me: Hi, thank you for generating the code. However, there are some detail different with the original chart.
+
+Here, I modify by myself with some help from ChatGPT. In this step, I try to adjust the line. I see from the original chart, it is look more bar than line.
+
+```{r}
+# Create the plot
+plot_2 <- ggplot(data, aes(x = date)) +
+  # Shaded area for normal range
+  geom_ribbon(aes(ymin = average_min_temp, ymax = average_max_temp), fill = "#9B9B9B", alpha = 1) +
+  # Shaded area for record range
+  geom_ribbon(aes(ymin = record_min_temp, ymax = record_max_temp), fill = "#696651", alpha = 0.3) +
+  geom_linerange(aes(ymin = actual_min_temp, ymax = actual_max_temp), color = "black", size = 0.8) +
+  geom_linerange(aes(ymin = actual_min_temp, ymax = actual_max_temp), color = "#4B3B47", size = 2, alpha = 0.8)+
+  geom_point(data = filter(data, actual_max_temp > record_max_temp), aes(y = actual_max_temp), color = "red", size = 10) +
+  geom_point(data = filter(data, actual_min_temp < record_min_temp), aes(y = actual_min_temp), color = "blue", size = 2) +
+  # Labels and themes
+  labs(title = "Philadelphia",
+       x = NULL,
+       y = "Temperature (°F)",
+       caption = "Data source: wunderground.com\nAuthor: Randy Olson (randalolson.com / @randal_olson)") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"))
+
+plot(plot_2)
+```
+
+This is the step where I change many things, including, put the date (months) in both sides (top and bottom, and put '14 below Jul, and '15 below Jan), I also put the temperature both side. In the previous chart, the grip also did not show every month. Therefore, I adjust the grip into each month and the temperature for every 10 Fahrenheit degree. I adjust the position of the caption (source and author).
+
+```{r}
+plot_3 <- ggplot(data, aes(x = date)) +
+  # Shaded area for normal range
+  geom_ribbon(aes(ymin = average_min_temp, ymax = average_max_temp), fill = "#9B9B9B", alpha = 1) +
+  # Shaded area for record range
+  geom_ribbon(aes(ymin = record_min_temp, ymax = record_max_temp), fill = "#696651", alpha = 0.3) +
+  # Temperature ranges
+  geom_linerange(aes(ymin = actual_min_temp, ymax = actual_max_temp), color = "black", linewidth = 0.8) +
+  geom_linerange(aes(ymin = actual_min_temp, ymax = actual_max_temp), color = "#4B3B47", linewidth = 2, linetype = 1) +
+  # Record-breaking temperatures (Fixed)
+  geom_point(data = data %>% filter(!is.na(actual_max_temp), actual_max_temp > record_max_temp),
+             aes(x = date, y = actual_max_temp), color = "red", size = 3) +
+  geom_point(data = data %>% filter(!is.na(actual_min_temp), actual_min_temp < record_min_temp),
+             aes(x = date, y = actual_min_temp), color = "blue", size = 3) +
+  # Labels and themes
+  labs(title = "Philadelphia",
+       x = NULL,
+       y = "Temperature (°F)",
+       caption = "Data source: wunderground.com\nAuthor: Randy Olson (randalolson.com / @randal_olson)") +
+  # Custom theme
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+    panel.background = element_rect(fill = "white", color = NA),
+    panel.grid.major = element_line(color = "grey50", linetype = "dashed"),  # Remove empty linetype value
+    panel.grid.minor = element_blank(),
+    # Align caption to the left
+    plot.caption.position = "plot",
+    plot.caption = element_text(hjust = 0, face = "italic", size = 10)
+  ) +
+  # Define x-axis (date) for both top and bottom
+  scale_x_date(date_breaks = "1 month", date_labels = "%b",
+               sec.axis = dup_axis(name = NULL)) +  # Duplicate axis at top
+  # Define y-axis (temperature) for both left and right
+  scale_y_continuous(breaks = seq(-10, 110, 10),
+                     sec.axis = dup_axis(name = NULL),
+                     limits = c(min(data$record_min_temp) - 5, max(data$record_max_temp) + 5))  # Ensure all values fit
+
+# Plot the chart
+plot(plot_3)
+
+```
+
+The chart looks much better. However, the new record for high and low temperature did not show up in the chart. Therefore, I try to create a new set then insert it into the chart.
+
+```{r}
+# Identify new record highs and lows
+weather_data_subset <- data
+new_max_records <- weather_data_subset %>%
+  filter(record_max_temp <= actual_max_temp)
+
+new_min_records <- weather_data_subset %>%
+  filter(record_min_temp >= actual_min_temp)
+
+# Insert the new record into the plot 
+plot1 <- ggplot(weather_data_subset, aes(x = date)) +
+  # Shaded area for normal range
+  geom_ribbon(aes(ymin = average_min_temp, ymax = average_max_temp), fill = "#73736D", alpha = 0.9) +
+  # Shaded area for record range
+  geom_ribbon(aes(ymin = record_min_temp, ymax = record_max_temp), fill =  "#9a9a77", alpha = 0.7) +
+  # Temperature ranges
+  geom_linerange(aes(ymin = actual_min_temp, ymax = actual_max_temp), color = "black", linewidth = 0.8) +
+  geom_linerange(aes(ymin = actual_min_temp, ymax = actual_max_temp), color = "#4B3B47", linewidth = 1, alpha = 0.8) +
+  # Record-breaking temperatures
+  geom_point(data = new_max_records, aes(x = date, y = actual_max_temp), color = "red", size = 2) +
+  geom_point(data = new_min_records, aes(x = date, y = actual_min_temp), color = "lightblue", size = 2) +
+  # create the legend 
+  geom_rect(aes(xmin = as.Date("2014-08-10") -4, xmax = as.Date("2014-08-11") + 4, ymin = 0, ymax = 40), fill = "#9a9a77", alpha = 0.7) + # First bar
+  geom_rect(aes(xmin = as.Date("2014-08-10") -4, xmax = as.Date("2014-08-11") + 4, ymin = 10, ymax = 30), fill = "#73736D", alpha = 0.9) + # Second bar
+  geom_rect(aes(xmin = as.Date("2014-08-10") -4, xmax = as.Date("2014-08-11") + 4, ymin = 15, ymax = 25), fill = "#4B3B47", alpha = 0.8) +   # Third bar
+  ## Add two points inside the horizontal bar
+  geom_point(aes(x = as.Date("2014-08-10"), y = 42), color = "red", size = 3) +  # Point 1
+  geom_point(aes(x = as.Date("2014-08-10"), y = -2), color = "lightblue", size = 3) +  # Point 2
+  geom_text(aes(x = as.Date("2014-09-10"), y = 25, label = "New \nrecord high"), family= "Serif", color = "#73736D", vjust = -1, size = 3) + # adding text 
+  geom_text(aes(x = as.Date("2014-09-10"), y = -12, label = "New \nrecod low"), family = "Serif",color = "#73736D", vjust = -1, size = 3) + # Adding text 
+  geom_text(aes(x = as.Date("2014-07-10"), y = 30, label = "Record high"), family ="Serif", color ="#73736D", vjust = -1, size = 3) + # adding text 
+  geom_text(aes(x = as.Date("2014-07-10"), y = 2, label = "Recod low"), family ="Serif", color = "#73736D", vjust = -1, size = 3) + # Adding text 
+  geom_text(aes(x = as.Date("2014-09-10"), y = 15, label = "Normal range"), family = "Serif", color ="#73736D", vjust = -1, size = 3) + # adding text 
+  geom_text(aes(x = as.Date("2014-07-06"), y = 14, label = "Actual range"), family = "Serif",color = "#73736D", vjust = -1, size = 3) + # Adding text 
+  # Labels and themes
+  labs(title = "Philadelphia",
+       x = NULL,
+       y = "Temperature (°F)",
+       caption = "Data source: wunderground.com\nAuthor: Randy Olson (randalolson.com / @randal_olson)") +
+  # Custom theme
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+    panel.background = element_rect(fill = "white", color = NA),
+    panel.grid.major = element_line(color = "grey50", linetype = "longdash", linewidth= 0.2),
+    panel.grid.minor = element_blank(),
+    plot.caption.position = "plot",
+    plot.caption = element_text(hjust = 0, size = 10),
+    axis.text.x = element_text(size = 12)  # Ensure x-axis labels are readable
+  ) +
+  # Custom x-axis labels
+  scale_x_date(
+    breaks = seq(as.Date("2014-07-01"), as.Date("2015-07-01"), by = "1 month"),
+    labels = c("Jul\n'14", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan\n'15", "Feb", "Mar", "Apr", "May", "Jun", "Jul"), # Jul\'14 is to place '14 under Jul, and the same for jan 15
+    sec.axis = dup_axis(name = NULL)
+  ) +
+  # Define y-axis (temperature)
+  scale_y_continuous(
+    breaks = seq(-10, 110, 10),
+    sec.axis = dup_axis(name = NULL),
+    limits = c(min(weather_data_subset$record_min_temp) - 5, 
+               max(weather_data_subset$record_max_temp) + 5),
+    labels = function(x) paste0(x, "°F"))  # Add degree symbol to y-axis labels
+  
+# save the chart
+
+chart_location <- here( "presentation-exercise","results", "figures", "philadelphia.png") # to set up location for the pictures created 
+ggsave(filename = chart_location, plot=plot1, width = 8, height = 6, units = "in", dpi = 300) # save the pictures created 
+
+```
+
+The most challenging part in this chart is the legend. I spent hours to work on it. Finally I made it, but not exactly same.
+
+```{r}
+#| label: fig-temperature
+#| fig-cap: "Temperature Record in Philadelphia (imitation)"
+#| echo: FALSE
+knitr::include_graphics(here("presentation-exercise","results","figures","philadelphia.png"))
+```
+
+# Part 2: Creating a table
+
+Before creating a table, I want to look at the data closer and more detail.
+
+```{r}
+head(data)
+```
+
+```{r}
+summary(data)
+```
+
+```{r}
+# Example: Create a summary table with select columns
+summary_table <- data %>%
+  select(date, actual_mean_temp, actual_min_temp, actual_max_temp, average_min_temp, average_max_temp) %>%
+  group_by(year = format(date, "%Y")) %>%
+  summarise(
+    Min_Temperature = min(actual_min_temp, na.rm = TRUE),
+    Max_Temperature = max(actual_max_temp, na.rm = TRUE),
+    Avg_Min_Temperature = mean(average_min_temp, na.rm = TRUE),
+    Avg_Max_Temperature = mean(average_max_temp, na.rm = TRUE)
+  )
+
+# Create the table using gt
+gt_table <- summary_table %>%
+  gt() %>%
+  tab_header(
+    title = "Annual Temperature Summary",
+    subtitle = "Philadelphia (2014-2015)"
+  ) %>%
+  tab_spanner(
+    label = "Temperature Range",
+    columns = c(Min_Temperature, Max_Temperature)
+  ) %>%
+  tab_spanner(
+    label = "Average Temperature",
+    columns = c(Avg_Min_Temperature, Avg_Max_Temperature)
+  ) %>%
+  cols_label(
+    year = "Year",
+    Min_Temperature = "Min Temp (°F)",
+    Max_Temperature = "Max Temp (°F)",
+    Avg_Min_Temperature = "Avg Min Temp (°F)",
+    Avg_Max_Temperature = "Avg Max Temp (°F)"
+  ) %>%
+  fmt_number(
+    columns = c(Min_Temperature, Max_Temperature, Avg_Min_Temperature, Avg_Max_Temperature),
+    decimals = 1
+  ) %>%
+  tab_style(
+    style = list(
+      cell_fill(color = "#f0f0f0"),
+      cell_text(weight = "bold", size = 12)
+    ),
+    locations = cells_title(groups = c("title", "subtitle"))
+  ) %>%
+  tab_style(
+    style = cell_fill(color = "#E7F6FF"),
+    locations = cells_body(columns = c(Min_Temperature, Max_Temperature))
+  ) %>%
+  tab_style(
+    style = cell_fill(color = "#FFFAE5"),
+    locations = cells_body(columns = c(Avg_Min_Temperature, Avg_Max_Temperature))
+  )
+
+# View the table
+gt_table
+
+```

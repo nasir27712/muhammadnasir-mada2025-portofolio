@@ -270,11 +270,11 @@ figure_file = here("cdcdata-exercise", "pictures", "ARV Duration VS CD4 count ba
 ggsave(filename = figure_file, plot=plot4) # save the pictures created
 ```
 
-
 # This section contributed by Rayleen Lewis.
 
 #### Performing a few more checks
-Prior to creating the synthetic dataset, I wanted to check on a few more things with the data, like number of persons in each region and arm of the study. It also looks like most people are virally suppressed, so I wanted to look at the viral load among people who had values >200. I also want to get the median and IQR of CD4 count by region.
+
+Prior to creating the synthetic dataset, I wanted to check on a few more things with the data, like number of persons in each region and arm of the study. It also looks like most people are virally suppressed, so I wanted to look at the viral load among people who had values \>200. I also want to get the median and IQR of CD4 count by region.
 
 ```{r}
 #Number of persons in each region
@@ -300,9 +300,7 @@ proc_means(data, var = viral_load_yr3, class = random_arm)
 
 #### Generating synthetic data
 
-I aimed to reproduce a dataset similar to the dataset above. The following prompt was used in ChatGPT to generate the code in the next code chunk:
-using R, create a dataset with 539 observations and variables called region with 3 levels (values 0, 1, 2), arm with 2 levels (0, 1), cd4 (continuous), viral_load (continuous). 55% of observations should have an arm value of 1. 95% of the values for viral_load should be <200. Among observations with arm = 0, viral_load should have a mean of 3256 and standard deviation of 19241 and cd4 should have a mean of 604 and standard deviation of 265. Among observations with arm = 1, viral_load should have a mean of 610 and standard deviation of 3854 and cd4 should have a mean of 632 and standard deviation of 290. 160 observations should have a region value of 0, 192 should have a region value equal to 1 and the rest should have a region value equal to 2. 
-
+I aimed to reproduce a dataset similar to the dataset above. The following prompt was used in ChatGPT to generate the code in the next code chunk: using R, create a dataset with 539 observations and variables called region with 3 levels (values 0, 1, 2), arm with 2 levels (0, 1), cd4 (continuous), viral_load (continuous). 55% of observations should have an arm value of 1. 95% of the values for viral_load should be \<200. Among observations with arm = 0, viral_load should have a mean of 3256 and standard deviation of 19241 and cd4 should have a mean of 604 and standard deviation of 265. Among observations with arm = 1, viral_load should have a mean of 610 and standard deviation of 3854 and cd4 should have a mean of 632 and standard deviation of 290. 160 observations should have a region value of 0, 192 should have a region value equal to 1 and the rest should have a region value equal to 2.
 
 ```{r}
 set.seed(123)  # For reproducibility
@@ -336,8 +334,8 @@ dataset <- data.frame(region = factor(region), arm = factor(arm), cd4 = cd4, vir
 # Check dataset
 summary(dataset)
 ```
-I noticed that >25% of the viral load values were negative. I needed to update the code to set the minimum value to 40 (based on the original dataset). To update the code, I used the following follow-up prompt:
-can you update the code so that the min value for viral_load is 40?
+
+I noticed that \>25% of the viral load values were negative. I needed to update the code to set the minimum value to 40 (based on the original dataset). To update the code, I used the following follow-up prompt: can you update the code so that the min value for viral_load is 40?
 
 ```{r}
 set.seed(123)  # For reproducibility
@@ -374,11 +372,10 @@ summary(dataset)
 
 ```
 
-
-
 #### Recreating tables and plots from above
- To check the synthetic dataset, I will recreate some of the results from above. 
- 
+
+To check the synthetic dataset, I will recreate some of the results from above.
+
 ```{r}
 # Mean and SD of viral load and CD4 count by arm
 #Synthetic dataset
@@ -392,12 +389,13 @@ proc_means(dataset, var = viral_load, class = arm)
 proc_means(data, var = viral_load_yr3, class = random_arm)
 
 ```
- The means and standard deviations for each arm are very comparable between the original and synthetic datasets. The means are within 15 of each other. The number in each arm is also similar. 
- 
- I also used ChatGPT to create plots similar to the plots above to see how well ChatGPT could continue to use the dataset. I supplied this prompt to create the code for the plots:
- write code to create three plots. first, plot the mean cd4 by arm with error bars showing 1 standard deviation, color arm = 0 as red and arm = 1 as teal. For the second plot, perform the same as the first plot using viral_load instead of cd4. For the third plot, create a scatterplot with cd4 as the y and viral_load as the x, coloring the dots by region.
- 
- As a note, based on my prompt, R assigned one of the colors in Plots 1 and 2 as teal, which isn't a color R recognized. I changed teal to blue in the code below.
+
+The means and standard deviations for each arm are very comparable between the original and synthetic datasets. The means are within 15 of each other. The number in each arm is also similar.
+
+I also used ChatGPT to create plots similar to the plots above to see how well ChatGPT could continue to use the dataset. I supplied this prompt to create the code for the plots: write code to create three plots. first, plot the mean cd4 by arm with error bars showing 1 standard deviation, color arm = 0 as red and arm = 1 as teal. For the second plot, perform the same as the first plot using viral_load instead of cd4. For the third plot, create a scatterplot with cd4 as the y and viral_load as the x, coloring the dots by region.
+
+As a note, based on my prompt, R assigned one of the colors in Plots 1 and 2 as teal, which isn't a color R recognized. I changed teal to blue in the code below.
+
 ```{r}
 # Compute summary statistics for CD4 by arm
 cd4_summary <- dataset %>%
@@ -439,13 +437,9 @@ print(p1)
 print(p2)
 print(p3)
 ```
- 
- 
- The synthetic viral load variable has a max of 200, even though 5% of values were supposed to be above 200 leading to a mean value of 3300 for arm = 0 and 610 for arm = 1. To get around this, I told ChatGPT what the problem was and suggested a solution: 
- For the dataset creation, the mean viral_load is too low. Can the order of the steps for confirming 95% of value are below 200 and sampling from the distribution be switched?
- 
 
- 
+The synthetic viral load variable has a max of 200, even though 5% of values were supposed to be above 200 leading to a mean value of 3300 for arm = 0 and 610 for arm = 1. To get around this, I told ChatGPT what the problem was and suggested a solution: For the dataset creation, the mean viral_load is too low. Can the order of the steps for confirming 95% of value are below 200 and sampling from the distribution be switched?
+
 ```{r}
 set.seed(123)  # For reproducibility
 
@@ -479,7 +473,7 @@ dataset <- data.frame(region = factor(region), arm = factor(arm), cd4 = cd4, vir
 summary(dataset)
 
 ```
- 
+
 ```{r}
 # Compute summary statistics for CD4 by arm
 cd4_summary <- dataset %>%
@@ -522,13 +516,9 @@ print(p2)
 print(p3)
 ```
 
+This resulted in viral_load values that were negative again, so I added a final prompt: Can you update so the lowest value for viral_load is 40?
 
- 
- This resulted in viral_load values that were negative again, so I added a final prompt:
- Can you update so the lowest value for viral_load is 40?
- 
- The following code was created:
-
+The following code was created:
 
 ```{r}
 set.seed(123)  # For reproducibility
@@ -565,6 +555,7 @@ dataset <- data.frame(region = factor(region), arm = factor(arm), cd4 = cd4, vir
 # Check dataset
 summary(dataset)
 ```
+
 ```{r}
 # Compute summary statistics for CD4 by arm
 cd4_summary <- dataset %>%
@@ -606,5 +597,5 @@ print(p1)
 print(p2)
 print(p3)
 ```
- 
- The bar chart for CD4 by arm is very similar to the original data. Based on the bar chart for viral load, the means appear simialr but the standard errors are reduced compared to the original data. The final plot, the scatterplot of CD4 count by viral load, showed that many more observations had higher viral loads and many more had viral loads above 200. It seems like ChatGPT isn't handling the prompts for this variable well. Overall, the synthetic data look good but not perfect.
+
+The bar chart for CD4 by arm is very similar to the original data. Based on the bar chart for viral load, the means appear simialr but the standard errors are reduced compared to the original data. The final plot, the scatterplot of CD4 count by viral load, showed that many more observations had higher viral loads and many more had viral loads above 200. It seems like ChatGPT isn't handling the prompts for this variable well. Overall, the synthetic data look good but not perfect.

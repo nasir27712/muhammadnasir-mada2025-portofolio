@@ -5,19 +5,23 @@ date: "10/28/2021"
 output: html_document
 ---
 
+  
+  
 This Quarto file loads the cleaned data and does some exploring.
 
-I'm only showing it the way where the code is included in the file. As described in the `processing_code` materials, I currently prefer the approach of having R code in a separate file and pulling it in.
+I'm only showing it the way where the code is included in the file. 
+As described in the `processing_code` materials, I currently prefer the approach of having R code in a separate file and pulling it in.
 
 But I already had this written and haven't yet re-done it that way. Feel free to redo and send a pull request on GitHub :)
 
-Again, it is largely a matter of preference and what makes the most sense to decide if one wants to have code inside Quarto files, or as separate R files. And sometimes, an R script with enough comments is good enough and one doesn't need a Quarto file.
+Again, it is largely a matter of preference and what makes the most sense to decide if one wants to have code inside Quarto files, or as separate R files.
+And sometimes, an R script with enough comments is good enough and one doesn't need a Quarto file.
 
 Also note that while here I split cleaning and exploring, this is iterative. You saw that as part of the processing, we already had to explore the data somewhat to understand how to clean it. In general, as you explore, you'll find things that need cleaning. As you clean, you can explore more. Therefore, at times it might make more sense to combine the cleaning and exploring code parts into a single R or Quarto file. Or split things in any other logical way.
 
 As part of the exploratory analysis, you should produce plots or tables or other summary quantities for the most interesting/important quantities in your data. Depending on the total number of variables in your dataset, explore all or some of the others. Figures produced here might be histograms or density plots, correlation plots, etc. Tables might summarize your data.
 
-Start by exploring one variable at a time. Then continue by creating plots or tables of the outcome(s) of interest and the predictor/exposure/input variables you are most interested in. If your dataset is small, you can do that for all variables.
+Start by exploring one variable at a time. Then continue by creating plots or tables of the outcome(s) of interest and the predictor/exposure/input variables you are most interested in. If your dataset is small, you can do that for all variables. 
 
 Plots produced here can be scatterplots, boxplots, violinplots, etc. Tables can be simple 2x2 tables or larger ones.
 
@@ -31,6 +35,7 @@ library(skimr)
 library(ggplot2)
 ```
 
+
 Load the data.
 
 ```{r}
@@ -40,9 +45,14 @@ data_location <- here::here("starter-analysis-exercise","data","processed-data",
 mydata <- readRDS(data_location)
 ```
 
+
+
+
+
 # Data exploration through tables
 
 Showing a bit of code to produce and save a summary table.
+
 
 ```{r}
 summary_df = skimr::skim(mydata)
@@ -54,9 +64,10 @@ saveRDS(summary_df, file = summarytable_file)
 
 We are saving the results to the `results/tables` folder. Structure the folders inside `results` such that they make sense for your specific analysis. Provide enough documentation that someone can understand what you are doing and what goes where. `readme.md` files inside each folder are a good idea.
 
+
 # Data exploration through figures
 
-Histogram plots for the continuous outcomes.
+Histogram plots for the continuous outcomes. 
 
 Height first.
 
@@ -94,41 +105,43 @@ figure_file = here("starter-analysis-exercise","results","figures","height-weigh
 ggsave(filename = figure_file, plot=p4) 
 ```
 
+
+
 # Notes
 
 For your own explorations, tables and figures can be "quick and dirty". As long as you can see what's going on, there is no need to polish them. That's in contrast to figures you'll produce for your final products (paper, report, presentation, website, etc.). Those should look as nice, polished and easy to understand as possible.
 
-# Box plot with Systolic Blood Pressure vs employment status
+# Box plot with Agecat and Height
 
 ```{r}
 # Ensure Agecat is a factor
-
 mydata <- mydata %>%
-  mutate(Emp_status = as.factor(Emp_status))
+  mutate(Agecat = as.factor(Agecat))
 
+mydata$Agecat
 # Ensure Emp_status is a factor with meaningful labels
-mydata$Emp_status <- factor(mydata$Emp_status, 
-                            levels = c(1, 2, 3), 
-                            labels = c("Full Time", "Part Time", "Unemployed"))
+mydata$Agecat <- factor(mydata$Agecat, 
+                            levels = c(0, 1, 2, 3), 
+                            labels = c("<=30 Yo", "31-40 Yo", "41-50 Yo", "51 or more"))
 
-# Create the boxplot with fill color based on employment status
-p5 <- ggplot(mydata, aes(x = Emp_status, y = systolic_blood, fill = Emp_status)) + 
+# Create the boxplot
+p5 <- mydata %>% ggplot(aes(x = Agecat, y = Height, fill = Agecat)) + 
   geom_boxplot() + 
-  labs(title = "Boxplot of Systolic Blood Pressure by Employment Status",
-       x = "Employment Status",
-       y = "Systolic Blood Pressure") +
+  labs(title = "Boxplot of Height by Agecat",
+       x = "Age category",
+       y = "Height") +
   theme_minimal() +
-  scale_fill_manual(values = c("Full Time" = "#1f78b4",  # Blue
-                               "Part Time" = "#33a02c",  # Green
-                               "Unemployed" = "#e31a1c")) +  # Red
-  theme(legend.position = "none")  # Remove legend if unnecessary
-
-# Print the plot
-print(p5)
+  theme_minimal() +
+  scale_fill_manual(values = c("<=30 Yo" = "#1f78b4",  # Blue
+                               "31-40 Yo" = "#33a02c",  # Green
+                               "41-50 Yo" = "#e31a1c",# Red
+                               "51 or more"= "#CA1BDE")) +  
+  theme(legend.position = "none") 
+plot(p5)
 
 
 # Save the figure
-figure_file = here("starter-analysis-exercise", "results", "figures", "boxplot_systolic_employment.png")
+figure_file = here("starter-analysis-exercise", "results", "figures", "boxplot.png")
 ggsave(filename = figure_file, plot = p5)
 
 ```
@@ -136,29 +149,18 @@ ggsave(filename = figure_file, plot = p5)
 # Scatter plot with weight and chol
 
 ```{r}
-
-# Create the scatterplot with color mapping
-p6 <- ggplot(mydata, aes(x = Weight, y = systolic_blood, color = Emp_status)) + 
-  geom_point(size = 3, alpha = 0.7) +  # Adjust point size and transparency
-  labs(title = "Scatterplot of Weight and Systolic Blood Pressure",
+p6 <- mydata %>% ggplot(aes(x=Weight, y=Chol, color = Agecat)) + 
+  geom_point() + 
+  labs(title = "Scatterplot of Weight and Total Cholesterol",
        x = "Weight",
-       y = "Systolic Blood Pressure",
-       color = "Employment Status") +  # Legend title
-  theme_minimal() +
-  scale_color_manual(values = c("Full Time" = "#1f78b4",   # Blue
-                                "Part Time" = "#33a02c",   # Green
-                                "Unemployed" = "#e31a1c")) # Red
+       y = "Chol") +
+  theme_minimal()+
+  scale_color_manual(values = c("<=30 Yo" = "#1f78b4",  # Blue
+                               "31-40 Yo" = "#33a02c",  # Green
+                               "41-50 Yo" = "#e31a1c",# Red
+                               "51 or more"= "#CA1BDE"))
 
 plot(p6)
-figure_file = here("starter-analysis-exercise", "results", "figures", "scatterplot_Blood_Weight.png")
+figure_file = here("starter-analysis-exercise", "results", "figures", "scatterplot.png")
 ggsave(filename = figure_file, plot=p6)
 ```
-
-
-# Linear Regression 
-
-
-```{r}
-
-```
-

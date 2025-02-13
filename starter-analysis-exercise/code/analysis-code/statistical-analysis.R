@@ -55,12 +55,12 @@ saveRDS(lmtable2, file = table_file2)
 
 
 ### Third Model
-
-lmfit3 <- lm(systolic_blood~ Weight + Emp_status, mydata)
+mydata$Agecat <- as.factor(mydata$Agecat)
+lmfit3 <- lm(Height ~ Chol+ Agecat, mydata)
 lmtable3 <- broom::tidy(lmfit3)
   
 
 print(lmtable3)
 # save fit results table  
 table_file3 = here("starter-analysis-exercise","results", "tables-files", "resulttable3.rds")
-saveRDS(lmtable2, file = table_file3)
+saveRDS(lmtable3, file = table_file3)

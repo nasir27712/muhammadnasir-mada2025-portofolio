@@ -259,8 +259,8 @@ Attaching package: 'dplyr'</code></pre>
 1 Height          height in centimeters                 numeric value &gt;0 or NA  
 2 Weight          weight in kilograms                   numeric value &gt;0 or NA  
 3 Gender          identified gender (male/female/other) M/F/O/NA                
-4 systolic_blood  Systolic Blood Pressure               numeric value &gt;0 or NA  
-5 Empl_status     Employment Status                     1= Full time employed, …</code></pre>
+4 Chol            Total Cholesterol                     &lt;NA&gt;                    
+5 Agecat          Age Chategory                         0 &lt;= 30, 1= 31-40, 2= 4…</code></pre>
 </div>
 </div>
 <p>Several ways of looking at the data</p>
@@ -268,14 +268,12 @@ Attaching package: 'dplyr'</code></pre>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(rawdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 14
-Columns: 7
-$ Height         &lt;chr&gt; "180", "175", "sixty", "178", "192", "6", "156", "166",…
-$ Weight         &lt;dbl&gt; 80, 70, 60, 76, 90, 55, 90, 110, 54, 7000, NA, 45, 55, …
-$ Gender         &lt;chr&gt; "M", "O", "F", "F", "NA", "F", "O", "M", "N", "M", "F",…
-$ Chol           &lt;dbl&gt; 160, 140, 163, 243, 300, 259, 120, 310, 270, 123, 145, …
-$ Agecat         &lt;dbl&gt; 0, 0, 1, 3, 3, 2, 3, 2, 3, 0, 0, 3, 2, 3
-$ systolic_blood &lt;dbl&gt; 159, 117, 92, 96, 195, 162, 151, 122, 162, 140, 155, 18…
-$ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pre>
+Columns: 5
+$ Height &lt;chr&gt; "180", "175", "sixty", "178", "192", "6", "156", "166", "155", …
+$ Weight &lt;dbl&gt; 80, 70, 60, 76, 90, 55, 90, 110, 54, 7000, NA, 45, 55, 50
+$ Gender &lt;chr&gt; "M", "O", "F", "F", "NA", "F", "O", "M", "N", "M", "F", "F", "M…
+$ Chol   &lt;dbl&gt; 160, 140, 163, 243, 300, 259, 120, 310, 270, 123, 145, 176, 167…
+$ Agecat &lt;dbl&gt; 0, 0, 1, 3, 3, 2, 3, 2, 3, 0, 0, 3, 2, 3</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rawdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -287,26 +285,26 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
                     3rd Qu.:  90.0                      3rd Qu.:255.0  
                     Max.   :7000.0                      Max.   :310.0  
                     NA's   :1                                          
-     Agecat      systolic_blood    Emp_status  
- Min.   :0.000   Min.   : 92.0   Min.   :1.00  
- 1st Qu.:0.250   1st Qu.:126.5   1st Qu.:1.25  
- Median :2.000   Median :153.0   Median :2.00  
- Mean   :1.786   Mean   :146.2   Mean   :2.00  
- 3rd Qu.:3.000   3rd Qu.:162.0   3rd Qu.:2.75  
- Max.   :3.000   Max.   :195.0   Max.   :3.00  
-                                               </code></pre>
+     Agecat     
+ Min.   :0.000  
+ 1st Qu.:0.250  
+ Median :2.000  
+ Mean   :1.786  
+ 3rd Qu.:3.000  
+ Max.   :3.000  
+                </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(rawdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 7
-  Height Weight Gender  Chol Agecat systolic_blood Emp_status
-  &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;          &lt;dbl&gt;      &lt;dbl&gt;
-1 180        80 M        160      0            159          2
-2 175        70 O        140      0            117          1
-3 sixty      60 F        163      1             92          1
-4 178        76 F        243      3             96          2
-5 192        90 NA       300      3            195          3
-6 6          55 F        259      2            162          3</code></pre>
+<pre><code># A tibble: 6 × 5
+  Height Weight Gender  Chol Agecat
+  &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 180        80 M        160      0
+2 175        70 O        140      0
+3 sixty      60 F        163      1
+4 178        76 F        243      3
+5 192        90 NA       300      3
+6 6          55 F        259      2</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(rawdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -323,7 +321,7 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Number of columns</td>
-<td style="text-align: left;">7</td>
+<td style="text-align: left;">5</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">_______________________</td>
@@ -339,7 +337,7 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 </tr>
 <tr class="odd">
 <td style="text-align: left;">numeric</td>
-<td style="text-align: left;">5</td>
+<td style="text-align: left;">3</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">________________________</td>
@@ -403,15 +401,15 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 <colgroup>
 <col style="width: 16%">
 <col style="width: 11%">
-<col style="width: 15%">
-<col style="width: 7%">
+<col style="width: 16%">
 <col style="width: 8%">
+<col style="width: 9%">
 <col style="width: 4%">
+<col style="width: 8%">
 <col style="width: 7%">
-<col style="width: 6%">
-<col style="width: 7%">
+<col style="width: 4%">
 <col style="width: 5%">
-<col style="width: 6%">
+<col style="width: 7%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -438,7 +436,7 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 <td style="text-align: right;">45</td>
 <td style="text-align: right;">55.00</td>
 <td style="text-align: right;">70.0</td>
-<td style="text-align: right;">90.00</td>
+<td style="text-align: right;">90</td>
 <td style="text-align: right;">7000</td>
 <td style="text-align: left;">▇▁▁▁▁</td>
 </tr>
@@ -451,7 +449,7 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 <td style="text-align: right;">120</td>
 <td style="text-align: right;">148.75</td>
 <td style="text-align: right;">171.5</td>
-<td style="text-align: right;">255.00</td>
+<td style="text-align: right;">255</td>
 <td style="text-align: right;">310</td>
 <td style="text-align: left;">▇▇▁▇▃</td>
 </tr>
@@ -464,35 +462,9 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0.25</td>
 <td style="text-align: right;">2.0</td>
-<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">3</td>
 <td style="text-align: left;">▅▁▁▃▇</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">systolic_blood</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">146.21</td>
-<td style="text-align: right;">29.95</td>
-<td style="text-align: right;">92</td>
-<td style="text-align: right;">126.50</td>
-<td style="text-align: right;">153.0</td>
-<td style="text-align: right;">162.00</td>
-<td style="text-align: right;">195</td>
-<td style="text-align: left;">▃▃▅▇▃</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Emp_status</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">2.00</td>
-<td style="text-align: right;">0.78</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1.25</td>
-<td style="text-align: right;">2.0</td>
-<td style="text-align: right;">2.75</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: left;">▅▁▇▁▅</td>
 </tr>
 </tbody>
 </table>
@@ -506,7 +478,7 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> rawdata <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>( Height <span class="sc">!=</span> <span class="st">"sixty"</span> ) <span class="sc">%&gt;%</span> </span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">Height =</span> <span class="fu">as.numeric</span>(Height)) <span class="sc">%&gt;%</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Emp_status =</span> <span class="fu">as.factor</span>(Emp_status))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Agecat =</span> <span class="fu">as.factor</span>(Agecat))</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(d1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -522,7 +494,7 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Number of columns</td>
-<td style="text-align: left;">7</td>
+<td style="text-align: left;">5</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">_______________________</td>
@@ -542,7 +514,7 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 </tr>
 <tr class="even">
 <td style="text-align: left;">numeric</td>
-<td style="text-align: left;">5</td>
+<td style="text-align: left;">3</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">________________________</td>
@@ -613,20 +585,20 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Emp_status</td>
+<td style="text-align: left;">Agecat</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: left;">FALSE</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2: 6, 3: 4, 1: 3</td>
+<td style="text-align: left;">3: 6, 0: 4, 2: 3</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Variable type: numeric</strong></p>
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
-<col style="width: 17%">
-<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 12%">
 <col style="width: 16%">
 <col style="width: 8%">
 <col style="width: 9%">
@@ -634,7 +606,7 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 <col style="width: 8%">
 <col style="width: 4%">
 <col style="width: 4%">
-<col style="width: 5%">
+<col style="width: 6%">
 <col style="width: 7%">
 </colgroup>
 <thead>
@@ -692,32 +664,6 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 <td style="text-align: right;">310</td>
 <td style="text-align: left;">▇▆▁▇▃</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">Agecat</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">1.85</td>
-<td style="text-align: right;">1.34</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: left;">▅▁▁▃▇</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">systolic_blood</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">150.38</td>
-<td style="text-align: right;">26.60</td>
-<td style="text-align: right;">96</td>
-<td style="text-align: right;">140.00</td>
-<td style="text-align: right;">155</td>
-<td style="text-align: right;">162</td>
-<td style="text-align: right;">195</td>
-<td style="text-align: left;">▂▃▇▇▃</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -748,7 +694,7 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Number of columns</td>
-<td style="text-align: left;">7</td>
+<td style="text-align: left;">5</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">_______________________</td>
@@ -768,7 +714,7 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 </tr>
 <tr class="even">
 <td style="text-align: left;">numeric</td>
-<td style="text-align: left;">5</td>
+<td style="text-align: left;">3</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">________________________</td>
@@ -839,20 +785,20 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Emp_status</td>
+<td style="text-align: left;">Agecat</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: left;">FALSE</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2: 6, 3: 4, 1: 3</td>
+<td style="text-align: left;">3: 6, 0: 4, 2: 3</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Variable type: numeric</strong></p>
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
-<col style="width: 17%">
-<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 12%">
 <col style="width: 16%">
 <col style="width: 8%">
 <col style="width: 9%">
@@ -860,7 +806,7 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 <col style="width: 8%">
 <col style="width: 4%">
 <col style="width: 4%">
-<col style="width: 5%">
+<col style="width: 6%">
 <col style="width: 7%">
 </colgroup>
 <thead>
@@ -918,32 +864,6 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 <td style="text-align: right;">310</td>
 <td style="text-align: left;">▇▆▁▇▃</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">Agecat</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">1.85</td>
-<td style="text-align: right;">1.34</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: left;">▅▁▁▃▇</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">systolic_blood</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">150.38</td>
-<td style="text-align: right;">26.60</td>
-<td style="text-align: right;">96</td>
-<td style="text-align: right;">140.00</td>
-<td style="text-align: right;">155</td>
-<td style="text-align: right;">162</td>
-<td style="text-align: right;">195</td>
-<td style="text-align: left;">▂▃▇▇▃</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -967,7 +887,7 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Number of columns</td>
-<td style="text-align: left;">7</td>
+<td style="text-align: left;">5</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">_______________________</td>
@@ -987,7 +907,7 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 </tr>
 <tr class="even">
 <td style="text-align: left;">numeric</td>
-<td style="text-align: left;">5</td>
+<td style="text-align: left;">3</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">________________________</td>
@@ -1058,21 +978,21 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Emp_status</td>
+<td style="text-align: left;">Agecat</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: left;">FALSE</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2: 5, 1: 3, 3: 3</td>
+<td style="text-align: left;">3: 6, 2: 3, 0: 2</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Variable type: numeric</strong></p>
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
-<col style="width: 18%">
+<col style="width: 17%">
 <col style="width: 12%">
-<col style="width: 16%">
+<col style="width: 17%">
 <col style="width: 8%">
 <col style="width: 7%">
 <col style="width: 4%">
@@ -1137,32 +1057,6 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 <td style="text-align: right;">310</td>
 <td style="text-align: left;">▃▆▁▇▃</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">Agecat</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2.18</td>
-<td style="text-align: right;">1.17</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2.0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">3.0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: left;">▂▁▁▃▇</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">systolic_blood</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">150.91</td>
-<td style="text-align: right;">28.92</td>
-<td style="text-align: right;">96</td>
-<td style="text-align: right;">136.0</td>
-<td style="text-align: right;">159</td>
-<td style="text-align: right;">163.5</td>
-<td style="text-align: right;">195</td>
-<td style="text-align: left;">▂▃▃▇▃</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -1170,7 +1064,7 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 <p>Now checking the <code>Gender</code> variable. Gender should be a categorical/factor variable but is loaded as character. We can fix that with simple base R code to mix things up.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>d3<span class="sc">$</span>Gender <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(d3<span class="sc">$</span>Gender) </span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>d3<span class="sc">$</span>Emp_status <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(d3<span class="sc">$</span>Emp_status)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>d3<span class="sc">$</span>Emp_status <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(d3<span class="sc">$</span>Agecat)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(d3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -1186,7 +1080,7 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Number of columns</td>
-<td style="text-align: left;">7</td>
+<td style="text-align: left;">6</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">_______________________</td>
@@ -1198,11 +1092,11 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 </tr>
 <tr class="even">
 <td style="text-align: left;">factor</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: left;">3</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">numeric</td>
-<td style="text-align: left;">5</td>
+<td style="text-align: left;">3</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">________________________</td>
@@ -1244,21 +1138,29 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 <td style="text-align: left;">M: 4, F: 3, O: 2, N: 1</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">Agecat</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">3: 6, 2: 3, 0: 2</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">Emp_status</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: left;">FALSE</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2: 5, 1: 3, 3: 3</td>
+<td style="text-align: left;">3: 6, 2: 3, 0: 2</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Variable type: numeric</strong></p>
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
-<col style="width: 18%">
+<col style="width: 17%">
 <col style="width: 12%">
-<col style="width: 16%">
+<col style="width: 17%">
 <col style="width: 8%">
 <col style="width: 7%">
 <col style="width: 4%">
@@ -1323,32 +1225,6 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 <td style="text-align: right;">310</td>
 <td style="text-align: left;">▃▆▁▇▃</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">Agecat</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2.18</td>
-<td style="text-align: right;">1.17</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2.0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">3.0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: left;">▂▁▁▃▇</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">systolic_blood</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">150.91</td>
-<td style="text-align: right;">28.92</td>
-<td style="text-align: right;">96</td>
-<td style="text-align: right;">136.0</td>
-<td style="text-align: right;">159</td>
-<td style="text-align: right;">163.5</td>
-<td style="text-align: right;">195</td>
-<td style="text-align: left;">▂▃▃▇▃</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -1371,7 +1247,7 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Number of columns</td>
-<td style="text-align: left;">7</td>
+<td style="text-align: left;">6</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">_______________________</td>
@@ -1383,11 +1259,11 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 </tr>
 <tr class="even">
 <td style="text-align: left;">factor</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: left;">3</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">numeric</td>
-<td style="text-align: left;">5</td>
+<td style="text-align: left;">3</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">________________________</td>
@@ -1429,19 +1305,27 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 <td style="text-align: left;">M: 4, F: 3, O: 2</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">Agecat</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">3: 4, 2: 3, 0: 2</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">Emp_status</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: left;">FALSE</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2: 4, 1: 3, 3: 2</td>
+<td style="text-align: left;">3: 4, 2: 3, 0: 2</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Variable type: numeric</strong></p>
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
-<col style="width: 18%">
+<col style="width: 17%">
 <col style="width: 12%">
 <col style="width: 17%">
 <col style="width: 8%">
@@ -1507,32 +1391,6 @@ $ Emp_status     &lt;dbl&gt; 2, 1, 1, 2, 3, 3, 1, 2, 2, 2, 3, 3, 1, 2</code></pr
 <td style="text-align: right;">243</td>
 <td style="text-align: right;">310</td>
 <td style="text-align: left;">▅▇▁▇▂</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Agecat</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2.00</td>
-<td style="text-align: right;">1.22</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: left;">▃▁▁▆▇</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">systolic_blood</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">144.78</td>
-<td style="text-align: right;">27.28</td>
-<td style="text-align: right;">96</td>
-<td style="text-align: right;">122</td>
-<td style="text-align: right;">151</td>
-<td style="text-align: right;">162</td>
-<td style="text-align: right;">181</td>
-<td style="text-align: left;">▂▃▁▇▃</td>
 </tr>
 </tbody>
 </table>

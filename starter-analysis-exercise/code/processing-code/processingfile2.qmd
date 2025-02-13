@@ -70,7 +70,7 @@ Since we don't know how to fix this, we might decide to remove the person. This 
 ```{r}
 d1 <- rawdata %>% dplyr::filter( Height != "sixty" ) %>% 
                   dplyr::mutate(Height = as.numeric(Height)) %>%
-  mutate(Emp_status = as.factor(Emp_status))
+  mutate(Agecat = as.factor(Agecat))
 skimr::skim(d1)
 hist(d1$Height)
 ```
@@ -96,7 +96,7 @@ Now checking the `Gender` variable. Gender should be a categorical/factor variab
 
 ```{r}
 d3$Gender <- as.factor(d3$Gender) 
-d3$Emp_status <- as.factor(d3$Emp_status)
+d3$Emp_status <- as.factor(d3$Agecat)
 skimr::skim(d3)
 ```
 
