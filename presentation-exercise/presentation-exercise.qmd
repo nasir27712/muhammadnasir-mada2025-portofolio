@@ -309,6 +309,9 @@ summary_table <- bind_rows(
 
 ```
 
+
+
+
 ```{r}
 # Add seasonal icons in a separate column
 summary_table <- summary_table %>%

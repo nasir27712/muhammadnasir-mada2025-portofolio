@@ -1,0 +1,637 @@
+---
+title: "Fitting Models Exercise" 
+output: html
+editor: visual
+---
+
+### Install Packages
+
+```{r}
+install.packages("tidyverse")
+library(tidyverse)
+install.packages("ggplot2")
+library(ggplot2)
+library(here)
+install.packages("patchwork")  # This package is to redefine "/" operator for plot arrangement
+library(patchwork)
+install.packages("writexl")
+library(writexl)
+library(haven)
+install.packages("ggforce")
+library(ggforce)
+install.packages("dplyr")
+library(dplyr)
+library(tidyverse)
+library(lubridate)
+install.packages("ggridges") 
+library(ggridges)  #
+library(forcats)
+install.packages("gt")
+library(gt)
+install.packages("gtExtras", dependencies = TRUE)
+library(gtExtras)
+install.packages("gtsummary")
+library(gtsummary)   
+install.packages("cli")
+library(cli)
+install.packages("tidymodels")
+library(tidymodels)  # for the parsnip package, along with the rest of tidymodels
+
+install.packages("broom.mixed")
+library(broom.mixed) # for converting bayesian models to tidy tibbles
+install.packages("dotwhisker")
+library(dotwhisker)  # for visualizing regression results
+install.packages("ggcorrplot")
+library(ggcorrplot)
+install.packages("corrplot")
+library(corrplot)
+
+install.packages("ggpubr")# combine plot
+# Load the library
+library(ggpubr)
+
+install.packages("broom") 
+library(broom)# Installs broom separately (optional)
+
+
+```
+
+### Read the dataset
+
+```{r}
+#Install package for the data 
+#install.packages("nlmixr2data")
+#ibrary(nlmixr2data)
+
+# Load the dataset
+data_loc <- here("fitting-exercise", "data", "Mavoglurant_A2121_nmpk.csv") 
+data <- read_csv(data_loc)
+
+head(data)
+dim(data)
+colnames(data)
+```
+
+***Note for the variables :***
+
+-   ID: Subject ID
+
+-   CMT: Compartment Number
+
+-   EVID: Event ID
+
+-   MDV: Missing DV
+
+-   DV: Dependent Variable, Mavoglurant
+
+-   AMT: Dose Amount Keyword
+
+-   TIME: Time (hr)
+
+-   DOSE: Dose
+
+-   OCC: Occasion
+
+-   RATE: Rate
+
+-   AGE: Age
+
+-   SEX: Sex (1= male, 2= female) \# (based on the paper referred )
+
+-   WT: Weight
+
+-   HT: Height
+
+```{r}
+summary(data)
+
+(data$ID)
+```
+
+## Data Exploration
+
+*Initial data visualization*
+
+First of all, it is important to visualize the main variable of interest. In this case, Mavoglurant is the main variable interest (variable response). Spaghetti plot is created to show the individual level of Mavoglurant over the time based on Dose (25, 37.5, and 50).
+
+```{r}
+# Spaghetti plot
+spaghetti_pot <- ggplot(data, aes(x = TIME, y = DV, group = ID, color = as.factor(ID))) +
+  geom_line(alpha = 0.6) +  # Adds individual lines with transparency
+  facet_wrap(~DOSE)+ # to facet by dose
+  theme_minimal() +  # Uses a clean theme
+  labs(title = "Individual level of Mavoglurant over Time by Dose",
+       x = "Time",
+       y = "DV",
+       color = "Subject ID") +
+  theme(legend.position = "none")  # Hides legend if too many IDs
+print(spaghetti_pot)
+
+```
+
+***Occasion Rate***
+
+A bar chart for Occasion Rate (OCC) is created to look at the distribution of OCC. OCC is one of the interest in this exercise.
+
+```{r}
+
+plot_occ <- ggplot(data, aes(x = factor(OCC))) +
+  geom_bar(aes(fill = factor(OCC)), show.legend = FALSE, width = 0.7) +  # Color bars dynamically
+  scale_fill_brewer(palette = "Dark2") +  # Use a more vibrant color palette
+  labs(title = "Distribution of Occasion Rate (OCC)",
+       x = "Occasion Rate (OCC)",
+       y = "Count") +
+  theme_minimal(base_size = 14) +  # Increase text size for readability
+  theme(
+    plot.title = element_text(face = "bold", size = 16, hjust = 0.5),
+    axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1),  # Rotate X labels for clarity
+    panel.grid.major = element_blank(),  # Remove major grid lines for a cleaner look
+    panel.grid.minor = element_blank()
+  )
+print(plot_occ)
+
+```
+
+## Data Cleaning
+
+First step in the data cleaning, we want to select only OCC= 1, and calculate summary of Mavoglurant
+
+```{r}
+#OCC =1 
+data1 <- data %>%
+  filter(OCC==1) #select rows with OCC=1 only 
+```
+
+```{r}
+Summary_DV <- data1 %>%
+  filter(TIME != 0) %>%  # Remove rows where TIME is 0
+  group_by(ID) %>%
+  summarize(Y = sum(DV, na.rm = TRUE))  # Corrected sum function
+print(Summary_DV)
+```
+
+Only including data with time= 0
+
+```{r}
+time_zero <- data1 %>%
+  filter(TIME == 0)
+print(time_zero)
+```
+
+Combine two data frames (Summary_DV and time_zero)
+
+```{r}
+data_combined <- left_join(time_zero, Summary_DV, by = join_by(ID))
+print(data_combined)
+```
+
+```{r}
+df <- data_combined %>%
+  select(Y, DOSE, AGE, SEX, RACE, WT, HT) %>% #Selecting variables of Interest
+  mutate(RACE = as_factor(RACE), SEX = as_factor(SEX)) #To convert race and sex to factor variables
+
+str(df)# check the variable classes
+```
+
+## Exploratory Data Analysis
+
+In this section, the data is visualized using appropriate table, charts or graphics based on the data type. it is better to provide a big picture of the data by providing summary table (Characteristic Table). The table will help understand the data better.
+
+*Create summary table*
+
+```{r}
+
+# Create the summary table
+summary_table <- df %>%
+  tbl_summary(
+    statistic = list(
+      all_continuous() ~ "{mean} ({sd})",  # Mean (SD) for continuous variables
+      all_categorical() ~ "{n} ({p}%)"     # Count (Percentage) for categorical variables
+    ),
+    missing = "ifany",  # Display missing values if present
+    label = list(  # Custom variable labels using actual column names
+      Y ~ "Outcome Variable (Y)",
+      DOSE ~ "Dosage (mg)",
+      AGE ~ "Age (years)",
+      SEX ~ "Sex",
+      RACE ~ "Race",
+      WT ~ "Weight (kg)",
+      HT ~ "Height (m)"
+    )
+  ) %>%
+  bold_labels() %>%
+  modify_header(label = "**Variable**") %>%
+  modify_caption("**Summary of the Dataset**") %>%
+  as_gt() %>%  # Convert to gt table for styling
+  tab_style(
+    style = cell_fill(color = "#C1FFC1"),
+    locations = cells_body(rows = label %in% c("Sex"))
+  ) %>%
+  tab_style(
+    style = cell_fill(color = "#97FFFF"),
+    locations = cells_body(rows = label %in% c("Race"))
+  ) %>%
+  tab_style(
+    style = cell_fill(color = "#00BFFF"),
+    locations = cells_body(rows = label %in% c("Age (years)"))
+  ) %>%
+  tab_style(
+    style = cell_fill(color = "#EEC900"),
+    locations = cells_body(rows = label %in% c("Weight (kg) "))
+  ) %>%
+  tab_style(
+    style = cell_fill(color = "#E0EEE0"),
+    locations = cells_body(rows = label %in% c("Height (m)"))
+  )%>%
+tab_style(
+    style = cell_fill(color = "#EE6AA7"),
+    locations = cells_body(rows = label %in% c("Outcome Variable"))
+  ) %>%
+  tab_style(
+    style = cell_fill(color = "#EEEEE0"),
+    locations = cells_body(rows = label %in% c("Dosage (mg)"))
+  ) 
+
+# Display the formatted table
+print(summary_table)
+
+
+```
+
+Based on the table above, 120 participants received a single 25 mg, 37.5 mg or 50 mg of MVG (49%, 10%, and 41% respectively). Most subjects were young (mean age of 33 years), race group one (62 %), male (87 %) with a mean BW of 83 kg and mean of HT of 1.76 m.
+
+*Summary Table for all variables based on sex*
+
+```{r}
+# Summary table for all variables by SEX
+df %>%
+  tbl_summary(by=SEX, type=list(where(is.numeric) ~ "continuous"), # Specifies that all numeric variables should be treated as
+              statistic=list(all_continuous() ~ "{median} ({p25}, {p75})"), #Numeric (continuous) variables will be summarized using the median and interquartile range (IQR: 25th and 75th percentiles).
+              digits=list(all_continuous() ~ 0, HT ~ 2), # Specifies that all continuous variables should be rounded to 0 decimal places, except for HT (Height), which is rounded to 2 decimal places.
+
+              label=list(Y ~ "Response",
+                         DOSE ~ "Drug dose",
+                         AGE ~ "Age",
+                         RACE ~ "Race",
+                         WT ~ "Weight",
+                         HT ~ "Height")) %>%
+  add_p(test=list(all_continuous() ~ "wilcox.test",
+                  all_categorical() ~ "fisher.test"), # test differences between groups (SEX in this case).
+        pvalue_fun=function(x) style_number(x, digits=3)) %>%
+  modify_header(p.value="*p*-value") %>%
+  modify_spanning_header(all_stat_cols() ~ "**Sex**") %>%
+  as_gt()
+```
+
+For better understanding about the data, data are visualized in Histogram and Boxplot
+
+*Histogram of Weight and height distribution*
+
+```{r}
+
+# Create a histogram for WT (Weight)
+plot1 <- ggplot(df, aes(x = WT)) + 
+  geom_histogram(binwidth = 5, fill = "#EEAEEE", color = "black", alpha = 0.7) +  # Blue fill, black border, transparency
+  labs(title = "Histogram of Weight (WT)",
+       x = "Weight (kg)",
+       y = "Count") +
+  theme_minimal(base_size = 14) +  # Improves readability
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 12)
+  ) +
+  geom_density(aes(y = ..count.. * 5), color = "red", linetype = "dashed", size = 1)  # Add smooth density curve
+
+
+# Create a histogram for HT (Height)
+plot2 <- ggplot(df, aes(x = HT)) + 
+  geom_histogram(position = "identity", fill = "#EEB4B4", color = "black", alpha = 0.7) +  # Blue fill, black border, transparency
+  labs(title = "Histogram of Height (HT)",
+       x = "Height (cm)",
+       y = "Count") +
+  theme_minimal()
+#Combine the histogram 
+plot1 + plot2
+
+```
+
+Based on the Histogram of Weight, the weight is slighly skewed to the right. On the other hand, the height is skewed to the left. It is indicating that the data is not normally distributed both Weight and Heigth.
+
+***Boxplot of Y variable based on Categorical Variables***
+
+Boxplots were created to better visualization between response variable based on sex, race and dose.
+
+```{r}
+
+# Boxplot of Y by SEX
+boxplot_sex <- ggplot(df, aes(x = factor(SEX), y = Y, fill = factor(SEX))) +
+  geom_boxplot(alpha = 0.7, color = "black") +  # Add transparency and black borders
+  labs(title = "Boxplot of Y by SEX",
+       x = "Sex",
+       y = "Y") +
+  theme_minimal(base_size = 14) +  # Improve readability
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 12),
+    legend.position = "none",  # Remove legend since SEX is on x-axis
+    panel.border = element_rect(color = "black", fill = NA, size = 1)  # Add frame
+  ) +
+  scale_fill_brewer(palette = "Pastel1")  # Use a nice color palette
+
+# Boxplot of Y by DOSE
+boxplot_dose <- ggplot(df, aes(x = factor(DOSE), y = Y, fill = factor(DOSE))) +
+  geom_boxplot(alpha = 0.7, color = "black") +  # Add transparency and black borders
+  labs(title = "Boxplot of Y by DOSE",
+       x = "Dose",
+       y = "Y") +
+  theme_minimal(base_size = 14) +  # Improve readability
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 12),
+    legend.position = "none",  # Remove legend since DOSE is on x-axis
+    panel.border = element_rect(color = "black", fill = NA, size = 1)  # Add frame
+  ) +
+  scale_fill_brewer(palette = "Set2")  # Use a distinct color palette
+
+# Boxplot of Y by RACE
+boxplot_race <- ggplot(df, aes(x = factor(RACE), y = Y, fill = factor(RACE))) +
+  geom_boxplot(alpha = 0.7, color = "black") +  # Transparent boxes with black borders
+  labs(title = "Boxplot of Y by RACE",
+       x = "Race",
+       y = "Y") +
+  theme_minimal(base_size = 14) +  # Improve readability
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 12),
+    legend.position = "none",  # Remove legend since RACE is already labeled on x-axis
+    panel.border = element_rect(color = "black", fill = NA, size = 1)  # Add frame
+  ) +
+  scale_fill_brewer(palette = "Set3")  # Apply a nice color palette
+
+# Combine the boxplots
+(boxplot_sex + boxplot_dose) / boxplot_race
+
+```
+
+Based on the boxplot above, the mean of response (y) is higher in sex1 compared to sex 2. In the dose category, it can be seen that the higher dose, the higher mean of response variable Y. Moreover, Race 1 and 2 have higher mean of Y compared two other races.
+
+*scatter plot of y based on continouse variables*
+
+Scatter plot is better way to show the relationship between continouse variable (both response and predictors). Loess method is used to draw the regression line to clearly look at nonlinear relationship between Y and predictors.
+
+```{r}
+
+# Scatterplot of Y by AGE
+plot_age <- ggplot(df, aes(x = AGE, y = Y)) +
+  geom_point(alpha = 0.7, size = 2, fill= "#EE00EE", color="#EE00EE", stroke=1, shape=18) +  # Transparent points for better visibility
+  geom_smooth(method = "loess", se = TRUE, color = "black", linetype = "dashed", size = 1) +  # Regression line
+  labs(title = "Y vs Age",
+       x = "Age",
+       y = "Y") + 
+ theme_bw()+
+  theme(axis.title=element_text(size=10, color="black", face="bold"),
+        axis.text=element_text(size=8, color="black"),
+        plot.title=element_text(size=12, color="black", face="bold", hjust= 0.5,))
+
+# Scatterplot of Y by WT (Weight)
+plot_wt <- ggplot(df, aes(x = WT, y = Y)) +
+  geom_point(alpha = 0.7, size = 2, fill= "#9ACD32", color="#9ACD32", stroke=1, shape=18) +  # Transparent points for better visibility
+  geom_smooth(method = "loess", se = TRUE, color = "black", linetype = "dashed", size = 1) +  # Regression line
+  labs(title = "Y vs WT",
+       x = "Weight",
+       y = "Y") + 
+ theme_bw()+
+  theme(axis.title=element_text(size=10, color="black", face="bold"),
+        axis.text=element_text(size=8, color="black"),
+        plot.title=element_text(size=12, color="black", face="bold", hjust= 0.5))
+
+# Scatterplot of Y by HT (Height) with correct color scale
+plot_ht<- ggplot(df, aes(x = HT, y = Y)) +
+  geom_point(alpha = 0.7, size = 2, fill= "#EE4000", color="#EE4000", stroke=1, shape=18) +  # Transparent points for better visibility
+  geom_smooth(method = "loess", se = TRUE, color = "black", linetype = "dashed", size = 1) +  # Regression line
+  labs(title = "Y vs HT",
+       x = "Height",
+       y = "Y") + 
+ theme_bw()+
+  theme(axis.title=element_text(size=10, color="black", face="bold"),
+        axis.text=element_text(size=8, color="black"),
+        plot.title=element_text(size=12, color="black", face="bold", hjust= 0.5))
+ 
+# Combine and output the three scatterplots
+ggarrange(plot_age, plot_wt, plot_ht, ncol=3, nrow=1, align="h", 
+          heights=c(1, 1, 1))
+
+```
+
+Based on the scatter plots above, it can be seen that there is no linear relationship between Y and the predictors. - For Age, the trend appears somewhat flat with fluctuations, indicating weak or no strong association. The confidence interval (shaded area) is wide, especially at the edges, suggesting greater uncertainty in predictions at extreme ages. There is a large spread of data points, meaning variability in Y is high across different age.
+
+-   For Weight, the confidence interval is relatively narrow in the middle but widens at lower and higher WT values, indicating more uncertainty at extreme weights. There is a cluster of data points around a moderate WT range, with more variability at lower and higher weights.
+
+-   For height, the LOESS curve exhibits a U-shaped or fluctuating trend, suggesting a non-linear relationship between Height and Y. Initially, Y decreases with increasing Height, but at certain points, it fluctuates and slightly increases. The confidence interval is wider at extreme heights, suggesting greater uncertainty in predictions. The spread of data is relatively uniform, but there are some extreme Y values.
+
+```{r}
+# Scatterplot Y vs Race
+plot_race <- ggplot(df, aes(x = factor(RACE), y = Y, color = factor(RACE))) +
+  geom_jitter(alpha = 0.7, size = 2, width = 0.2) +  # Jitter to avoid overlapping points
+  geom_boxplot(outlier.shape = NA, alpha = 0.3) +  # Boxplot for distribution
+  labs(title = "Scatterplot of Y by Race",
+       x = "Race",
+       y = "Outcome Variable (Y)") +
+  theme_minimal(base_size = 14) +
+  scale_color_brewer(palette = "Set1") +
+  theme(
+    panel.border = element_rect(color = "black", fill = NA, size = 1)  # Add frame border
+  )
+
+# Scatterplot Y vs SEX
+plot_sex <- ggplot(df, aes(x = factor(SEX), y = Y, color = factor(SEX))) +
+  geom_jitter(alpha = 0.7, size = 2, width = 0.2) +  # Jitter to separate overlapping points
+  geom_boxplot(outlier.shape = NA, alpha = 0.3) +  # Boxplot for visualization
+  labs(title = "Scatterplot of Y by Sex",
+       x = "Sex",
+       y = "Outcome Variable (Y)") +
+  theme_minimal(base_size = 14) +
+  scale_color_brewer(palette = "Dark2") +  # Different color scheme
+  theme(
+    panel.border = element_rect(color = "black", fill = NA, size = 1)  # Add frame border
+  )
+
+# Scatterplot Y vs Doses
+plot_dose <- ggplot(df, aes(x = factor(DOSE), y = Y, color = factor(DOSE))) +
+  geom_jitter(alpha = 0.7, size = 2, width = 0.2) +  # Jitter for better visualization
+  geom_boxplot(outlier.shape = NA, alpha = 0.3) +  # Boxplot for distribution
+  labs(title = "Scatterplot of Y by Dose",
+       x = "Dose",
+       y = "Outcome Variable (Y)") +
+  theme_minimal(base_size = 14) +
+  scale_color_brewer(palette = "Set3") +  # Different color scheme
+  theme(
+    panel.border = element_rect(color = "black", fill = NA, size = 1)  # Add frame border
+  )
+
+# Combine and output the three scatterplots
+ggarrange(
+  ggarrange(plot_race, plot_sex, ncol = 2, nrow = 1),  # Row 1: Two plots side by side
+  plot_dose,  # Row 2: Full-width plot
+  ncol = 1, nrow = 2,  # 2 rows total
+  heights = c(2, 2)  # Equal height for both rows
+)
+
+```
+
+Based on the scatter plot above, race 1 has a wider spread of Y values with more extreme values (outliers). The spread of Y for Sex 1 is slightly larger than for Sex 2. Sex 2 appears to have slightly higher median Y values. The interquartile range (IQR) suggests that the distribution of Y values differs between sexes.The median Y value increases with increasing dose. The spread of Y also increases as the dose increases. The dose group 50 shows the widest variability, with more extreme values.
+
+```{r}
+
+# Select only continuous variables (excluding categorical variables like SEX, RACE, DOSE)
+df_cont <- df %>% select(where(is.numeric))
+
+# Compute correlation matrix
+cor_matrix <- cor(df_cont, use = "complete.obs")  # Use only complete cases
+
+# Visualize correlation matrix with correlation values
+corrplot(cor_matrix, 
+         method = "color",  # Color-coded visualization
+         type = "lower",  # Show only lower triangle to reduce redundancy
+         tl.col = "black",  # Black text labels for variable names
+         tl.srt = 45,  # Rotate labels for better readability
+         addCoef.col = "black",  # Show correlation values in black
+         number.cex = 0.8)  # Adjust text size for correlation numbers
+
+```
+
+Based on the correlation matrix, DOSE is the strongest predictor of Y, showing a positive correlation (0.72). AGE does not seem to have a meaningful relationship with any variable. Weight (WT) and Height (HT) are moderately correlated (0.60), which makes sense biologically. There are weak negative correlations of Y with WT and HT, but their impact is likely small.
+
+## Model Fitting
+
+*Model 1: Y \~ Dose* For model fitting, I will start with simple model (y\~ DOSE). Tidymodels is used in this modeling.
+
+```{r}
+df$DOSE <- as.factor(df$DOSE)
+
+# Linear regression: Y ~ DOSE
+m1 <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(Y ~ DOSE, df)
+
+# Output the fitting result
+tidy(m1)
+```
+
+Interpretation:
+
+-   Intercept (Baseline: DOSE 25): the estimated mean Y when using DOSE 25 is 1782.67
+
+-   DOSE 37.5 (681.24): increasing DOSE from 25 to 37.5 leads to an increase in Y by 681.24 on average with p-value = 0.0018 (\< 0.05) → This effect is statistically significant.
+
+-   DOSE 50 (1456.20): increasing DOSE from 25 to 50 leads to an increase in Y by 1456.20 on average. p-value \< 0.0001 → Strong evidence that this effect is statistically significant.
+
+*Model2: Y \~ all predictors*
+
+```{r}
+m2 <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(Y ~ ., df)
+
+# Output the fitting result
+tidy(m2)
+```
+
+Interpretation: - The intercept (4890.92) represents the expected Y value when all predictors are zero. - Dose 37.5, Dose 50, and Weight are statistically significant with Y. Doses have positive relationship with Y, while Weight had significant effect on Y. Other predictors are not statistically correlated with Y.
+
+*compute RMSE and R-squared*
+
+```{r}
+m1_RMSE_R2<- predict(m1, df) %>%
+  bind_cols(df) %>%
+  metrics(truth=Y, estimate=.pred) %>%
+  print()
+
+m2_RMSE_R2<- predict(m2, df) %>%
+  bind_cols(df) %>%
+  metrics(truth=Y, estimate=.pred) %>%
+  print()
+
+```
+
+Based on the RMSE and R-Squared, model 2 (all predictors) performed better fit to the data compared to Model 1 (Dose Only) with RMSE and R-Squared (666.31 and 0.51 respectively for model 1, and 590.31 and 0.62 for model 2).
+
+*Model 3: Logistic Regression (Sex \~ Dose)*
+
+```{r}
+#SEX ~ DOSE
+m3 <- logistic_reg() %>%
+  set_engine("glm") %>%
+  set_mode("classification") %>%
+  fit(SEX ~ DOSE, df)
+tidy(m3)
+```
+
+Interpretation:
+
+The Intercept is significant, meaning there is an underlying distribution of SEX probabilities. Neither DOSE37.5 nor DOSE50 significantly affect SEX because their p-values \> 0.05. This suggests that DOSE does not strongly predict SEX.
+
+*Model 4: Logistic Regression (Sex \~ All Predictors)*
+
+```{r}
+#SEX ~ all predictors
+m4 <- logistic_reg() %>%
+  set_engine("glm") %>%
+  set_mode("classification") %>%
+  fit(SEX ~ DOSE + AGE + RACE + WT + HT, df)
+
+# Output the fitting result
+tidy(m4)
+```
+
+Based on the output, only Height is significantly correlated with Sex. Dose levels have a small, negative, but non-significant effect on Sex. Age, race and WT are not significant with Sex.
+
+*Calculate RMSE and R-squared*
+
+```{r}
+m3_RMSE_R2 <- predict(m3, df, type="class") %>%
+  bind_cols(predict(m3, df, type="prob")) %>%
+  bind_cols(df) %>%
+  metrics(truth=SEX, estimate=.pred_class, .pred_1) %>%
+  print()
+m4_RMSE_R2 <- predict(m4, df, type="class") %>%
+  bind_cols(predict(m4, df, type="prob")) %>%
+  bind_cols(df) %>%
+  metrics(truth=SEX, estimate=.pred_class, .pred_1) %>%
+  print()
+
+```
+
+```{r}
+
+# Create a data frame for both models
+metrics_df <- data.frame(
+  metric = rep(c("accuracy", "kap", "mn_log_loss", "roc_auc"), 2),  # Repeating metrics
+  estimate = c(0.8667, 0.0000, 0.3843, 0.5919,   # First model
+               0.9500, 0.7716, 0.1334, 0.9784),  # Second model
+  model = rep(c("Model 1", "Model 2"), each = 4)  # Model labels
+)
+
+# Create a grouped bar plot
+ggplot(metrics_df, aes(x = metric, y = estimate, fill = model)) +
+  geom_bar(stat = "identity", position = "dodge", color = "black", alpha = 0.8) +  # Grouped bars
+  labs(title = "Comparison of Model Performance Metrics",
+       x = "Metric",
+       y = "Score",
+       fill = "Model") +
+  theme_minimal(base_size = 14) +  # Clean theme
+  scale_fill_manual(values = c("Model 1" = "lightpink", "Model 2" = "lightblue")) +  # Custom colors
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 12)
+  )
+
+
+```
+
+Interpretation: - Model 2 (accuracy 0.95) is more accurate in making correct predictions than Model 1 (accuracy 0.87). - Kappa measures how well the model's predictions agree with the true labels, adjusting for chance. Model 2 shows a much stronger agreement with the actual data, while Model 1 shows almost no agreement beyond chance. - Lower log loss indicates better probabilistic predictions. Model 2 has a significantly lower log loss, meaning its probability estimates are more reliable. - A higher ROC AUC means the model is better at distinguishing between classes. Model 2 is much better than Model 1 at identifying positive vs. negative classes.
