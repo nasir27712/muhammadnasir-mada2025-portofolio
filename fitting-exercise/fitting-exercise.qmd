@@ -52,7 +52,8 @@ library(ggpubr)
 
 install.packages("broom") 
 library(broom)# Installs broom separately (optional)
-
+install.packages("gtsummary")
+library(gtsummary)
 
 ```
 
@@ -201,27 +202,7 @@ In this section, the data is visualized using appropriate table, charts or graph
 
 ```{r}
 
-# Create the summary table
-summary_table <- df %>%
-  tbl_summary(
-    statistic = list(
-      all_continuous() ~ "{mean} ({sd})",  # Mean (SD) for continuous variables
-      all_categorical() ~ "{n} ({p}%)"     # Count (Percentage) for categorical variables
-    ),
-    missing = "ifany",  # Display missing values if present
-    label = list(  # Custom variable labels using actual column names
-      Y ~ "Outcome Variable (Y)",
-      DOSE ~ "Dosage (mg)",
-      AGE ~ "Age (years)",
-      SEX ~ "Sex",
-      RACE ~ "Race",
-      WT ~ "Weight (kg)",
-      HT ~ "Height (m)"
-    )
-  ) 
-
-# Display the formatted table
-print(summary_table)
+tbl_summary(df)
 
 
 ```
