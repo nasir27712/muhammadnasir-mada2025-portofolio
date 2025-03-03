@@ -218,38 +218,6 @@ summary_table <- df %>%
       WT ~ "Weight (kg)",
       HT ~ "Height (m)"
     )
-  ) %>%
-  bold_labels() %>%
-  modify_header(label = "**Variable**") %>%
-  modify_caption("**Summary of the Dataset**") %>%
-  as_gt() %>%  # Convert to gt table for styling
-  tab_style(
-    style = cell_fill(color = "#C1FFC1"),
-    locations = cells_body(rows = label %in% c("Sex"))
-  ) %>%
-  tab_style(
-    style = cell_fill(color = "#97FFFF"),
-    locations = cells_body(rows = label %in% c("Race"))
-  ) %>%
-  tab_style(
-    style = cell_fill(color = "#00BFFF"),
-    locations = cells_body(rows = label %in% c("Age (years)"))
-  ) %>%
-  tab_style(
-    style = cell_fill(color = "#EEC900"),
-    locations = cells_body(rows = label %in% c("Weight (kg) "))
-  ) %>%
-  tab_style(
-    style = cell_fill(color = "#E0EEE0"),
-    locations = cells_body(rows = label %in% c("Height (m)"))
-  )%>%
-tab_style(
-    style = cell_fill(color = "#EE6AA7"),
-    locations = cells_body(rows = label %in% c("Outcome Variable"))
-  ) %>%
-  tab_style(
-    style = cell_fill(color = "#EEEEE0"),
-    locations = cells_body(rows = label %in% c("Dosage (mg)"))
   ) 
 
 # Display the formatted table
