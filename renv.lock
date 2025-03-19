@@ -3314,10 +3314,10 @@
     },
     "writexl": {
       "Package": "writexl",
-      "Version": "1.5.1",
+      "Version": "1.5.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "3eb948ad9591d7b34987772d44e4be12"
+      "Hash": "63042aa8d4405d7bcefd8ae5e9027e44"
     },
     "xfun": {
       "Package": "xfun",

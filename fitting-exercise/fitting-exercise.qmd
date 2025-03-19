@@ -584,3 +584,230 @@ ggplot(metrics_df, aes(x = metric, y = estimate, fill = model)) +
 ```
 
 Interpretation: - Model 2 (accuracy 0.95) is more accurate in making correct predictions than Model 1 (accuracy 0.87). - Kappa measures how well the model's predictions agree with the true labels, adjusting for chance. Model 2 shows a much stronger agreement with the actual data, while Model 1 shows almost no agreement beyond chance. - Lower log loss indicates better probabilistic predictions. Model 2 has a significantly lower log loss, meaning its probability estimates are more reliable. - A higher ROC AUC means the model is better at distinguishing between classes. Model 2 is much better than Model 1 at identifying positive vs. negative classes.
+
+
+
+# Module 10 Part 1
+In this exercise, we will use the data from previous part. 
+
+```{r}
+
+m10_df <- df %>% 
+  select(-RACE) %>%
+  mutate(DOSE = as.factor(DOSE)) # convert DOSE into factor
+
+colnames(m10_df)
+summary(m10_df)
+
+
+```
+
+First, I am setting a seed rngseed using a 7%% for train set and a 25% for test set. 
+
+```{r}
+# Set seed
+rngseed <- 1234
+set.seed(rngseed)
+
+# Split dataset into a 75% train set and a 25% test set
+splitted_m10 <- initial_split(m10_df, prop=.75)
+train_data <- training(splitted_m10)
+test_data  <- testing(splitted_m10)
+```
+
+
+
+## Model Fitting 
+In this part, I will fit two models with y as an outcome. Model one has one predictor (dose), and another model include all predictors. Plus Null Model, which can be used to compare the RMSE. 
+
+*The First Model*
+```{r}
+#  Y ~ DOSE 
+m1_10 <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(Y ~ DOSE, train_data)
+
+
+#Output 
+tidy(m1_10)
+```
+
+
+*The second model*
+```{r}
+#Y ~ DOSE + AGE + SEX + WT + HT
+
+m2_10 <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(Y ~ DOSE + AGE + SEX + WT + HT , train_data)
+
+# output 
+tidy(m2_10)
+```
+
+```{r}
+#  Null Model 
+m3_10 <- null_model() %>%
+  set_engine("parsnip") %>%
+  set_mode("regression") %>%
+  fit(Y ~ ., train_data)
+
+
+#Output 
+tidy(m3_10)
+```
+
+
+
+## Model Performance Assessment 1 
+
+```{r}
+# Print RMSE for  Y~DOSE 
+
+RMSE_train_DOSE <- predict(m1_10, train_data) %>%
+  bind_cols(train_data) %>%
+  metrics(truth=Y, estimate=.pred) %>%
+  print()
+```
+
+```{r}
+# Print RMSE for Y~ All Predictors 
+
+RMSE_train_All <- predict(m2_10, train_data) %>%
+  bind_cols(train_data) %>%
+  metrics(truth=Y, estimate=.pred) %>%
+  print()
+```
+
+```{r}
+# Print RMSE for Null model 
+
+RMSE_train_Null <- predict(m3_10, train_data) %>%
+  bind_cols(train_data) %>%
+  metrics(truth=Y, estimate=.pred) %>%
+  print()
+```
+
+
+Based on the output from three different models, RMSEs for model with DOSE only, all predictors, and null are 702.8, 627.3, 948.36 respectively. We can conclude that Regression model including all predictors is the best model for the dataset with the lowest RMSE.
+
+
+## Model Performance Assessment 2
+
+In this part, cross validation is performed by using a 10 fold cross-validation (CV) to examine the performance of the models. 
+
+```{r}
+#set seed
+set.seed(rngseed)
+
+#Getting the CV folds established
+folds <- vfold_cv(train_data, v = 10)
+
+```
+
+
+Now I am going to fit the model with only DOSE as predictor to 9 of the splits for 10 times, and calculate the RMSE 
+
+```{r}
+
+#Y~DOSE 
+# Model setting
+m1_10_spec <- linear_reg() %>% 
+  set_engine("lm") %>% 
+  set_mode("regression")
+
+# Set the workflow: model 1
+m1_10_cv <- workflow() %>%
+  add_model(m1_10_spec) %>%
+  add_formula(Y ~ DOSE)
+
+# Set seed
+set.seed(rngseed)
+
+# Fit the data
+m1_10_cv_fit <- m1_10_cv  %>% 
+  fit_resamples(folds)
+
+# Mean and SE of RMSE
+collect_metrics(m1_10_cv_fit)
+
+```
+
+Fitting model with all predictors 
+```{r}
+
+#Y~ All Predictors 
+# Model setting
+m2_10_spec <- linear_reg() %>% 
+  set_engine("lm") %>% 
+  set_mode("regression")
+
+# Set the workflow: model 1
+m2_10_cv <- workflow() %>%
+  add_model(m1_10_spec) %>%
+  add_formula(Y ~ DOSE + AGE + SEX + WT + HT )
+
+# Set seed
+set.seed(rngseed)
+
+# Fit the data
+m2_10_cv_fit <- m2_10_cv  %>% 
+  fit_resamples(folds)
+
+# Mean and SE of RMSE
+collect_metrics(m2_10_cv_fit)
+
+
+```
+
+Based on the output, Model 2 has a lower RMSE (652.77 vs. 696.71), indicating that it predicts the response variable Y more accurately than Model 1. The standard error (std_err) is slightly lower in Model 2 (63.60 vs. 68.10), which suggests that Model 2 is more stable across different CV folds.For the R², Model 2 has a higher R² (0.5608 vs. 0.5000), meaning it explains 56.08% of the variance in Y, compared to Model 1, which explains only 50.00%. The standard error of R² is slightly higher in Model 2, meaning there is more variation in R² across folds, but the difference is minor.
+
+
+*Validate using different set.deed* 
+```{r}
+# New Set seed
+set.seed(3456)
+
+#10-fold sapling 
+folds_new_cv <- vfold_cv(train_data, v=10)
+
+
+#Y~DOSE 
+
+set.seed(3456)
+# Model setting
+m1_10_spec <- linear_reg() %>% 
+  set_engine("lm") %>% 
+  set_mode("regression")
+
+
+# Set seed
+set.seed(3456)
+
+# Fit the data
+m1_10_cv_fit_new <- m1_10_cv  %>% 
+  fit_resamples(folds_new_cv )
+
+
+# Mean and SE of RMSE
+collect_metrics(m1_10_cv_fit_new)
+
+```
+
+
+```{r}
+
+#Y~ All Predictors 
+# Set seed
+
+
+# Fit the data
+m2_10_cv_fit_new <- m2_10_cv  %>% 
+  fit_resamples(folds_new_cv)
+
+# Mean and SE of RMSE
+collect_metrics(m2_10_cv_fit_new)
+```
+
+Model 2 performs better than Model 1, as it has a lower RMSE (643.02 vs. 690.78). This suggests that Model 2 has improved predictive accuracy and makes smaller errors in predicting Y. fFr  R², Model 2 has a higher R² (0.5876 vs. 0.5624), meaning it explains more variance in Y.
+A higher R² suggests Model 2 fits the data better than Model 1. The result is consistent with original model. 
