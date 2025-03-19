@@ -55,6 +55,13 @@ library(broom)# Installs broom separately (optional)
 install.packages("gtsummary")
 library(gtsummary)
 
+
+install.packages("rsample")
+install.packages("purrr")
+library(rsample)
+library(purrr)
+
+
 ```
 
 ### Read the dataset
@@ -585,10 +592,9 @@ ggplot(metrics_df, aes(x = metric, y = estimate, fill = model)) +
 
 Interpretation: - Model 2 (accuracy 0.95) is more accurate in making correct predictions than Model 1 (accuracy 0.87). - Kappa measures how well the model's predictions agree with the true labels, adjusting for chance. Model 2 shows a much stronger agreement with the actual data, while Model 1 shows almost no agreement beyond chance. - Lower log loss indicates better probabilistic predictions. Model 2 has a significantly lower log loss, meaning its probability estimates are more reliable. - A higher ROC AUC means the model is better at distinguishing between classes. Model 2 is much better than Model 1 at identifying positive vs. negative classes.
 
-
-
 # Module 10 Part 1
-In this exercise, we will use the data from previous part. 
+
+In this exercise, we will use the data from previous part.
 
 ```{r}
 
@@ -602,7 +608,7 @@ summary(m10_df)
 
 ```
 
-First, I am setting a seed rngseed using a 7%% for train set and a 25% for test set. 
+First, I am setting a seed rngseed using a 7%% for train set and a 25% for test set.
 
 ```{r}
 # Set seed
@@ -615,12 +621,12 @@ train_data <- training(splitted_m10)
 test_data  <- testing(splitted_m10)
 ```
 
+## Model Fitting
 
-
-## Model Fitting 
-In this part, I will fit two models with y as an outcome. Model one has one predictor (dose), and another model include all predictors. Plus Null Model, which can be used to compare the RMSE. 
+In this part, I will fit two models with y as an outcome. Model one has one predictor (dose), and another model include all predictors. Plus Null Model, which can be used to compare the RMSE.
 
 *The First Model*
+
 ```{r}
 #  Y ~ DOSE 
 m1_10 <- linear_reg() %>%
@@ -632,8 +638,8 @@ m1_10 <- linear_reg() %>%
 tidy(m1_10)
 ```
 
-
 *The second model*
+
 ```{r}
 #Y ~ DOSE + AGE + SEX + WT + HT
 
@@ -657,9 +663,7 @@ m3_10 <- null_model() %>%
 tidy(m3_10)
 ```
 
-
-
-## Model Performance Assessment 1 
+## Model Performance Assessment 1
 
 ```{r}
 # Print RMSE for  Y~DOSE 
@@ -688,13 +692,11 @@ RMSE_train_Null <- predict(m3_10, train_data) %>%
   print()
 ```
 
-
 Based on the output from three different models, RMSEs for model with DOSE only, all predictors, and null are 702.8, 627.3, 948.36 respectively. We can conclude that Regression model including all predictors is the best model for the dataset with the lowest RMSE.
-
 
 ## Model Performance Assessment 2
 
-In this part, cross validation is performed by using a 10 fold cross-validation (CV) to examine the performance of the models. 
+In this part, cross validation is performed by using a 10 fold cross-validation (CV) to examine the performance of the models.
 
 ```{r}
 #set seed
@@ -705,8 +707,7 @@ folds <- vfold_cv(train_data, v = 10)
 
 ```
 
-
-Now I am going to fit the model with only DOSE as predictor to 9 of the splits for 10 times, and calculate the RMSE 
+Now I am going to fit the model with only DOSE as predictor to 9 of the splits for 10 times, and calculate the RMSE
 
 ```{r}
 
@@ -733,7 +734,8 @@ collect_metrics(m1_10_cv_fit)
 
 ```
 
-Fitting model with all predictors 
+Fitting model with all predictors
+
 ```{r}
 
 #Y~ All Predictors 
@@ -762,8 +764,8 @@ collect_metrics(m2_10_cv_fit)
 
 Based on the output, Model 2 has a lower RMSE (652.77 vs. 696.71), indicating that it predicts the response variable Y more accurately than Model 1. The standard error (std_err) is slightly lower in Model 2 (63.60 vs. 68.10), which suggests that Model 2 is more stable across different CV folds.For the R², Model 2 has a higher R² (0.5608 vs. 0.5000), meaning it explains 56.08% of the variance in Y, compared to Model 1, which explains only 50.00%. The standard error of R² is slightly higher in Model 2, meaning there is more variation in R² across folds, but the difference is minor.
 
+*Validate using different set.deed*
 
-*Validate using different set.deed* 
 ```{r}
 # New Set seed
 set.seed(3456)
@@ -794,7 +796,6 @@ collect_metrics(m1_10_cv_fit_new)
 
 ```
 
-
 ```{r}
 
 #Y~ All Predictors 
@@ -809,5 +810,133 @@ m2_10_cv_fit_new <- m2_10_cv  %>%
 collect_metrics(m2_10_cv_fit_new)
 ```
 
-Model 2 performs better than Model 1, as it has a lower RMSE (643.02 vs. 690.78). This suggests that Model 2 has improved predictive accuracy and makes smaller errors in predicting Y. fFr  R², Model 2 has a higher R² (0.5876 vs. 0.5624), meaning it explains more variance in Y.
-A higher R² suggests Model 2 fits the data better than Model 1. The result is consistent with original model. 
+Model 2 performs better than Model 1, as it has a lower RMSE (643.02 vs. 690.78). This suggests that Model 2 has improved predictive accuracy and makes smaller errors in predicting Y. fFr R², Model 2 has a higher R² (0.5876 vs. 0.5624), meaning it explains more variance in Y. A higher R² suggests Model 2 fits the data better than Model 1. The result is consistent with original model.
+
+# This section was added by Yufei Wu
+
+## Model predictions
+
+```{r}
+
+# Generate predictions and combine with observed values
+predictions_dose <- predict(m1_10, train_data) %>%
+  mutate(Model = "Y ~ DOSE") %>%
+  bind_cols(train_data %>% select(Y))
+
+predictions_all <- predict(m2_10, train_data) %>%
+  mutate(Model = "Y ~ All Predictors") %>%
+  bind_cols(train_data %>% select(Y))
+
+predictions_null <- predict(m3_10, train_data) %>%
+  mutate(Model = "Null Model") %>%
+  bind_cols(train_data %>% select(Y))
+
+# Combine all predictions into one dataframe
+predictions_df <- bind_rows(predictions_dose, predictions_all, predictions_null) %>%
+  rename(Observed = Y, Predicted = .pred)
+
+# Create the scatter plot
+ggplot(predictions_df, aes(x = Observed, y = Predicted, color = Model, shape = Model)) +
+  geom_point(alpha = 0.7) + 
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") + # 45-degree line
+  scale_x_continuous(limits = c(0, 5000)) + 
+  scale_y_continuous(limits = c(0, 5000)) +
+  labs(title = "Observed vs Predicted Values",
+       x = "Observed Values",
+       y = "Predicted Values") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+
+```
+
+From the plot, we can see that the data from the null model are a straight horizontal line (red line) since we predict the same mean for each observation. For model 1, which only includes dose, the data falls along three horizontal lines (blue lines). This may be because the DOSE variable only takes three values (25 mg, 37.5 mg, or 50 mg). Thus, we only get three different predicted values for the outcome. The model 2 looks the best since the points fall along the 45 degree line. However, there seems to be some pattern to the scatter with model predictions lower than observed values for high values.
+
+Now plot predicted versus residuals:
+
+```{r}
+# Compute residuals for Model 2
+residuals_df <- predict(m2_10, train_data) %>%
+  bind_cols(train_data %>% select(Y)) %>%
+  mutate(Residuals = .pred - Y, Predicted = .pred)
+
+# Find the max absolute residual for symmetric y-axis limits
+residual_limit <- max(abs(residuals_df$Residuals))
+
+# Load ggplot2 for visualization
+library(ggplot2)
+
+# Create residuals plot
+ggplot(residuals_df, aes(x = Predicted, y = Residuals)) +
+  geom_point(alpha = 0.7, color = "blue") +  # Scatter plot of residuals
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") + # Reference line at 0
+  scale_y_continuous(limits = c(-residual_limit, residual_limit)) + # Symmetric y-axis
+  labs(title = "Predicted vs Residuals (Model 2)",
+       x = "Predicted Values",
+       y = "Residuals") +
+  theme_minimal()
+
+```
+
+There is a residual pattern that there are more and higher negative values than positive values.
+
+## Model predictions and uncertainty
+
+```{r}
+#set seed
+set.seed(rngseed)
+
+# Create 100 bootstrap samples
+dat_bs <- bootstraps(train_data, times = 100)
+
+# Fit the model to each bootstrap sample and store predictions
+pred_bs <- matrix(NA, nrow = nrow(train_data), ncol = 100)
+
+for (i in 1:100) {
+  # Extract bootstrap sample
+  dat_sample <- analysis(dat_bs$splits[[i]])
+  
+  # Fit model to bootstrap sample
+  m2_bs <- linear_reg() %>%
+    set_engine("lm") %>%
+    fit(Y ~ DOSE + AGE + SEX + WT + HT, data = dat_sample)
+  
+  # Make predictions for original training data
+  pred_bs[, i] <- predict(m2_bs, train_data)$.pred
+}
+
+# Compute mean and confidence intervals for predictions
+preds <- apply(pred_bs, 1, quantile, probs = c(0.055, 0.5, 0.945)) |> t()
+colnames(preds) <- c("Lower", "Median", "Upper")
+
+# Compute point estimate from the original model
+point_estimate <- predict(m2_10, train_data)$.pred
+
+# Create dataframe with observed values, point estimates, and bootstrap statistics
+plot_data <- train_data %>%
+  mutate(Point_Estimate = point_estimate,
+         Median = preds[, "Median"],
+         Lower = preds[, "Lower"],
+         Upper = preds[, "Upper"])
+
+# Load ggplot2 for visualization
+library(ggplot2)
+
+# Create the plot
+ggplot(plot_data, aes(x = Y)) +
+  geom_point(aes(y = Point_Estimate), color = "black", shape = 16, alpha = 0.7) + # Point estimates
+  geom_point(aes(y = Median), color = "blue", shape = 16, alpha = 0.7) + # Bootstrap median
+  geom_errorbar(aes(ymin = Lower, ymax = Upper), color = "red", width = 0.2, alpha = 0.5) + # Confidence intervals
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") + # 45-degree line
+  scale_x_continuous(limits = c(0, 6000)) + 
+  scale_y_continuous(limits = c(0, 6000)) +
+  labs(title = "Observed vs Bootstrap Confidence Intervals",
+       x = "Observed Values",
+       y = "Predicted Values") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+
+```
+
+From the figure, we can see that the bootstrap median values align closely with the point estimate, which suggests that the model is fairly stable across different resampled datasets. Besides, the error bars show that the confidence intervals are wider at some higher values, ndicate higher uncertainty in those predictions. Again, most points fall along the 45 degree line except some predictions lower than observed values at high value area.
