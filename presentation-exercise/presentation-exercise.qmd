@@ -7,28 +7,28 @@ editor: visual
 ### Install Packages
 
 ```{r}
-install.packages("tidyverse")
+#install.packages("tidyverse")
 library(tidyverse)
-install.packages("ggplot2")
+#install.packages("ggplot2")
 library(ggplot2)
 library(here)
-install.packages("patchwork")  # This package is to redefine "/" operator for plot arrangement
+#install.packages("patchwork")  # This package is to redefine "/" operator for plot arrangement
 library(patchwork)
-install.packages("writexl")
+#install.packages("writexl")
 library(writexl)
 library(haven)
-install.packages("ggforce")
+#install.packages("ggforce")
 library(ggforce)
-install.packages("dplyr")
+#install.packages("dplyr")
 library(dplyr)
 library(tidyverse)
 library(lubridate)
-install.packages("ggridges") 
+#install.packages("ggridges") 
 library(ggridges)  #
 library(forcats)
-install.packages("gt")
+#install.packages("gt")
 library(gt)
-install.packages("gtExtras", dependencies = TRUE)
+#install.packages("gtExtras", dependencies = TRUE)
 library(gtExtras)
 ```
 

@@ -7,57 +7,58 @@ editor: visual
 ### Install Packages
 
 ```{r}
-install.packages("tidyverse")
+#install.packages("tidyverse")
 library(tidyverse)
-install.packages("ggplot2")
+
+#install.packages("ggplot2")
 library(ggplot2)
 library(here)
-install.packages("patchwork")  # This package is to redefine "/" operator for plot arrangement
+#install.packages("patchwork")  # This package is to redefine "/" operator for plot arrangement
 library(patchwork)
-install.packages("writexl")
+#install.packages("writexl")
 library(writexl)
 library(haven)
-install.packages("ggforce")
+#install.packages("ggforce")
 library(ggforce)
 install.packages("dplyr")
 library(dplyr)
 library(tidyverse)
 library(lubridate)
-install.packages("ggridges") 
+#install.packages("ggridges") 
 library(ggridges)  #
 library(forcats)
-install.packages("gt")
+#install.packages("gt")
 library(gt)
-install.packages("gtExtras", dependencies = TRUE)
+#install.packages("gtExtras", dependencies = TRUE)
 library(gtExtras)
-install.packages("gtsummary")
+#install.packages("gtsummary")
 library(gtsummary)   
-install.packages("cli")
+#install.packages("cli")
 library(cli)
-install.packages("tidymodels")
+#install.packages("tidymodels")
 library(tidymodels)  # for the parsnip package, along with the rest of tidymodels
 
-install.packages("broom.mixed")
+#install.packages("broom.mixed")
 library(broom.mixed) # for converting bayesian models to tidy tibbles
-install.packages("dotwhisker")
+#install.packages("dotwhisker")
 library(dotwhisker)  # for visualizing regression results
-install.packages("ggcorrplot")
+#install.packages("ggcorrplot")
 library(ggcorrplot)
-install.packages("corrplot")
+#install.packages("corrplot")
 library(corrplot)
 
-install.packages("ggpubr")# combine plot
+#install.packages("ggpubr")# combine plot
 # Load the library
 library(ggpubr)
 
-install.packages("broom") 
+#install.packages("broom") 
 library(broom)# Installs broom separately (optional)
-install.packages("gtsummary")
+#install.packages("gtsummary")
 library(gtsummary)
 
 
-install.packages("rsample")
-install.packages("purrr")
+#install.packages("rsample")
+#install.packages("purrr")
 library(rsample)
 library(purrr)
 
@@ -664,32 +665,25 @@ tidy(m3_10)
 ```
 
 ## Model Performance Assessment 1
+```{r}
+#Compute prediction on train data
+dose_preds_train <-  predict(m1_10, train_data) %>% bind_cols(train_data)
+all_preds_train <-  predict(m2_10, train_data) %>% bind_cols(train_data)
+null_preds_train <- predict(m3_10, train_data) %>% bind_cols(train_data)
+```
+
 
 ```{r}
 # Print RMSE for  Y~DOSE 
+RMSE_train_DOSE <- rmse(dose_preds_train, truth = Y, estimate = .pred)
 
-RMSE_train_DOSE <- predict(m1_10, train_data) %>%
-  bind_cols(train_data) %>%
-  metrics(truth=Y, estimate=.pred) %>%
-  print()
-```
-
-```{r}
 # Print RMSE for Y~ All Predictors 
+RMSE_train_All <- rmse(all_preds_train, truth = Y, estimate = .pred)
 
-RMSE_train_All <- predict(m2_10, train_data) %>%
-  bind_cols(train_data) %>%
-  metrics(truth=Y, estimate=.pred) %>%
-  print()
-```
+# Print RMSE for the NUll model 
+RMSE_train_Null <- rmse(null_preds_train, truth = Y, estimate = .pred)
 
-```{r}
-# Print RMSE for Null model 
 
-RMSE_train_Null <- predict(m3_10, train_data) %>%
-  bind_cols(train_data) %>%
-  metrics(truth=Y, estimate=.pred) %>%
-  print()
 ```
 
 Based on the output from three different models, RMSEs for model with DOSE only, all predictors, and null are 702.8, 627.3, 948.36 respectively. We can conclude that Regression model including all predictors is the best model for the dataset with the lowest RMSE.
@@ -812,7 +806,7 @@ collect_metrics(m2_10_cv_fit_new)
 
 Model 2 performs better than Model 1, as it has a lower RMSE (643.02 vs. 690.78). This suggests that Model 2 has improved predictive accuracy and makes smaller errors in predicting Y. fFr R², Model 2 has a higher R² (0.5876 vs. 0.5624), meaning it explains more variance in Y. A higher R² suggests Model 2 fits the data better than Model 1. The result is consistent with original model.
 
-# This section was added by Yufei Wu
+# Module 10 Part 2 : This section was added by Yufei Wu
 
 ## Model predictions
 
@@ -940,3 +934,66 @@ ggplot(plot_data, aes(x = Y)) +
 ```
 
 From the figure, we can see that the bootstrap median values align closely with the point estimate, which suggests that the model is fairly stable across different resampled datasets. Besides, the error bars show that the confidence intervals are wider at some higher values, ndicate higher uncertainty in those predictions. Again, most points fall along the 45 degree line except some predictions lower than observed values at high value area.
+
+
+# Module 10 Part 3 
+
+```{r}
+
+# Make predictions on test data
+
+all_preds_test <-  predict(m2_10, test_data) %>% bind_cols(test_data)
+
+#compute RMSE for test data '
+
+all_rmse_test <- rmse(all_preds_test, truth = Y, estimate = .pred)
+
+print(all_rmse_test)
+
+
+```
+
+
+```{r}
+
+predictions_train  <- all_preds_train %>% mutate(Dataset = "Train")
+predictions_test  <- all_preds_test  %>% mutate(Dataset = "Test")
+
+
+
+#Combine train and test predictions
+pred_combined <- bind_rows(predictions_train, predictions_test)
+```
+
+
+```{r}
+ggplot(pred_combined , aes(x = Y, y = .pred, color = Dataset, shape = Dataset)) +
+  geom_point(alpha = 0.6) +  # Scatter points for observed vs predicted
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +  # Reference 45-degree line
+  scale_x_continuous(limits = c(0, 5000)) +  # Set x-axis range
+  scale_y_continuous(limits = c(0, 5000)) +  # Set y-axis range
+  labs(title = "Observed vs Predicted Values (Train vs Test Data)",
+       x = "Observed Y",
+       y = "Predicted Y",
+       color = "Dataset") +
+  theme_minimal()
+```
+
+The plots Observed vs. Predicted values for the training and test datasets. This scatterplot compares predicted values of the outcome variable 𝑌 from the fitted model against observed values, separately for training and test data. The dashed 45-degree reference line represents perfect prediction (i.e., predicted = observed). Points closer to this line indicate better predictive performance. Triangles (blue) represent the training set, and circles (pink) represent the test set. The distribution around the reference line suggests the model captures the general trend in both datasets, though some variability is observed, particularly at lower and higher ranges of 𝑌, with a slightly wider spread in the test set. Overall, this plot supports the finding of Model with all predictors included porfoms better accross different datasets. 
+
+
+I want to print RMSE for all models including train and data test
+```{r}
+summary_MRSE <- data.frame(
+  Model = c("Null Model", "Model 1 (DOSE only)", "Model 2 (All Predictors)", "Model 2 (Test Data)"),
+  RMSE = c(RMSE_train_Null$.estimate, RMSE_train_DOSE$.estimate, RMSE_train_All$.estimate, all_rmse_test$.estimate)
+)
+
+print(summary_MRSE)
+```
+
+
+
+### Conclusion 
+The predictive performance of the models was assessed using root mean squared error (RMSE). The null model, which includes no predictors, had the highest RMSE (948.35), indicating poor predictive accuracy. Model 1, which included only the DOSE variable, showed a substantial improvement with an RMSE of 702.79. Model 2, incorporating all available predictors, further reduced the RMSE to 627.27 on the training data, suggesting that additional variables contributed meaningful predictive value. Model 2 achieved its best performance on the test data, with an RMSE of 518.22, indicating good generalization to unseen data. These results highlight the importance of including multiple relevant predictors to enhance model accuracy and reliability
+
