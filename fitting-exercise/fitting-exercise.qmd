@@ -200,6 +200,8 @@ df <- data_combined %>%
   mutate(RACE = as_factor(RACE), SEX = as_factor(SEX)) #To convert race and sex to factor variables
 
 str(df)# check the variable classes
+
+saveRDS(df, file = here("machine-learning", "data", "df.Rds"))
 ```
 
 ## Exploratory Data Analysis
@@ -665,13 +667,13 @@ tidy(m3_10)
 ```
 
 ## Model Performance Assessment 1
+
 ```{r}
 #Compute prediction on train data
 dose_preds_train <-  predict(m1_10, train_data) %>% bind_cols(train_data)
 all_preds_train <-  predict(m2_10, train_data) %>% bind_cols(train_data)
 null_preds_train <- predict(m3_10, train_data) %>% bind_cols(train_data)
 ```
-
 
 ```{r}
 # Print RMSE for  Y~DOSE 
@@ -935,8 +937,7 @@ ggplot(plot_data, aes(x = Y)) +
 
 From the figure, we can see that the bootstrap median values align closely with the point estimate, which suggests that the model is fairly stable across different resampled datasets. Besides, the error bars show that the confidence intervals are wider at some higher values, ndicate higher uncertainty in those predictions. Again, most points fall along the 45 degree line except some predictions lower than observed values at high value area.
 
-
-# Module 10 Part 3 
+# Module 10 Part 3
 
 ```{r}
 
@@ -953,7 +954,6 @@ print(all_rmse_test)
 
 ```
 
-
 ```{r}
 
 predictions_train  <- all_preds_train %>% mutate(Dataset = "Train")
@@ -964,7 +964,6 @@ predictions_test  <- all_preds_test  %>% mutate(Dataset = "Test")
 #Combine train and test predictions
 pred_combined <- bind_rows(predictions_train, predictions_test)
 ```
-
 
 ```{r}
 ggplot(pred_combined , aes(x = Y, y = .pred, color = Dataset, shape = Dataset)) +
@@ -979,10 +978,10 @@ ggplot(pred_combined , aes(x = Y, y = .pred, color = Dataset, shape = Dataset)) 
   theme_minimal()
 ```
 
-The plots Observed vs. Predicted values for the training and test datasets. This scatterplot compares predicted values of the outcome variable 𝑌 from the fitted model against observed values, separately for training and test data. The dashed 45-degree reference line represents perfect prediction (i.e., predicted = observed). Points closer to this line indicate better predictive performance. Triangles (blue) represent the training set, and circles (pink) represent the test set. The distribution around the reference line suggests the model captures the general trend in both datasets, though some variability is observed, particularly at lower and higher ranges of 𝑌, with a slightly wider spread in the test set. Overall, this plot supports the finding of Model with all predictors included porfoms better accross different datasets. 
-
+The plots Observed vs. Predicted values for the training and test datasets. This scatterplot compares predicted values of the outcome variable 𝑌 from the fitted model against observed values, separately for training and test data. The dashed 45-degree reference line represents perfect prediction (i.e., predicted = observed). Points closer to this line indicate better predictive performance. Triangles (blue) represent the training set, and circles (pink) represent the test set. The distribution around the reference line suggests the model captures the general trend in both datasets, though some variability is observed, particularly at lower and higher ranges of 𝑌, with a slightly wider spread in the test set. Overall, this plot supports the finding of Model with all predictors included porfoms better accross different datasets.
 
 I want to print RMSE for all models including train and data test
+
 ```{r}
 summary_MRSE <- data.frame(
   Model = c("Null Model", "Model 1 (DOSE only)", "Model 2 (All Predictors)", "Model 2 (Test Data)"),
@@ -992,8 +991,6 @@ summary_MRSE <- data.frame(
 print(summary_MRSE)
 ```
 
+### Conclusion
 
-
-### Conclusion 
 The predictive performance of the models was assessed using root mean squared error (RMSE). The null model, which includes no predictors, had the highest RMSE (948.35), indicating poor predictive accuracy. Model 1, which included only the DOSE variable, showed a substantial improvement with an RMSE of 702.79. Model 2, incorporating all available predictors, further reduced the RMSE to 627.27 on the training data, suggesting that additional variables contributed meaningful predictive value. Model 2 achieved its best performance on the test data, with an RMSE of 518.22, indicating good generalization to unseen data. These results highlight the importance of including multiple relevant predictors to enhance model accuracy and reliability
-
