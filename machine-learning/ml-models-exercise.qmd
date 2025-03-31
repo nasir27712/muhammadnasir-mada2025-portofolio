@@ -76,7 +76,7 @@ rngseed <- 1234
 
 
 # Load the dataset
-data_loc <- here("data", "df.rds") 
+data_loc <- here("machine-learning", "data", "df.rds") 
 data <- readRDS(data_loc)
 
 
@@ -400,7 +400,7 @@ ggplot(rf_tune_result_metric %>% filter(.metric == "rmse"),
 
 ```
 
-Based on the heatmap of RMSE values from the Random Forest tuning results, the lowest RMSE (i.e., best model performance) is observed in the bottom-right region of the plot — specifically when both mtry is high (5–7) and min_n is small (2–6). This indicates that the model performs best when more predictors are considered at each split (mtry) and the minimum number of samples required to split a node is kept low (min_n). In contrast, model performance worsens (higher RMSE, darker purple) when min_n is large (15–20) and mtry is low (1–2), suggesting that overly simplified trees (due to aggressive pruning or limited variables) reduce predictive accuracy. Thus, tuning should prioritize larger mtry and smaller min_n values for optimal model performance in this case.
+Based on the heatmap of RMSE values from the Random Forest tuning results, the lowest RMSE (i.e., best model performance) is observed in the bottom-right region of the plot --- specifically when both mtry is high (5--7) and min_n is small (2--6). This indicates that the model performs best when more predictors are considered at each split (mtry) and the minimum number of samples required to split a node is kept low (min_n). In contrast, model performance worsens (higher RMSE, darker purple) when min_n is large (15--20) and mtry is low (1--2), suggesting that overly simplified trees (due to aggressive pruning or limited variables) reduce predictive accuracy. Thus, tuning should prioritize larger mtry and smaller min_n values for optimal model performance in this case.
 
 # Tunning with Cross Validation (CV)
 
