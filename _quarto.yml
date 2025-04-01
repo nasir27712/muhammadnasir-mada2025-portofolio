@@ -23,7 +23,7 @@ website:
           - text: "Fitting Models Exercise"
             file: fitting-exercise/fitting-exercise.qmd
           - text: "Machine-learning 1 Exercise"
-            file: fml-models-exercise.qmd
+            file: ml-models-exercise.qmd
 
     right:
       - icon: github 
