@@ -1,0 +1,746 @@
+---
+title: "Tidy Tuesday Exercise" 
+output: html
+editor: visual
+---
+
+# Introduction
+
+In this exercise, I am working on TidyTuesday dataset (April 8th 2025). The dataset is about "Timely and Effective Care" in the United States from Centers for Medicare & Medicaid Services. The data was curated by Jon Harmon from Data Science Learning Community. The dataset contains several variables including state, condition, ID, name, score, footnote, and date of admission.
+
+1.  state (character): The two-letter code for the state (or territory, etc) where the hospital is located.
+
+2.  condition (character): The condition for which the patient was admitted. Six categories of conditions are included in the data.
+
+3.  measure_id (character): The ID of the thing being measured. Note that there are 22 unique IDs but only 21 unique names.
+
+4.  measure_name (character): The name of the thing being measured. Note that there are 22 unique IDs but only 21 unique names.
+
+5.  score (character): The score of the measure.
+
+6.  footnote (character): Footnotes that apply to this measure: 5 = “Results are not available for this reporting period.”, 25 = “State and national averages include Veterans Health Administration (VHA) hospital data.”, 26 = “State and national averages include Department of Defense (DoD) hospital data.”.
+
+7.  start_date (date): The date on which measurement began for this measure.
+
+8.  end_date (date): The date on which measurement ended for this measure
+
+# Loading Packages
+
+```{r}
+#install.packages("tidyverse")
+library(tidyverse)
+#install.packages("ggplot2")
+library(ggplot2)
+library(here)
+library(dplyr)
+library(tidyverse)
+library(lubridate)
+#install.packages("gt")
+library(gt)
+#install.packages("gtsummary")
+library(gtsummary)   
+#install.packages("cli")
+library(cli)
+#install.packages("tidymodels")
+library(tidymodels)  
+#install.packages("broom.mixed")
+#install.packages("purrr")
+library(skimr)
+#install.packages("naniar")
+library(naniar)
+#install.packages("treemapify")
+library(treemapify)
+#install.packages("usmap")
+library(usmap)
+#install.packages("car")
+library(car)
+```
+
+#Data sources
+
+Dataset is downloaded from (https://data.cms.gov/provider-data/dataset/apyc-v239). Information regarding the dataset is obtained from tidytuesday github for the weekly data (April 8th 2025)
+
+```{r}
+
+#Importing the downloaded CSV
+care <- read_csv(here("tidytuesday-exercise", "data", "care_state.csv")) 
+```
+
+```{r}
+#check the structure of the dataset
+str(care)
+
+```
+
+Let's see the data summry using skim()
+
+```{r}
+
+skim(care) # this is the smart version of summary() 
+```
+
+#Data Exploration
+
+### Explore each variable
+
+In this step, I would like to explore each variables to understand more the data distribution and pattern
+
+*state*
+
+```{r}
+table(care$state)
+```
+
+All state has same number of entries (22 entries)
+
+*condition*
+
+```{r}
+# 1. Summarize the condition counts
+condition_counts <- care %>%
+  count(condition, sort = TRUE)
+
+# 2. Create a nice table
+condition_counts %>%
+  gt() %>%
+  tab_header(
+    title = "Condition Frequencies",
+    subtitle = "Timely and Effective Care Data"
+  ) %>%
+  cols_label(
+    condition = "Condition",
+    n = "Count"
+  ) %>%
+  fmt_number(
+    columns = c(n),
+    decimals = 0
+  ) %>%
+  opt_table_font(
+    font = list(
+      google_font("Roboto"), 
+      default_fonts()
+    )
+  ) %>%
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_column_labels(everything())
+  )
+```
+
+*Score of the measure*
+
+Distribution of care score
+
+```{r}
+ggplot(care, aes(x = score)) +
+  geom_density(fill = "lightgreen", color = "black") +
+  labs(
+    title = "Distribution of Care Scores",
+    x = "Score",
+    y = "Count"
+  ) +
+  theme_minimal()
+```
+
+I want to explore the score of each measure
+
+```{r}
+ggplot(care, aes(x = score, fill = measure_id)) +
+  geom_histogram(color = "white", bins = 30) +  # white borders between bars
+  facet_wrap(vars(measure_id), scales = "free") +  # free scales if measures vary a lot
+  labs(title = "Distribution of Score by Measure",
+       x = "Score",
+       y = "Count") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+Now I want to explore the average score of each condition.
+
+```{r}
+
+# 1. Summarize the average score by condition
+avg_score_condition <- care %>%
+  group_by(condition) %>%
+  summarise(avg_score = mean(score, na.rm = TRUE)) %>%
+  arrange(desc(avg_score))
+
+# 2. Plot
+ggplot(avg_score_condition, aes(x = reorder(condition, avg_score), y = avg_score, fill = condition)) +
+  geom_col() +  # bar plot
+  coord_flip() +
+  labs(title = "Average Score by Condition",
+       x = "Condition",
+       y = "Average Score") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+```
+
+```{r}
+
+state_score_avg <- care%>%
+  group_by(state) %>%
+  summarise(avg_score = mean(score, na.rm = TRUE))
+
+# Plot the map
+plot_usmap(data = state_score_avg, values = "avg_score", color = "white") +
+  scale_fill_continuous(
+    low = "lightgreen", high = "darkgreen", name = "Avg Score", label = scales::comma
+  ) +
+  labs(
+    title = "Average Care Score by State"
+  ) +
+  theme(legend.position = "right")
+
+```
+
+Now I want to see the average waiting time in emergency room by state.
+
+```{r}
+
+# 1. Filter Emergency Department measures
+care_emergency <- care %>%
+  filter(
+    condition == "Emergency Department",
+    grepl("Average time patients spent", measure_name, ignore.case = TRUE)
+  )
+
+# 2. Calculate average score (visit time) for each state
+state_avg_emergency <- care_emergency %>%
+  group_by(state) %>%
+  summarise(avg_score = mean(score, na.rm = TRUE))
+
+# 3. Get the map points
+state_map_points <- usmap::us_map(regions = "states")
+
+# 4. Convert to sf manually
+state_map_sf <- sf::st_as_sf(state_map_points, wkt = "geom", crs = 4326)
+
+# 5. Extract centroid coordinates
+state_centroids <- state_map_sf %>%
+  sf::st_centroid() %>%
+  sf::st_coordinates() %>%
+  as.data.frame()
+
+# 6. Build center dataset
+state_centers <- tibble(
+  state = state_map_sf$abbr,
+  x = state_centroids$X,
+  y = state_centroids$Y
+)
+
+# 7. Merge centers with average scores
+state_avg_emergency_labels <- left_join(state_avg_emergency, state_centers, by = "state")
+
+# 8. onvert score into hours
+state_avg_emergency_labels <- state_avg_emergency_labels %>%
+  mutate(
+    avg_hours = round(avg_score / 60, 1)  # divide by 60 and round to 1 decimal
+  )
+
+# 9. Plot the map (now label with hours)
+plot_usmap(data = state_avg_emergency, values = "avg_score", color = "white") +
+  geom_text(
+    data = state_avg_emergency_labels, 
+    aes(x = x, y = y, label = avg_hours),  # <-- use avg_hours instead of avg_score
+    inherit.aes = FALSE, 
+    size = 2.8, 
+    color = "black"
+  ) +
+  scale_fill_gradient(
+    low = "mistyrose", 
+    high = "darkred", 
+    name = "Avg ER Visit Time (minutes)", 
+    label = scales::comma
+  ) +
+  labs(
+    title = "Average Emergency Room waiting Time by State (in Hours)"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+
+```
+
+###Explore missing values
+
+Before doing further analysis, I want to explore the missing value
+
+```{r}
+gg_miss_var(care)+ labs(title = "Number missing values for each variable")  
+```
+
+Now I want to explore missing value for each variable by measurement.
+
+```{r}
+gg_miss_var(care, facet = measure_id) + 
+  labs(title = "Number missing values for each variable by each measure_id")
+```
+
+### Data Wrangling
+
+In this step, I will create a new dataset, which only contain variables needed to answer may research question. In the new dataset, I will convert dataset from long format into wide format. It will make me easy to perform data analysis. The columns are variables, and rows are states of USA. I will drop some variables and delete missing values.
+
+```{r}
+
+# Load required packages
+library(tidyverse)
+
+# 1. Filter the dataset to only include the variables you want
+care_selected <- care %>%
+  filter(measure_id %in% c(
+    "HCP_COVID_19",   # COVID-19 vaccination
+    "IMM_3",          # Influenza vaccination
+    "OP_18b",         # ED waiting time
+    "OP_23",          # Stroke ED brain scan time
+    "SAFE_USE_OF_OPIOIDS",  # Safe opioid prescribing
+    "SEP_1"           # Sepsis care quality
+  )) %>%
+  select(state, measure_id, score)
+
+# 2. Pivot to wide format
+care_final <- care_selected %>%
+  pivot_wider(
+    names_from = measure_id,
+    values_from = score
+  )
+
+# 3. Check the resulting dataset
+  glimpse(care_final)
+
+# 4. (Optional) View it nicely
+head(care_final)
+
+dim(care_final)
+```
+
+I want to drop missing value
+
+```{r}
+care_final <- care_final %>%
+  drop_na()
+
+dim(care_final)
+
+```
+
+For the modeling purpose, the data is slitted into training data (75%) and test data (25%)
+
+```{r}
+seed = 4321
+
+set.seed(seed)  # setting seed
+split <- initial_split(care_final, prop = 0.75)
+
+care_train <- training(split)
+care_test <- testing(split)
+
+```
+
+*more exploration for the primary outcome*
+
+Before going further, I want to explore the score distribution of my primary outcome.
+
+```{r}
+care_final %>%
+  ggplot(aes(x = OP_18b)) +
+  geom_histogram(aes(y = ..density..), bins = 30, fill = "skyblue", color = "white", alpha = 0.7) +
+  geom_density(color = "darkblue", size = 1) +
+  labs(
+    title = "Distribution of Emergency Department Waiting Time (OP_18b)",
+    x = "Median ED Waiting Time (Minutes)",
+    y = "Density"
+  ) +
+  theme_minimal()
+```
+
+Note: The score show moderate right-skeewed. It needs to be transformed in the model for better result
+
+# Research Questions
+
+Timely access to emergency department (ED) care is essential for reducing patient morbidity and mortality. However, many hospitals across the United States continue to face challenges related to ED overcrowding and extended waiting times. Maintaining a healthy healthcare workforce is critical to ensuring efficient emergency care delivery. Vaccination coverage among healthcare personnel—specifically for COVID-19 and influenza—has been prioritized as a public health measure to reduce workforce illness and absenteeism. Higher rates of staff vaccination may improve hospital operations by preserving adequate staffing levels and maintaining patient flow, particularly in high-pressure environments such as emergency departments. Despite its importance, the relationship between healthcare personnel vaccination rates and operational outcomes like ED waiting times has not been extensively studied at a population level. Understanding whether improved vaccine coverage translates into more efficient emergency care could inform future workforce and infection control policies.
+
+This exercise examines whether higher COVID-19 and influenza vaccination rates among healthcare workers are associated with shorter emergency department waiting times across U.S. states. Using standardized national measures, including healthcare worker vaccination rates and median ED visit times. This research evaluates potential associations between workforce health protection and patient access to timely care. In addition, hospital-level quality indicators such as safe opioid prescribing practices and sepsis care bundle compliance are included to account for broader institutional quality, ensuring a more accurate interpretation of the findings. By focusing on these key factors, this study seeks to provide evidence on whether strengthening healthcare personnel vaccination efforts could yield operational benefits beyond infection prevention, ultimately improving patient experience and emergency care system performance.
+
+RQ: Is higher COVID-19 and influenza vaccination score among healthcare personnel associated with shorter emergency department (ED) waiting times across U.S. states?
+
+Hypotheses: Higher healthcare personnel vaccination score (COVID-19 and influenza) is associated with shorter emergency department waiting times across U.S. states.
+
+# Modeling
+
+##Initial Analysis In this initial analysis, I will perform linear model to see if the primary outome needs to be transformed, and to test multicolinearity.
+
+```{r}
+model1 <- lm(OP_18b ~ HCP_COVID_19 + IMM_3 + OP_23 + SAFE_USE_OF_OPIOIDS + SEP_1, data = care_final)
+```
+
+multicolinearity test
+
+```{r}
+vif(model1)
+```
+
+The is no multicolinearity. Thi is good to go to the next step.
+
+Now I want to see the residual to see if the original data can be performedr transfomation is needed.
+
+```{r}
+par(mfrow = c(2, 2))  # Arrange 4 plots in 1 window
+plot(model1)
+```
+
+-   The residuals look mostly scattered randomly, but there's a small curve (slight nonlinearity).
+-   Normal Q-Q plot shows Most points lie close to the diagonal line.
+-   Diagnostic plots showed that model residuals were approximately normally distributed with no strong evidence of nonlinearity, heteroscedasticity, or influential outliers, supporting the appropriateness of linear regression modeling for this dataset.
+
+I want to try log transformation.
+
+```{r}
+model1_log <- lm(log(OP_18b) ~ HCP_COVID_19 + IMM_3 + OP_23 + SAFE_USE_OF_OPIOIDS + SEP_1, data = care_final)
+
+```
+
+```{r}
+par(mfrow = c(2, 2))  # Arrange 4 plots in 1 window
+plot(model1_log)
+```
+
+There is no much change after using log transformation. Therefore, I will use without log transformation in my model.
+
+##Futher Analysis
+
+In this exercise, I will use three different model, Multiple Linear Regression, LASSO Regression, and Random Forest. The outcome variable is median of waiting time in emergency department (OP_18b). The predictors include Percentage of healthcare personnel who are up to date with COVID-19 vaccinations (HCP_COVID_19), Healthcare workers given influenza vaccination Higher percentages are better (IMM_3), Safe Use of Opioids - Concurrent Prescribing (SAFE_USE_OF_OPIOIDS), Percentage of patients who came to the emergency department with stroke symptoms who received brain scan results within 45 minutes of arrival (OP_23), and Percentage of patients who received appropriate care for severe sepsis and septic shock (SEP_1).
+
+### Linear Regression Model
+
+First of all, multiple linear regression is fitted.
+
+```{r}
+set.seed(seed)
+# Define a linear model with all predictors
+care_lm <- linear_reg() %>% 
+  set_engine("lm") %>% 
+  set_mode("regression")
+
+# work flow 
+care_lm_wf <- workflow() %>% 
+  add_model(care_lm) %>% 
+  add_formula(OP_18b ~ HCP_COVID_19 + IMM_3 + SAFE_USE_OF_OPIOIDS + OP_23 + SEP_1)
+
+# Set up cross-validation (15-fold CV)
+care_lm_cv_results <- fit_resamples(
+  care_lm_wf,
+  resamples = vfold_cv(care_train, v = 15),
+  metrics = metric_set(rmse, rsq),
+  control = control_resamples(save_pred = TRUE)
+)
+
+#Print result 
+collect_metrics(care_lm_cv_results)
+```
+
+Now I want to fit into all training data
+
+```{r}
+# Fit model on the training data
+care_lm_train <- care_lm_wf %>% fit(care_train)
+
+# Compute predictions on training data
+care_lm_preds <- predict(care_lm_train, care_train) %>% bind_cols(care_train)
+
+
+```
+
+```{r}
+# Plot observed vs. predicted
+ggplot(care_lm_preds, aes(x = OP_18b, y = .pred)) +
+  geom_point(color = "purple", alpha = 0.6) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
+  labs(title = "Observed vs. Predicted Values - Linear Regression",
+       x = "Observed",
+       y = "Predicted") +
+  theme_minimal()
+```
+
+The multiple linear regression model reasonably captures the general trend between predictors and ED waiting time across states; however, there is evidence of underestimation, particularly at higher observed values, suggesting some model misspecification or nonlinearity not captured.
+
+```{r}
+lm_coefs <- tidy(care_lm_train)
+print(lm_coefs)
+```
+
+###Random Forest
+
+The second model is Random Forest.
+
+```{r}
+set.seed(seed)
+
+# Set up the tuning grid
+rf_grid <- grid_regular(
+  mtry(range = c(1, 10)),  # mtry between 1 and 10
+  min_n(range = c(1, 16)), # min_n between 1 and 16
+  levels = 4              # 4 levels for each parameter
+)
+
+# Define the model specification using the ranger engine, with fixed trees at 300
+rf_cv <- rand_forest(
+  mode = "regression",
+  mtry = tune(),   
+  min_n = tune(),  
+  trees = 300      
+) %>%
+  set_engine("ranger", seed = seed, importance = "impurity") 
+
+# Create a workflow
+rf_wf_cv <- workflow() %>%
+  add_model(rf_cv) %>%
+  add_formula(OP_18b ~ HCP_COVID_19 + IMM_3 + SAFE_USE_OF_OPIOIDS + OP_23 + SEP_1)
+
+set.seed(seed)
+# Perform tuning with tune_grid()
+rf_tune_results_cv <- tune_grid(
+  rf_wf_cv,
+  resamples = vfold_cv(care_train, v = 15, repeats = 15),
+  grid = rf_grid,
+  metrics = metric_set(rmse),
+  control = control_grid(save_pred = TRUE) 
+)
+#show_notes(rf_tune_results_cv_tt)
+autoplot(rf_tune_results_cv)
+```
+
+```{r}
+
+best_rf_params <- rf_tune_results_cv %>% select_best(metric = "rmse")
+
+rf_wf_final <- finalize_workflow(rf_wf_cv, best_rf_params)
+
+
+# Fit the final random forest model on the training dataset
+rf_model_final <- fit(rf_wf_final, data = care_train)
+
+# Generate predictions on the training set and combine them with the actual outcomes
+rf_preds <- predict(rf_model_final, care_train) %>%
+  bind_cols(care_train)
+
+# Create the observed vs predicted plot for the random forest model
+ggplot(rf_preds, aes(x = OP_18b, y = .pred)) +
+  geom_point(color = "red", alpha = 0.7) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
+  labs(title = "Observed vs Predicted: Random Forest Model",
+       x = "Observed Quality Score",
+       y = "Predicted Quality Score") +
+  theme_minimal()
+```
+
+```{r}
+# Summarize the tuning results by RMSE
+rf_tune_results_cv %>% 
+  collect_metrics() %>% 
+  filter(.metric == "rmse") %>% 
+  arrange(mean) %>% 
+  print(n = Inf)
+
+```
+
+```{r}
+rf_best_result <- rf_tune_results_cv %>% select_best(metric = "rmse")
+rf_best_result
+
+
+rf_tune_results_cv %>%
+  collect_metrics() %>%
+  filter(.metric == "rmse") %>%
+  arrange(mean) %>%
+  slice(1)
+
+```
+
+### LASSO Regression
+
+```{r}
+
+set.seed(seed)
+lasso_grid <- grid_regular(
+  penalty(range = c(0.0001, 1)),  ## from 0.0001 to 1 (no log)
+  levels = 30                # 30 grid points (fine search)
+)
+#setting up Lasso model specification
+lasso_spec <- linear_reg(
+  penalty = 0.1,  #Regularization strength 
+  mixture = 1     # 1 = Lasso
+) %>% 
+  set_engine("glmnet")
+
+
+#fitting Lasso model
+lasso_fit <- lasso_spec %>% 
+  fit(OP_18b ~ HCP_COVID_19 + IMM_3 + SAFE_USE_OF_OPIOIDS + OP_23 + SEP_1, 
+      data = care_train)
+
+# Example lasso workflow
+lasso_wf <- workflow() %>%
+  add_model(lasso_spec) %>%   
+  add_formula(OP_18b ~ HCP_COVID_19 + IMM_3 + SAFE_USE_OF_OPIOIDS + OP_23 + SEP_1 )   
+
+
+# Cross-validation
+lasso_cv_results <- tune_grid(
+  lasso_wf,
+  resamples = vfold_cv(care_train, v = 15),
+  grid = lasso_grid,                 # if you tuned lambda
+  metrics = metric_set(rmse),
+  control = control_grid(save_pred = TRUE)
+)
+
+# Get the best RMSE
+lasso_cv_results %>%
+  collect_metrics() %>%
+  filter(.metric == "rmse") %>%
+  arrange(mean) %>%
+  slice(1)
+
+# coefficients (non-zero ones only)
+tidy(lasso_fit) %>% 
+  filter(estimate != 0) %>% 
+  arrange(desc(abs(estimate)))
+
+
+```
+
+```{r}
+#making predictions
+train_results <- care_train%>% 
+  bind_cols(predict(lasso_fit, new_data = care_train))
+
+#evaluating performance
+lasso_metrics <- train_results %>% 
+  metrics(truth = OP_18b , estimate = .pred)
+#Print 
+print(lasso_metrics)
+```
+
+```{r}
+#Observed vs Predicted plot
+ggplot(train_results, aes(x = OP_18b, y = .pred)) +
+  geom_point(alpha = 0.5, color = "pink") +
+  geom_abline(slope = 1, linetype = "dashed") +
+  labs(title = "Lasso Regression Performance",
+       subtitle = paste("Penalty =", lasso_fit$spec$args$penalty),
+       x = "Observed Scores", 
+       y = "Predicted Scores") +
+  theme_minimal()
+```
+
+```{r}
+# Linear Regression RMSE
+lm_rmse <- care_lm_cv_results %>%
+  collect_metrics() %>%
+  filter(.metric == "rmse") %>%
+  summarize(mean_rmse = mean(mean)) %>%
+  pull(mean_rmse)
+
+# Lasso RMSE
+lasso_rmse <- lasso_cv_results %>%
+  collect_metrics() %>%
+  filter(.metric == "rmse") %>%
+  summarize(mean_rmse = mean(mean)) %>%
+  pull(mean_rmse)
+
+# Random Forest RMSE
+rf_rmse <- rf_tune_results_cv %>%
+  collect_metrics() %>%
+  filter(.metric == "rmse") %>%
+  arrange(mean) %>%
+  slice(1) %>%
+  pull(mean)
+
+```
+
+```{r}
+
+# Create a comparison table
+rmse_results <- tibble(
+  Model = c("Linear Regression", "Lasso", "Random Forest"),
+  RMSE = c(lm_rmse, lasso_rmse, rf_rmse)
+)
+
+# Print the table
+print(rmse_results)
+
+```
+
+```{r}
+
+
+ggplot(rmse_results, aes(x = reorder(Model, RMSE), y = RMSE)) +
+  geom_segment(aes(xend = Model, y = 0, yend = RMSE), color = "grey") +
+  geom_point(size = 4, color = "blue") +
+  geom_text(aes(label = round(RMSE, 2)), vjust = -1, size = 3.5) +
+  labs(
+    title = " RMSE by Model",
+    x = "Model",
+    y = "RMSE"
+  ) +
+  theme_minimal()+
+  coord_flip()
+
+
+
+```
+
+From the RMSE, Linear regression perform best model fit.
+
+### Final Model
+
+Based on the RMSE, Linear Regression outformed the other models. The model can be used to looking at the effect of vaciination on waiting time in the emergency department cross the United States.
+
+As a final step, I will fit the model into test data using linear model.
+
+```{r}
+# Make predictions on test data
+lm_test_preds <- predict(care_lm_train , new_data = care_test) %>%
+  bind_cols(care_test)
+
+# Calculate RMSE
+lm_test_rmse <- rmse(lm_test_preds, truth = OP_18b, estimate = .pred)
+
+# Print RMSE
+cat("Test RMSE:", lm_test_rmse$.estimate, "\n")
+```
+
+I wnat to show the predicted vs observed value both train and test data
+
+```{r}
+
+
+care_lm_preds <- care_lm_preds %>%
+  mutate(dataset = "Train")
+
+lm_test_preds <- lm_test_preds %>%
+  mutate(dataset = "Test")
+# combined predicted values 
+
+combined_preds <- bind_rows(care_lm_preds, lm_test_preds)
+
+ #4. Now plot
+ggplot(combined_preds, aes(x = OP_18b, y = .pred, color = dataset)) +
+  geom_point(size = 2) +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "black") +
+  labs(
+    title = "Observed vs Predicted Waiting Time (Train and Test)",
+    x = "Observed Waiting Time (OP_18b)",
+    y = "Predicted Waiting Time",
+    color = "Dataset"
+  ) +
+  theme_minimal()
+
+```
+
+###Discussion
+
+Three models were performed in this project: Linear Regression, Lasso, and Random Forest. Among the models, Linear Regression achieved the lowest RMSE (24.77), closely followed by Lasso (24.79), while Random Forest had a higher RMSE (25.46). This indicates that Linear Regression performed the best, yielding the most accurate predictions on the dataset compared to Lasso and Random Forest, although the difference between Linear Regression and Lasso was very small.
+
+The scatterplot comparing observed and predicted emergency department (ED) waiting times of the final model (linear model) illustrates the performance of the linear regression model on both training and testing datasets. In general, the predicted values follow the trend of the observed values, although considerable variability remains. Most predictions for mid-range observed waiting times (approximately 120 to 180 minutes) are relatively close to the ideal 45-degree line, indicating reasonable model calibration in this range. However, for states with higher observed waiting times (above 200 minutes), the model consistently underestimates the true waiting times, suggesting limited ability to capture extreme values. Notably, the pattern of errors between the training and testing sets is similar, indicating that the model is not overfitting the training data. Nonetheless, the dispersion around the ideal line and underprediction at high observed values point to opportunities for model improvement, such as using more flexible modeling approaches like Random Forest or incorporating additional predictors to better account for variation in ED waiting times.
